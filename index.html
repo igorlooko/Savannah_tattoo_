@@ -126,7 +126,6 @@
             animation: shimmer 4s linear infinite;
         }
 
-        /* Letras dançantes */
         #titleLetters span {
             display: inline-block;
             animation: wave 2s ease-in-out infinite;
@@ -176,7 +175,7 @@
         <!-- ===== HUB INICIAL (SEM VÍDEO) ===== -->
         <div id="hub" class="flex-1 flex flex-col items-center justify-center gap-8 py-8">
             <h2 class="text-3xl font-bold text-center">Escolha sua área de trabalho</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 w-full max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 w-full max-w-6xl" id="hubCards">
                 <!-- Card Geral -->
                 <div onclick="showArea('geral')" class="area-card glass-card p-6 rounded-2xl text-center border-2 border-[#c9a96e]/30 hover:border-[#c9a96e] transition animate-fade-up delay-1">
                     <div class="w-14 h-14 rounded-full bg-[#c9a96e]/10 flex items-center justify-center mx-auto mb-3 text-[#c9a96e]">
@@ -593,6 +592,8 @@
             document.getElementById('area-config').style.display = 'none';
             document.getElementById('area-ia').style.display = 'none';
             updateVideoDisplay();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Recria ícones do hub
             lucide.createIcons();
         }
 
@@ -603,17 +604,20 @@
             document.getElementById('area-marketing').style.display = area === 'marketing' ? 'block' : 'none';
             document.getElementById('area-config').style.display = area === 'config' ? 'block' : 'none';
             document.getElementById('area-ia').style.display = area === 'ia' ? 'block' : 'none';
-            lucide.createIcons();
-            updateUI();
             if (area === 'ia') updateVideoDisplay();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Força a atualização dos ícones em todas as áreas
+            setTimeout(() => {
+                lucide.createIcons();
+            }, 50);
+            updateUI();
         }
 
         // ========== ATUALIZAR EXIBIÇÃO DO VÍDEO ==========
         function updateVideoDisplay() {
             const url = data.settings.videoUrl || DEFAULT_VIDEO_URL;
-            // Atualiza os dois players (hub não tem mais, mas temos o da IA)
             document.getElementById('youtubeButtonIA').href = url;
-            document.getElementById('youtubeButton').href = url; // mantém compatibilidade
+            document.getElementById('youtubeButton').href = url; // compatibilidade
 
             let videoId = '';
             if (url.includes('youtu.be/')) {
@@ -679,6 +683,7 @@
         // ========== CALENDÁRIO ==========
         function renderCalendarGrid() {
             const grid = document.getElementById('calendarGrid');
+            if (!grid) return;
             grid.innerHTML = '';
 
             const { month, year } = calCtx;
@@ -688,7 +693,8 @@
             const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
                 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
             ];
-            document.getElementById('calMonthYear').textContent = `${monthNames[month]} ${year}`;
+            const monthYearEl = document.getElementById('calMonthYear');
+            if (monthYearEl) monthYearEl.textContent = `${monthNames[month]} ${year}`;
 
             for (let i = 0; i < firstDay; i++) {
                 const empty = document.createElement('div');
@@ -726,12 +732,13 @@
             if (calCtx.month > 11) { calCtx.month = 0;
                 calCtx.year++; }
             renderCalendarGrid();
-            document.getElementById('calendarFormContainer').style.display = 'none';
+            const form = document.getElementById('calendarFormContainer');
+            if (form) form.style.display = 'none';
         }
 
         function selectCalendarDay(day) {
             const form = document.getElementById('calendarFormContainer');
-            form.style.display = 'grid';
+            if (form) form.style.display = 'grid';
             document.getElementById('evtDay').value = day;
             document.getElementById('evtTitle').focus();
             showToast(`Dia ${day}/${calCtx.month+1}/${calCtx.year} selecionado.`, 'success');
@@ -759,6 +766,7 @@
         // ========== ESTOQUE ==========
         function renderStock() {
             const tbody = document.getElementById('stockTableBody');
+            if (!tbody) return;
             tbody.innerHTML = data.stock.map(item => {
                 let badge = 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
                 let statusText = 'Abastecido';
@@ -806,6 +814,7 @@
         // ========== CLIENTES ==========
         function renderClients() {
             const container = document.getElementById('clientList');
+            if (!container) return;
             document.getElementById('clientCount').textContent = data.clients.length + ' registro(s)';
             if (data.clients.length === 0) { container.innerHTML =
                     `<p class="text-center text-xs text-gray-500 border border-dashed border-white/5 py-8 rounded-xl">Nenhum lead arquivado.</p>`; return; }
@@ -867,8 +876,10 @@
 
         // ========== PORTFÓLIO ==========
         function renderPortfolio() {
+            const container = document.getElementById('portfolioList');
+            if (!container) return;
             document.getElementById('portfolioCount').textContent = data.portfolio.length + ' registro(s)';
-            document.getElementById('portfolioList').innerHTML = data.portfolio.map(p => `
+            container.innerHTML = data.portfolio.map(p => `
                 <div class="p-4 bg-[#18181b] border border-white/5 rounded-xl flex justify-between items-center text-xs">
                     <div><span class="font-bold text-white text-sm block">${p.title}</span><span class="text-blue-400 font-semibold block mt-0.5 text-[10px]">${p.style}</span></div>
                     <button onclick="deletePort(${p.id})" class="text-red-400">Excluir</button>
@@ -893,8 +904,10 @@
 
         // ========== CONCORRENTES ==========
         function renderCompetitors() {
+            const container = document.getElementById('competitorList');
+            if (!container) return;
             document.getElementById('competitorCount').textContent = data.competitors.length + ' alvo(s)';
-            document.getElementById('competitorList').innerHTML = data.competitors.map(c => `
+            container.innerHTML = data.competitors.map(c => `
                 <div class="p-4 bg-[#18181b] border border-white/5 rounded-xl text-xs flex justify-between">
                     <div><p class="font-bold text-white">${c.name} (${c.insta})</p><p class="text-gray-400 mt-1">📍 Região: ${c.location}</p></div>
                     <button onclick="deleteComp(${c.id})" class="text-red-400">Remover</button>
@@ -919,8 +932,10 @@
 
         // ========== CAMPANHAS ==========
         function renderCampaigns() {
+            const container = document.getElementById('campaignList');
+            if (!container) return;
             document.getElementById('campaignCount').textContent = data.campaigns.length + ' ativa(s)';
-            document.getElementById('campaignList').innerHTML = data.campaigns.map(c => `
+            container.innerHTML = data.campaigns.map(c => `
                 <div class="p-4 bg-[#18181b] border border-white/5 rounded-xl text-xs space-y-2">
                     <div class="flex justify-between font-bold text-white"><span>${c.name} [${c.status}]</span><button onclick="deleteCamp(${c.id})" class="text-red-400 font-normal">Remover</button></div>
                     <div class="grid grid-cols-2 gap-2">
@@ -948,24 +963,29 @@
 
         // ========== FINANCEIRO ==========
         function renderFinancial() {
+            const list = document.getElementById('financialList');
+            if (!list) return;
             const totalIncome = data.financial.filter(f => f.type === 'Entrada').reduce((sum, f) => sum + (f.amount || 0), 0);
             const totalExpense = data.financial.filter(f => f.type === 'Saída').reduce((sum, f) => sum + (f.amount || 0), 0);
             const balance = totalIncome - totalExpense;
 
-            document.getElementById('financialList').innerHTML = data.financial.map(f => `
+            list.innerHTML = data.financial.map(f => `
                 <div class="flex justify-between items-center p-3 bg-[#18181b] border border-white/5 rounded-xl text-xs">
                     <div><span class="font-bold text-white">${f.desc}</span></div>
                     <div class="flex items-center gap-3"><span class="font-mono font-bold ${f.type==='Entrada'?'text-emerald-400':'text-red-400'}">${formatCurrency(f.amount)}</span><button onclick="deleteFin(${f.id})" class="text-gray-600 hover:text-red-400">X</button></div>
                 </div>
             `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Sem movimentações fiscais.</p>';
 
-            document.getElementById('financialSummary').innerHTML = `
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4 pt-4 border-t border-white/5 text-center text-xs">
-                    <div class="bg-black/20 p-3 rounded-xl border border-white/5">Entradas: <span class="text-emerald-400 font-bold block text-sm mt-0.5">${formatCurrency(totalIncome)}</span></div>
-                    <div class="bg-black/20 p-3 rounded-xl border border-white/5">Despesas: <span class="text-red-400 font-bold block text-sm mt-0.5">${formatCurrency(totalExpense)}</span></div>
-                    <div class="gold-gradient p-3 rounded-xl text-black font-bold">Saldo Bruto: <span class="block text-sm font-black mt-0.5">${formatCurrency(balance)}</span></div>
-                </div>
-            `;
+            const summary = document.getElementById('financialSummary');
+            if (summary) {
+                summary.innerHTML = `
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4 pt-4 border-t border-white/5 text-center text-xs">
+                        <div class="bg-black/20 p-3 rounded-xl border border-white/5">Entradas: <span class="text-emerald-400 font-bold block text-sm mt-0.5">${formatCurrency(totalIncome)}</span></div>
+                        <div class="bg-black/20 p-3 rounded-xl border border-white/5">Despesas: <span class="text-red-400 font-bold block text-sm mt-0.5">${formatCurrency(totalExpense)}</span></div>
+                        <div class="gold-gradient p-3 rounded-xl text-black font-bold">Saldo Bruto: <span class="block text-sm font-black mt-0.5">${formatCurrency(balance)}</span></div>
+                    </div>
+                `;
+            }
         }
 
         function addFinancial() {
@@ -989,7 +1009,9 @@
             if (url) {
                 data.settings.videoUrl = url;
                 updateVideoDisplay();
-                showToast('Link do vídeo atualizado.', 'success');
+                showToast('Link do vídeo atualizado com sucesso!', 'success');
+            } else {
+                showToast('Por favor, insira um link válido.', 'error');
             }
         }
 
@@ -997,11 +1019,17 @@
         function setIACategory(category) {
             document.getElementById('iaCategoryPrompt').value = category;
             document.getElementById('iaCategoryDisplay').textContent = `Categoria selecionada: ${category}`;
-            // Estiliza o botão clicado
+            // Limpa seleção anterior nos botões
             document.querySelectorAll('#iaCategoryList button').forEach(btn => {
                 btn.classList.remove('bg-fuchsia-500/20', 'border-fuchsia-500/40', 'text-fuchsia-300');
             });
-            // Não temos como mapear o botão exato facilmente aqui, então apenas mostramos no display
+            // Marca o botão clicado (encontrado pelo texto)
+            const btns = document.querySelectorAll('#iaCategoryList button');
+            btns.forEach(btn => {
+                if (btn.textContent.trim() === category.split(' ')[0]) { // simplificado
+                    btn.classList.add('bg-fuchsia-500/20', 'border-fuchsia-500/40', 'text-fuchsia-300');
+                }
+            });
         }
 
         function generateAndPreviewPrompt() {
