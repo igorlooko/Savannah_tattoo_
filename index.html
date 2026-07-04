@@ -15,7 +15,6 @@
             --bg-secondary: #121212;
             --border-color: rgba(255, 255, 255, 0.06);
             --gold: #c9a96e;
-            --version: "1.4";
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -149,7 +148,7 @@
                 <span>S</span><span>a</span><span>v</span><span>a</span><span>n</span><span>n</span><span>a</span><span>h</span><span style="color: #c9a96e;">_</span>
                 <span style="color: #c9a96e;">t</span><span style="color: #c9a96e;">a</span><span style="color: #c9a96e;">t</span><span style="color: #c9a96e;">t</span><span style="color: #c9a96e;">o</span><span style="color: #c9a96e;">o</span><span style="color: #c9a96e;">_</span>
             </h1>
-            <p class="text-xs text-gray-400 mt-1">Gestão de Flashes, Agendamentos & Clientes</p>
+            <p class="text-xs text-gray-300 mt-1 max-w-xs mx-auto leading-relaxed">Organize, gerencie e escale seu estúdio com inteligência.</p>
         </div>
 
         <div id="loginError" class="mb-4 text-xs text-red-400 bg-red-500/10 border border-red-500/20 p-3 rounded-xl text-center hidden"></div>
@@ -167,7 +166,7 @@
 
         <div class="mt-6 text-center border-t border-white/5 pt-4 flex justify-between items-center">
             <p class="text-[10px] text-gray-500 font-medium tracking-wide">Igor Freire - Gestor de Marketing</p>
-            <span class="text-[10px] text-gray-600 font-mono">v1.4</span>
+            <span class="text-[10px] font-mono font-bold text-[#c9a96e]">v1.5</span>
         </div>
     </div>
 
@@ -525,7 +524,7 @@
         // ========== CONFIGURAÇÕES ==========
         const DEFAULT_PASS = 'savannah2026';
         const DEFAULT_VIDEO_URL = 'https://youtu.be/dQw4w9WgXcQ';
-        const VERSION = '1.4';
+        const VERSION = '1.5';
 
         // Contexto do calendário (mês/ano)
         const now = new Date();
@@ -570,10 +569,13 @@
         }
 
         function refreshIcons() {
-            // Aguarda o DOM atualizar e recria os ícones
+            // Aguarda o DOM atualizar e recria os ícones com dois timeouts para garantir
             setTimeout(() => {
                 lucide.createIcons();
             }, 100);
+            setTimeout(() => {
+                lucide.createIcons();
+            }, 300);
         }
 
         // ========== LOGIN / LOGOUT ==========
@@ -588,7 +590,7 @@
                 showHub();
                 updateUI();
                 // Força ícones após login
-                setTimeout(() => lucide.createIcons(), 150);
+                refreshIcons();
             } else {
                 errorEl.textContent = 'Senha incorreta. Tente novamente.';
                 errorEl.style.display = 'block';
@@ -624,7 +626,7 @@
             scrollToTop();
             // Atualiza os dados da área
             updateUI();
-            // Recria ícones com atraso
+            // Recria ícones
             refreshIcons();
         }
 
@@ -658,7 +660,7 @@
             renderCalendarGrid();
             updateDashboard();
             // Garantir ícones após renderização
-            setTimeout(() => lucide.createIcons(), 50);
+            refreshIcons();
         }
 
         // ========== DASHBOARD ==========
@@ -850,8 +852,7 @@
                     </div>
                 </div>
             `).join('');
-            // Recria ícones após renderizar
-            setTimeout(() => lucide.createIcons(), 50);
+            refreshIcons();
         }
 
         function addClient() {
@@ -1131,7 +1132,7 @@
             updateVideoDisplay();
             renderCalendarGrid();
             // Primeira chamada de ícones
-            setTimeout(() => lucide.createIcons(), 100);
+            refreshIcons();
         });
     </script>
 </body>
