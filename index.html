@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Savannah_tattoo_ | Studio Management</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #121212;
+            --border-color: rgba(255, 255, 255, 0.06);
+            --gold: #c9a96e;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: #f0ece4;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #c9a96e 0%, #a88953 100%);
+        }
+        .area-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .area-card:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        }
+        .video-thumb {
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+        .video-thumb img {
+            width: 100%;
+            height: auto;
+            display: block;
+            opacity: 0.75;
+            transition: opacity 0.3s;
+        }
+        .video-thumb:hover img {
+            opacity: 1;
+        }
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 0, 0, 0.85);
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        .video-play-btn:hover {
+            background: #ff0000;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        @keyframes shimmer {
+            0% { background-position: -300% 0; }
+            100% { background-position: 300% 0; }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
+            50% { transform: translate(-50%, -50%) scale(1.05); box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            14% { transform: scale(1.2); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.2); }
+            70% { transform: scale(1); }
+        }
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        .animate-float-slow { animation: floatSlow 5s ease-in-out infinite; }
+        .animate-shimmer { background-size: 300% 100%; animation: shimmer 6s linear infinite; }
+        .animate-fade-up { animation: fadeInUp 0.6s ease forwards; opacity: 0; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.25s; }
+        .delay-3 { animation-delay: 0.4s; }
+        .delay-4 { animation-delay: 0.55s; }
+        .delay-5 { animation-delay: 0.7s; }
+        .heart-beat { display: inline-block; animation: heartbeat 1.8s ease-in-out infinite; }
+
+        .login-card { animation: float 4s ease-in-out infinite; }
+        .login-gold-line {
+            height: 3px;
+            background: linear-gradient(90deg, #c9a96e, #f5e6a8, #c9a96e);
+            background-size: 300% 100%;
+            animation: shimmer 4s linear infinite;
+        }
+
+        /* Letras dançantes */
+        #titleLetters span {
+            display: inline-block;
+            animation: wave 2s ease-in-out infinite;
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-0 md:p-4">
+
+    <!-- ========== TELA DE LOGIN ========== -->
+    <div id="loginScreen" class="w-full max-w-[420px] bg-[#121212] rounded-2xl border border-white/5 p-8 md:p-10 shadow-2xl relative overflow-hidden mx-4 login-card">
+        <div class="absolute top-0 left-0 right-0 login-gold-line"></div>
+        <div class="text-center mb-8">
+            <span class="text-5xl block mb-3 heart-beat">🖤</span>
+            <h1 id="titleLetters" class="text-2xl font-bold tracking-tight">
+                <span>S</span><span>a</span><span>v</span><span>a</span><span>n</span><span>n</span><span>a</span><span>h</span><span style="color: #c9a96e;">_</span>
+                <span style="color: #c9a96e;">t</span><span style="color: #c9a96e;">a</span><span style="color: #c9a96e;">t</span><span style="color: #c9a96e;">t</span><span style="color: #c9a96e;">o</span><span style="color: #c9a96e;">o</span><span style="color: #c9a96e;">_</span>
+            </h1>
+            <p class="text-xs text-gray-400 mt-1">Gestão de Flashes, Agendamentos & Clientes</p>
+        </div>
+
+        <div id="loginError" class="mb-4 text-xs text-red-400 bg-red-500/10 border border-red-500/20 p-3 rounded-xl text-center hidden"></div>
+
+        <div class="space-y-4">
+            <div>
+                <label class="block text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Senha de Acesso</label>
+                <input type="password" id="loginPassword" placeholder="Digite a senha" class="w-full bg-[#0d0d0d] border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-[#c9a96e] transition" />
+            </div>
+            <button onclick="login()" class="w-full py-3.5 gold-gradient text-black font-bold rounded-xl text-sm hover:opacity-90 transition relative overflow-hidden group">
+                <span class="relative z-10">Acessar Estúdio</span>
+                <span class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition"></span>
+            </button>
+        </div>
+
+        <div class="mt-6 text-center border-t border-white/5 pt-4">
+            <p class="text-[10px] text-gray-500 font-medium tracking-wide">Igor Freire - Gestor de Marketing</p>
+        </div>
+    </div>
+
+    <!-- ========== APP (pós-login) ========== -->
+    <div id="app" class="w-full max-w-[1440px] min-h-[90vh] hidden flex-col">
+
+        <!-- ===== HUB INICIAL (SEM VÍDEO) ===== -->
+        <div id="hub" class="flex-1 flex flex-col items-center justify-center gap-8 py-8">
+            <h2 class="text-3xl font-bold text-center">Escolha sua área de trabalho</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 w-full max-w-6xl">
+                <!-- Card Geral -->
+                <div onclick="showArea('geral')" class="area-card glass-card p-6 rounded-2xl text-center border-2 border-[#c9a96e]/30 hover:border-[#c9a96e] transition animate-fade-up delay-1">
+                    <div class="w-14 h-14 rounded-full bg-[#c9a96e]/10 flex items-center justify-center mx-auto mb-3 text-[#c9a96e]">
+                        <i data-lucide="layout-dashboard" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-[#c9a96e]">Geral</h3>
+                    <p class="text-xs text-gray-400 mt-1">Dashboard e Financeiro</p>
+                </div>
+
+                <!-- Card Tatuagem -->
+                <div onclick="showArea('tatuagem')" class="area-card glass-card p-6 rounded-2xl text-center border-2 border-blue-500/30 hover:border-blue-500 transition animate-fade-up delay-2">
+                    <div class="w-14 h-14 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto mb-3 text-blue-400">
+                        <i data-lucide="palette" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-blue-400">Tatuagem</h3>
+                    <p class="text-xs text-gray-400 mt-1">Agenda, Clientes, Estoque, Portfólio</p>
+                </div>
+
+                <!-- Card Marketing -->
+                <div onclick="showArea('marketing')" class="area-card glass-card p-6 rounded-2xl text-center border-2 border-purple-500/30 hover:border-purple-500 transition animate-fade-up delay-3">
+                    <div class="w-14 h-14 rounded-full bg-purple-500/10 flex items-center justify-center mx-auto mb-3 text-purple-400">
+                        <i data-lucide="megaphone" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-purple-400">Marketing</h3>
+                    <p class="text-xs text-gray-400 mt-1">Concorrentes e Campanhas</p>
+                </div>
+
+                <!-- Card Configurações -->
+                <div onclick="showArea('config')" class="area-card glass-card p-6 rounded-2xl text-center border-2 border-amber-500/30 hover:border-amber-500 transition animate-fade-up delay-4">
+                    <div class="w-14 h-14 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-3 text-amber-400">
+                        <i data-lucide="settings" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-amber-400">Configurações</h3>
+                    <p class="text-xs text-gray-400 mt-1">Vídeo, Backup e Senha</p>
+                </div>
+
+                <!-- Card Recursos IA -->
+                <div onclick="showArea('ia')" class="area-card glass-card p-6 rounded-2xl text-center border-2 border-fuchsia-500/30 hover:border-fuchsia-500 transition animate-fade-up delay-5">
+                    <div class="w-14 h-14 rounded-full bg-fuchsia-500/10 flex items-center justify-center mx-auto mb-3 text-fuchsia-400">
+                        <i data-lucide="sparkles" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-fuchsia-400">Recursos IA</h3>
+                    <p class="text-xs text-gray-400 mt-1">Vídeo Criativo e Geração de Prompts</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ÁREA GERAL ===== -->
+        <div id="area-geral" class="hidden flex-1 space-y-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-bold text-[#c9a96e] flex items-center gap-2"><i data-lucide="layout-dashboard" class="w-6 h-6"></i> Área Geral</h2>
+                <button onclick="showHub()" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-medium text-gray-300 transition flex items-center gap-2">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar ao Menu
+                </button>
+            </div>
+            <div class="space-y-6">
+                <!-- Dashboard -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <h3 class="font-bold text-base flex items-center gap-2 mb-4"><i data-lucide="bar-chart-3" class="w-5 h-5 text-[#c9a96e]"></i> Indicadores Gerais</h3>
+                    <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+                        <div class="bg-black/30 p-3 rounded-xl"><div class="text-xs text-gray-400">Leads</div><div class="text-xl font-bold text-white" id="dashClients">0</div></div>
+                        <div class="bg-black/30 p-3 rounded-xl"><div class="text-xs text-gray-400">Portfólio</div><div class="text-xl font-bold text-white" id="dashPortfolio">0</div></div>
+                        <div class="bg-black/30 p-3 rounded-xl"><div class="text-xs text-gray-400">Concorrentes</div><div class="text-xl font-bold text-white" id="dashCompetitors">0</div></div>
+                        <div class="bg-black/30 p-3 rounded-xl"><div class="text-xs text-gray-400">Campanhas</div><div class="text-xl font-bold text-white" id="dashCampaigns">0</div></div>
+                        <div class="bg-black/30 p-3 rounded-xl"><div class="text-xs text-gray-400">Saldo</div><div class="text-xl font-bold text-emerald-400" id="dashBalance">R$ 0</div></div>
+                        <div class="bg-black/30 p-3 rounded-xl"><div class="text-xs text-gray-400">ROI</div><div class="text-xl font-bold text-cyan-400" id="dashConversion">0%</div></div>
+                    </div>
+                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <div class="flex justify-between text-xs mb-1"><span class="text-gray-400">Entradas</span><span id="chartInValue" class="text-emerald-400">R$ 0</span></div>
+                            <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden"><div id="chartInBar" class="bg-emerald-500 h-full transition-all" style="width:0%"></div></div>
+                            <div class="flex justify-between text-xs mt-3 mb-1"><span class="text-gray-400">Despesas</span><span id="chartOutValue" class="text-red-400">R$ 0</span></div>
+                            <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden"><div id="chartOutBar" class="bg-red-500 h-full transition-all" style="width:0%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-16 h-16 rounded-full border-4 border-amber-500/20 flex items-center justify-center text-xl font-bold text-amber-400"><span id="chartCirclePerc">0%</span></div>
+                                <div class="text-xs text-gray-400"><p>Campanhas Ativas: <span id="chartActiveCamps" class="text-white font-bold">0</span></p><p>Concluídas: <span id="chartClosedCamps" class="text-white font-bold">0</span></p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 border-t border-white/5 pt-4">
+                        <p id="dashSummary" class="text-xs text-gray-400 leading-relaxed"></p>
+                    </div>
+                </div>
+
+                <!-- Financeiro -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-base flex items-center gap-2"><i data-lucide="dollar-sign" class="w-5 h-5 text-emerald-400"></i> Financeiro</h3>
+                        <span class="text-xs text-gray-400" id="financialCount">0 transações</span>
+                    </div>
+                    <div id="financialFormContainer" class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
+                        <select id="finType" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm"><option>Entrada</option><option>Saída</option></select>
+                        <input type="number" id="finAmount" placeholder="Valor (R$)" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                        <input type="text" id="finDesc" placeholder="Descrição" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                        <button onclick="addFinancial()" class="md:col-span-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl py-2 transition">+ Lançar</button>
+                    </div>
+                    <div id="financialList" class="space-y-2"></div>
+                    <div id="financialSummary"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ÁREA TATUAGEM ===== -->
+        <div id="area-tatuagem" class="hidden flex-1 space-y-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-bold text-blue-400 flex items-center gap-2"><i data-lucide="palette" class="w-6 h-6"></i> Área Tatuagem</h2>
+                <button onclick="showHub()" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-medium text-gray-300 transition flex items-center gap-2">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar ao Menu
+                </button>
+            </div>
+            <div class="space-y-6">
+                <!-- Agenda -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+                        <h3 class="font-bold text-base flex items-center gap-2"><i data-lucide="calendar" class="w-5 h-5 text-amber-400"></i> Agenda</h3>
+                        <div class="flex items-center gap-2 bg-black/30 p-1 rounded-xl border border-white/5">
+                            <button onclick="changeMonth(-1)" class="px-3 py-1.5 bg-white/5 hover:bg-white/10 rounded-lg text-xs text-gray-300 transition"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                            <span id="calMonthYear" class="text-sm font-bold text-white min-w-[120px] text-center">Janeiro 2026</span>
+                            <button onclick="changeMonth(1)" class="px-3 py-1.5 bg-white/5 hover:bg-white/10 rounded-lg text-xs text-gray-300 transition"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                        </div>
+                    </div>
+
+                    <div id="calendarFormContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5 hidden">
+                        <input type="number" id="evtDay" min="1" max="31" placeholder="Dia" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                        <input type="text" id="evtTitle" placeholder="Título do evento" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                        <button onclick="addCalendarEvent()" class="gold-gradient text-black text-xs font-bold rounded-xl py-2 transition">+ Gravar</button>
+                    </div>
+                    <div class="grid grid-cols-7 gap-1.5 text-center text-xs border-b border-white/5 pb-2">
+                        <div class="text-gray-500 font-bold">Dom</div><div class="text-gray-500 font-bold">Seg</div><div class="text-gray-500 font-bold">Ter</div>
+                        <div class="text-gray-500 font-bold">Qua</div><div class="text-gray-500 font-bold">Qui</div><div class="text-gray-500 font-bold">Sex</div><div class="text-gray-500 font-bold">Sáb</div>
+                    </div>
+                    <div id="calendarGrid" class="grid grid-cols-7 gap-1.5 mt-2"></div>
+                </div>
+
+                <!-- CRM Clientes -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-base flex items-center gap-2"><i data-lucide="users" class="w-5 h-5 text-[#c9a96e]"></i> CRM Clientes</h3>
+                        <span class="text-xs text-gray-400" id="clientCount">0 clientes</span>
+                    </div>
+                    <div id="clientFormContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
+                        <input type="text" id="clientName" placeholder="Nome *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                        <input type="tel" id="clientPhone" placeholder="Telefone" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                        <select id="clientStage" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm"><option>Briefing</option><option>Desenho</option><option>Ativo</option><option>Pausado</option></select>
+                        <input type="text" id="clientInsta" placeholder="@instagram" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                        <textarea id="clientObs" placeholder="Briefing" class="md:col-span-2 bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm h-16"></textarea>
+                        <button onclick="addClient()" class="md:col-span-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl py-2 transition">+ Adicionar</button>
+                    </div>
+                    <div id="clientList" class="space-y-3"></div>
+                </div>
+
+                <!-- Estoque -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <h3 class="font-bold text-base flex items-center gap-2 mb-4"><i data-lucide="package-open" class="w-5 h-5 text-blue-400"></i> Estoque</h3>
+                    <div id="stockFormContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
+                        <input type="text" id="stockName" placeholder="Insumo *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                        <input type="number" id="stockQty" placeholder="Quantidade" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                        <button onclick="addStockItem()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl py-2 transition">+ Cadastrar</button>
+                    </div>
+                    <div class="overflow-x-auto"><table class="w-full text-left text-xs"><thead><tr class="text-gray-400 border-b border-white/5"><th class="pb-2">Insumo</th><th class="pb-2">Qtd</th><th class="pb-2">Status</th><th class="pb-2 text-right">Ações</th></tr></thead><tbody id="stockTableBody"></tbody></table></div>
+                </div>
+
+                <!-- Portfólio -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-base flex items-center gap-2"><i data-lucide="palette" class="w-5 h-5 text-blue-400"></i> Portfólio</h3>
+                        <span class="text-xs text-gray-400" id="portfolioCount">0 artes</span>
+                    </div>
+                    <div id="portfolioFormContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
+                        <input type="text" id="portTitle" placeholder="Título *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                        <select id="portStyle" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm"><option>Realismo</option><option>Blackwork</option><option>Fine Line</option><option>Old School</option></select>
+                        <textarea id="portDesc" placeholder="Ficha técnica" class="md:col-span-2 bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm h-16"></textarea>
+                        <button onclick="addPortfolio()" class="md:col-span-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl py-2 transition">+ Incorporar</button>
+                    </div>
+                    <div id="portfolioList" class="space-y-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ÁREA MARKETING ===== -->
+        <div id="area-marketing" class="hidden flex-1 space-y-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-bold text-purple-400 flex items-center gap-2"><i data-lucide="megaphone" class="w-6 h-6"></i> Área Marketing</h2>
+                <button onclick="showHub()" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-medium text-gray-300 transition flex items-center gap-2">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar ao Menu
+                </button>
+            </div>
+            <div class="space-y-6">
+                <!-- Concorrentes -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-base flex items-center gap-2"><i data-lucide="eye" class="w-5 h-5 text-purple-400"></i> Concorrentes</h3>
+                        <span class="text-xs text-gray-400" id="competitorCount">0 alvos</span>
+                    </div>
+                    <div id="competitorFormContainer" class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
+                        <input type="text" id="compName" placeholder="Nome *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                        <input type="text" id="compInsta" placeholder="@instagram" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                        <input type="text" id="compLocation" placeholder="Região" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                        <textarea id="compObs" placeholder="Análise" class="md:col-span-3 bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm h-16"></textarea>
+                        <button onclick="addCompetitor()" class="md:col-span-3 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold rounded-xl py-2 transition">+ Monitorar</button>
+                    </div>
+                    <div id="competitorList" class="space-y-3"></div>
+                </div>
+
+                <!-- Campanhas -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-base flex items-center gap-2"><i data-lucide="megaphone" class="w-5 h-5 text-amber-500"></i> Campanhas</h3>
+                        <span class="text-xs text-gray-400" id="campaignCount">0 campanhas</span>
+                    </div>
+                    <div id="campaignFormContainer" class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
+                        <input type="text" id="campName" placeholder="Nome *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                        <select id="campStatus" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm"><option>Planejamento</option><option>Ativa</option><option>Pausada</option><option>Concluída</option></select>
+                        <input type="number" id="campInvest" placeholder="Investimento (R$)" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                        <input type="number" id="campReturn" placeholder="Retorno (R$)" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                        <textarea id="campDesc" placeholder="Estratégia" class="md:col-span-4 bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm h-16"></textarea>
+                        <button onclick="addCampaign()" class="md:col-span-4 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl py-2 transition">+ Publicar</button>
+                    </div>
+                    <div id="campaignList" class="space-y-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ÁREA CONFIGURAÇÕES ===== -->
+        <div id="area-config" class="hidden flex-1 space-y-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-bold text-amber-400 flex items-center gap-2"><i data-lucide="settings" class="w-6 h-6"></i> Configurações</h2>
+                <button onclick="showHub()" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-medium text-gray-300 transition flex items-center gap-2">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar ao Menu
+                </button>
+            </div>
+            <div class="space-y-6">
+                <!-- Vídeo (configuração) -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <h3 class="font-bold text-base flex items-center gap-2 mb-4"><i data-lucide="video" class="w-5 h-5 text-red-500"></i> Gerenciar Vídeo do Criativo</h3>
+                    <div class="flex flex-col sm:flex-row gap-3 max-w-xl">
+                        <input type="url" id="videoUrl" placeholder="https://youtu.be/..." class="flex-1 bg-[#0d0d0d] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white" />
+                        <button onclick="updateVideoUrl()" class="px-5 py-2.5 gold-gradient text-black font-bold text-xs rounded-xl hover:opacity-90 transition">Atualizar Link</button>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">O link será usado no player da área <strong>Recursos IA</strong>.</p>
+                </div>
+
+                <!-- Backup -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <h3 class="font-bold text-base flex items-center gap-2 mb-4"><i data-lucide="archive" class="w-5 h-5 text-blue-400"></i> Backup e Sincronização</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="downloadJSON()" class="px-5 py-2.5 gold-gradient text-black font-bold text-xs rounded-xl hover:opacity-90 transition flex items-center gap-2"><i data-lucide="download" class="w-3.5 h-3.5"></i> Baixar Key.json</button>
+                        <div>
+                            <input type="file" id="importFile" accept=".json" onchange="importJSON()" class="hidden" />
+                            <button onclick="document.getElementById('importFile').click()" class="px-5 py-2.5 bg-white/5 border border-white/10 rounded-xl text-xs font-semibold text-gray-300 hover:bg-white/10 transition flex items-center gap-2"><i data-lucide="upload" class="w-3.5 h-3.5"></i> Importar Key.json</button>
+                            <span class="text-xs text-gray-400 ml-2" id="importFileName"></span>
+                        </div>
+                        <button onclick="copyJSON()" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl transition flex items-center gap-2"><i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar JSON</button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-3">Use o arquivo <strong>Key.json</strong> para transferir todos os dados entre dispositivos ou fazer backup.</p>
+                </div>
+
+                <!-- Senha -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <h3 class="font-bold text-base flex items-center gap-2 mb-4"><i data-lucide="key" class="w-5 h-5 text-amber-400"></i> Segurança</h3>
+                    <p class="text-xs text-gray-400">A senha padrão é <strong>savannah2026</strong>. Para alterá-la, edite a constante <code>DEFAULT_PASS</code> no código-fonte.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ÁREA RECURSOS IA ===== -->
+        <div id="area-ia" class="hidden flex-1 space-y-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-bold text-fuchsia-400 flex items-center gap-2"><i data-lucide="sparkles" class="w-6 h-6"></i> Recursos IA</h2>
+                <button onclick="showHub()" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-medium text-gray-300 transition flex items-center gap-2">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar ao Menu
+                </button>
+            </div>
+            <div class="space-y-6">
+                <!-- Vídeo Player -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <h3 class="font-bold text-base flex items-center gap-2 mb-3"><i data-lucide="video" class="w-5 h-5 text-red-500"></i> Criativo Ativo para Análise</h3>
+                    <p class="text-xs text-gray-400 mb-4">Este vídeo será usado como base para resumo geral e análise estratégica pela IA.</p>
+                    <div class="w-full max-w-3xl mx-auto video-thumb border border-white/5 p-1">
+                        <a href="#" id="youtubeButtonIA" target="_blank" rel="noopener noreferrer" class="block relative">
+                            <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Vídeo Criativo" id="videoThumbnailIA" class="rounded-xl" />
+                            <div class="video-play-btn">
+                                <i data-lucide="play" class="w-8 h-8 fill-white text-white"></i>
+                            </div>
+                        </a>
+                        <p class="text-center text-xs text-gray-400 py-2">📺 Clique no botão para assistir ao criativo ativo no YouTube</p>
+                    </div>
+                </div>
+
+                <!-- Gerador de Prompt para IA -->
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <h3 class="font-bold text-base flex items-center gap-2 mb-3"><i data-lucide="brain" class="w-5 h-5 text-fuchsia-400"></i> Gerador de Prompt para IA</h3>
+                    <p class="text-xs text-gray-400 mb-4">Selecione uma categoria, adicione sua descrição personalizada e baixe o prompt completo com todos os dados do sistema.</p>
+
+                    <div class="space-y-4">
+                        <!-- Categorias -->
+                        <div>
+                            <label class="block text-[11px] font-semibold text-gray-400 uppercase mb-2">Categoria de Análise</label>
+                            <div class="flex flex-wrap gap-2" id="iaCategoryList">
+                                <button onclick="setIACategory('Análise SWOT Completa do Estúdio Savannah_tattoo_')" class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-xl text-xs text-gray-300 hover:bg-fuchsia-500/10 hover:border-fuchsia-500/30 transition">SWOT</button>
+                                <button onclick="setIACategory('Otimização de Campanhas de Tráfego Pago e ROI')" class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-xl text-xs text-gray-300 hover:bg-fuchsia-500/10 hover:border-fuchsia-500/30 transition">Tráfego</button>
+                                <button onclick="setIACategory('Análise de Perfil de Cliente Ideal (ICP) e Persona')" class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-xl text-xs text-gray-300 hover:bg-fuchsia-500/10 hover:border-fuchsia-500/30 transition">Persona</button>
+                                <button onclick="setIACategory('Estratégia de Conteúdo para Redes Sociais (Instagram)')" class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-xl text-xs text-gray-300 hover:bg-fuchsia-500/10 hover:border-fuchsia-500/30 transition">Conteúdo</button>
+                                <button onclick="setIACategory('Diagnóstico Financeiro e Fluxo de Caixa do Estúdio')" class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-xl text-xs text-gray-300 hover:bg-fuchsia-500/10 hover:border-fuchsia-500/30 transition">Financeiro</button>
+                                <button onclick="setIACategory('Plano de Ação Estratégico Geral para 30 dias')" class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-xl text-xs text-gray-300 hover:bg-fuchsia-500/10 hover:border-fuchsia-500/30 transition">Plano de Ação</button>
+                            </div>
+                            <input type="hidden" id="iaCategoryPrompt" value="" />
+                            <span class="text-[10px] text-gray-500 mt-1 block" id="iaCategoryDisplay">Nenhuma categoria selecionada</span>
+                        </div>
+
+                        <!-- Descrição Personalizada -->
+                        <div>
+                            <label class="block text-[11px] font-semibold text-gray-400 uppercase mb-1.5">Sua Descrição Personalizada (o que você quer analisar?)</label>
+                            <textarea id="iaCustomPrompt" placeholder="Ex: Quero saber como melhorar a conversão de leads em sessões agendadas..." class="w-full bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm h-24 focus:outline-none focus:border-fuchsia-500/50"></textarea>
+                        </div>
+
+                        <!-- Ações -->
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="generateAndPreviewPrompt()" class="px-5 py-2.5 bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold text-xs rounded-xl transition flex items-center gap-2">
+                                <i data-lucide="eye" class="w-3.5 h-3.5"></i> Visualizar Prompt
+                            </button>
+                            <button onclick="downloadPromptTXT()" class="px-5 py-2.5 gold-gradient text-black font-bold text-xs rounded-xl transition flex items-center gap-2">
+                                <i data-lucide="file-text" class="w-3.5 h-3.5"></i> Baixar Prompt (.txt)
+                            </button>
+                            <button onclick="clearIAPrompt()" class="px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-xs text-gray-400 hover:text-white transition">Limpar</button>
+                        </div>
+
+                        <!-- Prévia do Prompt -->
+                        <div class="mt-4 border-t border-white/5 pt-4">
+                            <label class="block text-[11px] font-semibold text-gray-400 uppercase mb-1.5">Prévia do Prompt Gerado</label>
+                            <textarea id="iaPromptPreview" readonly class="w-full bg-[#0a0a0a] border border-white/5 rounded-xl px-3 py-2 text-xs font-mono text-[#c9a96e] h-64 resize-y"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="toast" class="fixed bottom-6 right-6 px-5 py-3.5 rounded-xl text-xs font-semibold text-white border opacity-0 pointer-events-none translate-y-4 transition-all duration-300 z-50 shadow-xl"></div>
+
+    <script>
+        // ========== CONFIGURAÇÕES ==========
+        const DEFAULT_PASS = 'savannah2026';
+        const DEFAULT_VIDEO_URL = 'https://youtu.be/dQw4w9WgXcQ';
+
+        // Contexto do calendário (mês/ano)
+        const now = new Date();
+        let calCtx = { month: now.getMonth(), year: now.getFullYear() };
+
+        let data = {
+            clients: [],
+            portfolio: [],
+            competitors: [],
+            campaigns: [],
+            financial: [],
+            stock: [
+                { id: 1, name: 'Cartuchos 3RL', qty: 14 },
+                { id: 2, name: 'Tintas Dynamic Black', qty: 2 },
+                { id: 3, name: 'Plástico Filme Protetor', qty: 0 }
+            ],
+            calendarEvents: [
+                { id: 1, day: 5, title: 'Sessão Mariana (Braço)', month: now.getMonth(), year: now.getFullYear() },
+                { id: 2, day: 12, title: 'Disparo Anúncios Flash Day', month: now.getMonth(), year: now.getFullYear() }
+            ],
+            settings: { videoUrl: DEFAULT_VIDEO_URL }
+        };
+
+        // ========== UTILITÁRIOS ==========
+        function generateId() { return Date.now() + Math.floor(Math.random() * 1000); }
+        function formatCurrency(val) { return 'R$ ' + val.toFixed(2).replace('.', ','); }
+
+        function showToast(msg, type) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.className = 'fixed bottom-6 right-6 px-5 py-3.5 rounded-xl text-xs font-semibold text-white border transition-all duration-300 z-50 shadow-xl ' +
+                (type === 'success' ? 'bg-emerald-950/80 border-emerald-500/30 text-emerald-400' :
+                    'bg-red-950/80 border-red-500/30 text-red-400');
+            toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(() => { toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4'); }, 3000);
+        }
+
+        // ========== LOGIN / LOGOUT ==========
+        function login() {
+            const password = document.getElementById('loginPassword').value.trim();
+            const errorEl = document.getElementById('loginError');
+            if (password === DEFAULT_PASS) {
+                errorEl.style.display = 'none';
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('app').style.display = 'flex';
+                document.getElementById('loginPassword').value = '';
+                showHub();
+                updateUI();
+            } else {
+                errorEl.textContent = 'Senha incorreta. Tente novamente.';
+                errorEl.style.display = 'block';
+            }
+        }
+
+        function logout() {
+            document.getElementById('app').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'block';
+        }
+
+        // ========== NAVEGAÇÃO ENTRE ÁREAS ==========
+        function showHub() {
+            document.getElementById('hub').style.display = 'flex';
+            document.getElementById('area-geral').style.display = 'none';
+            document.getElementById('area-tatuagem').style.display = 'none';
+            document.getElementById('area-marketing').style.display = 'none';
+            document.getElementById('area-config').style.display = 'none';
+            document.getElementById('area-ia').style.display = 'none';
+            updateVideoDisplay();
+            lucide.createIcons();
+        }
+
+        function showArea(area) {
+            document.getElementById('hub').style.display = 'none';
+            document.getElementById('area-geral').style.display = area === 'geral' ? 'block' : 'none';
+            document.getElementById('area-tatuagem').style.display = area === 'tatuagem' ? 'block' : 'none';
+            document.getElementById('area-marketing').style.display = area === 'marketing' ? 'block' : 'none';
+            document.getElementById('area-config').style.display = area === 'config' ? 'block' : 'none';
+            document.getElementById('area-ia').style.display = area === 'ia' ? 'block' : 'none';
+            lucide.createIcons();
+            updateUI();
+            if (area === 'ia') updateVideoDisplay();
+        }
+
+        // ========== ATUALIZAR EXIBIÇÃO DO VÍDEO ==========
+        function updateVideoDisplay() {
+            const url = data.settings.videoUrl || DEFAULT_VIDEO_URL;
+            // Atualiza os dois players (hub não tem mais, mas temos o da IA)
+            document.getElementById('youtubeButtonIA').href = url;
+            document.getElementById('youtubeButton').href = url; // mantém compatibilidade
+
+            let videoId = '';
+            if (url.includes('youtu.be/')) {
+                videoId = url.split('youtu.be/')[1]?.split('?')[0] || '';
+            } else if (url.includes('youtube.com/watch?v=')) {
+                videoId = url.split('v=')[1]?.split('&')[0] || '';
+            }
+            const thumbUrl = videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` :
+                'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg';
+            document.getElementById('videoThumbnailIA').src = thumbUrl;
+            document.getElementById('videoThumbnail').src = thumbUrl; // compatibilidade
+            document.getElementById('videoUrl').value = url;
+        }
+
+        // ========== RENDERIZAÇÃO GERAL ==========
+        function updateUI() {
+            renderClients();
+            renderPortfolio();
+            renderCompetitors();
+            renderCampaigns();
+            renderFinancial();
+            renderStock();
+            renderCalendarGrid();
+            updateDashboard();
+            lucide.createIcons();
+        }
+
+        // ========== DASHBOARD ==========
+        function updateDashboard() {
+            const totalClients = data.clients.length;
+            const totalPortfolio = data.portfolio.length;
+            const totalCompetitors = data.competitors.length;
+            const totalCampaigns = data.campaigns.length;
+
+            const totalIncome = data.financial.filter(f => f.type === 'Entrada').reduce((sum, f) => sum + (f.amount || 0), 0);
+            const totalExpense = data.financial.filter(f => f.type === 'Saída').reduce((sum, f) => sum + (f.amount || 0), 0);
+            const balance = totalIncome - totalExpense;
+
+            const activeCamps = data.campaigns.filter(c => c.status === 'Ativa').length;
+            const completedCamps = data.campaigns.filter(c => c.status === 'Concluída').length;
+            const conversionRate = totalCampaigns > 0 ? Math.round((completedCamps / totalCampaigns) * 100) : 0;
+
+            document.getElementById('dashClients').textContent = totalClients;
+            document.getElementById('dashPortfolio').textContent = totalPortfolio;
+            document.getElementById('dashCompetitors').textContent = totalCompetitors;
+            document.getElementById('dashCampaigns').textContent = totalCampaigns;
+            document.getElementById('dashBalance').textContent = formatCurrency(balance);
+            document.getElementById('dashConversion').textContent = conversionRate + '%';
+
+            document.getElementById('chartInValue').textContent = formatCurrency(totalIncome);
+            document.getElementById('chartOutValue').textContent = formatCurrency(totalExpense);
+            const totalVolume = totalIncome + totalExpense || 1;
+            document.getElementById('chartInBar').style.width = ((totalIncome / totalVolume) * 100) + '%';
+            document.getElementById('chartOutBar').style.width = ((totalExpense / totalVolume) * 100) + '%';
+            document.getElementById('chartCirclePerc').textContent = conversionRate + '%';
+            document.getElementById('chartActiveCamps').textContent = activeCamps;
+            document.getElementById('chartClosedCamps').textContent = completedCamps;
+
+            document.getElementById('dashSummary').innerHTML =
+                `O ecossistema estratégico da <strong>Savannah_tattoo_</strong> computa <strong>${totalClients}</strong> leads ativos em pipeline. O balanço fiscal aponta saldo de <strong>${formatCurrency(balance)}</strong> líquido, sob métricas configuradas pelo gestor Igor Freire.`;
+        }
+
+        // ========== CALENDÁRIO ==========
+        function renderCalendarGrid() {
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+
+            const { month, year } = calCtx;
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+
+            const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+            ];
+            document.getElementById('calMonthYear').textContent = `${monthNames[month]} ${year}`;
+
+            for (let i = 0; i < firstDay; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'glass-card min-h-[70px] p-1.5 border border-white/[0.03] opacity-30';
+                grid.appendChild(empty);
+            }
+
+            for (let d = 1; d <= lastDate; d++) {
+                const dayEvents = data.calendarEvents.filter(e =>
+                    parseInt(e.day) === d &&
+                    parseInt(e.month) === month &&
+                    parseInt(e.year) === year
+                );
+
+                const evtsHtml = dayEvents.map(e => `
+                    <div class="w-full text-[9px] bg-amber-500/20 border border-amber-500/30 text-amber-300 rounded px-1 truncate mt-1">${e.title}</div>
+                `).join('');
+
+                const div = document.createElement('div');
+                div.className =
+                    'glass-card min-h-[70px] p-1.5 flex flex-col justify-between text-left border border-white/[0.03] hover:border-[#c9a96e]/40 transition cursor-pointer';
+                div.innerHTML = `
+                    <span class="text-gray-500 font-bold text-[10px]">${d}</span>
+                    <div class="overflow-y-auto max-h-[45px] w-full">${evtsHtml}</div>
+                `;
+                div.onclick = () => selectCalendarDay(d);
+                grid.appendChild(div);
+            }
+        }
+
+        function changeMonth(delta) {
+            calCtx.month += delta;
+            if (calCtx.month < 0) { calCtx.month = 11;
+                calCtx.year--; }
+            if (calCtx.month > 11) { calCtx.month = 0;
+                calCtx.year++; }
+            renderCalendarGrid();
+            document.getElementById('calendarFormContainer').style.display = 'none';
+        }
+
+        function selectCalendarDay(day) {
+            const form = document.getElementById('calendarFormContainer');
+            form.style.display = 'grid';
+            document.getElementById('evtDay').value = day;
+            document.getElementById('evtTitle').focus();
+            showToast(`Dia ${day}/${calCtx.month+1}/${calCtx.year} selecionado.`, 'success');
+        }
+
+        function addCalendarEvent() {
+            const day = parseInt(document.getElementById('evtDay').value);
+            const title = document.getElementById('evtTitle').value.trim();
+            if (!day || day < 1 || day > 31 || !title) { showToast('Preencha os campos.', 'error'); return; }
+
+            data.calendarEvents.push({
+                id: generateId(),
+                day: day,
+                month: calCtx.month,
+                year: calCtx.year,
+                title: title
+            });
+
+            document.getElementById('evtTitle').value = '';
+            renderCalendarGrid();
+            updateDashboard();
+            showToast('Evento registrado para ' + day + '/' + (calCtx.month + 1) + '/' + calCtx.year, 'success');
+        }
+
+        // ========== ESTOQUE ==========
+        function renderStock() {
+            const tbody = document.getElementById('stockTableBody');
+            tbody.innerHTML = data.stock.map(item => {
+                let badge = 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
+                let statusText = 'Abastecido';
+                if (item.qty <= 0) { badge = 'bg-red-500/10 text-red-400 border border-red-500/20';
+                    statusText = 'ESGOTADO'; } else if (item.qty <= 3) { badge =
+                        'bg-amber-500/10 text-amber-400 border border-amber-500/20';
+                    statusText = 'Baixo Nível'; }
+                return `
+                    <tr>
+                        <td class="py-3 font-medium text-white">${item.name}</td>
+                        <td class="py-3 font-bold">${item.qty} un</td>
+                        <td class="py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${badge}">${statusText}</span></td>
+                        <td class="py-3 text-right">
+                            <button onclick="changeStock(${item.id}, 1)" class="px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-gray-300 font-bold hover:bg-white/10">+</button>
+                            <button onclick="changeStock(${item.id}, -1)" class="px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-gray-300 font-bold hover:bg-white/10 ml-1">-</button>
+                            <button onclick="deleteStock(${item.id})" class="text-red-400 ml-2 text-[11px] hover:underline">Deletar</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function addStockItem() {
+            const name = document.getElementById('stockName').value.trim();
+            const qty = parseInt(document.getElementById('stockQty').value) || 0;
+            if (!name) return;
+            data.stock.push({ id: generateId(), name, qty });
+            document.getElementById('stockName').value = '';
+            document.getElementById('stockQty').value = '';
+            renderStock();
+            updateDashboard();
+        }
+
+        function changeStock(id, val) {
+            const item = data.stock.find(s => s.id === id);
+            if (item) { item.qty = Math.max(0, item.qty + val);
+                renderStock();
+                updateDashboard(); }
+        }
+
+        function deleteStock(id) { data.stock = data.stock.filter(s => s.id !== id);
+            renderStock();
+            updateDashboard(); }
+
+        // ========== CLIENTES ==========
+        function renderClients() {
+            const container = document.getElementById('clientList');
+            document.getElementById('clientCount').textContent = data.clients.length + ' registro(s)';
+            if (data.clients.length === 0) { container.innerHTML =
+                    `<p class="text-center text-xs text-gray-500 border border-dashed border-white/5 py-8 rounded-xl">Nenhum lead arquivado.</p>`; return; }
+            container.innerHTML = data.clients.map(c => `
+                <div class="flex items-start sm:items-center justify-between p-4 bg-[#18181b] border border-white/5 rounded-xl gap-4 flex-col sm:flex-row hover:border-white/10 transition">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h4 class="text-sm font-bold text-white">${c.name}</h4>
+                            <span class="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-[9px] font-bold uppercase rounded border border-blue-500/20">${c.stage || 'Briefing'}</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1 font-medium">📱 Wpp: ${c.phone || '—'} | 📸 Insta: ${c.insta || '—'}</p>
+                        ${c.obs ? `<p class="text-xs text-gray-500 bg-black/20 border border-white/[0.02] p-2 rounded-lg mt-1.5">${c.obs}</p>` : ''}
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0 self-end sm:self-auto">
+                        <button onclick="editClient(${c.id})" class="p-2 text-blue-400 hover:bg-blue-500/5 rounded-lg"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                        <button onclick="deleteClient(${c.id})" class="p-2 text-red-400 hover:bg-red-500/5 rounded-lg"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function addClient() {
+            const name = document.getElementById('clientName').value.trim();
+            if (!name) return;
+            data.clients.push({
+                id: generateId(),
+                name,
+                phone: document.getElementById('clientPhone').value.trim(),
+                stage: document.getElementById('clientStage').value,
+                insta: document.getElementById('clientInsta').value.trim(),
+                obs: document.getElementById('clientObs').value.trim()
+            });
+            ['clientName', 'clientPhone', 'clientInsta', 'clientObs'].forEach(id => document.getElementById(id).value = '');
+            renderClients();
+            updateDashboard();
+            showToast('Ficha cadastrada.', 'success');
+        }
+
+        function deleteClient(id) { data.clients = data.clients.filter(c => c.id !== id);
+            renderClients();
+            updateDashboard(); }
+
+        function editClient(id) {
+            const c = data.clients.find(x => x.id === id);
+            if (!c) return;
+            document.getElementById('clientName').value = c.name;
+            document.getElementById('clientPhone').value = c.phone;
+            document.getElementById('clientStage').value = c.stage || 'Briefing';
+            document.getElementById('clientInsta').value = c.insta;
+            document.getElementById('clientObs').value = c.obs;
+            data.clients = data.clients.filter(x => x.id !== id);
+            const btn = document.getElementById('addClientBtn');
+            btn.textContent = '🔄 Atualizar Cadastro';
+            btn.onclick = function() { btn.textContent = '+ Adicionar ao CRM';
+                btn.onclick = addClient;
+                addClient(); };
+        }
+
+        // ========== PORTFÓLIO ==========
+        function renderPortfolio() {
+            document.getElementById('portfolioCount').textContent = data.portfolio.length + ' registro(s)';
+            document.getElementById('portfolioList').innerHTML = data.portfolio.map(p => `
+                <div class="p-4 bg-[#18181b] border border-white/5 rounded-xl flex justify-between items-center text-xs">
+                    <div><span class="font-bold text-white text-sm block">${p.title}</span><span class="text-blue-400 font-semibold block mt-0.5 text-[10px]">${p.style}</span></div>
+                    <button onclick="deletePort(${p.id})" class="text-red-400">Excluir</button>
+                </div>
+            `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Galeria vazia.</p>';
+        }
+
+        function addPortfolio() {
+            const title = document.getElementById('portTitle').value.trim();
+            if (!title) return;
+            data.portfolio.push({ id: generateId(), title, style: document.getElementById('portStyle').value, desc: document
+                    .getElementById('portDesc').value.trim() });
+            document.getElementById('portTitle').value = '';
+            document.getElementById('portDesc').value = '';
+            renderPortfolio();
+            updateDashboard();
+        }
+
+        function deletePort(id) { data.portfolio = data.portfolio.filter(p => p.id !== id);
+            renderPortfolio();
+            updateDashboard(); }
+
+        // ========== CONCORRENTES ==========
+        function renderCompetitors() {
+            document.getElementById('competitorCount').textContent = data.competitors.length + ' alvo(s)';
+            document.getElementById('competitorList').innerHTML = data.competitors.map(c => `
+                <div class="p-4 bg-[#18181b] border border-white/5 rounded-xl text-xs flex justify-between">
+                    <div><p class="font-bold text-white">${c.name} (${c.insta})</p><p class="text-gray-400 mt-1">📍 Região: ${c.location}</p></div>
+                    <button onclick="deleteComp(${c.id})" class="text-red-400">Remover</button>
+                </div>
+            `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Nenhum estúdio concorrente mapeado.</p>';
+        }
+
+        function addCompetitor() {
+            const name = document.getElementById('compName').value.trim();
+            if (!name) return;
+            data.competitors.push({ id: generateId(), name, insta: document.getElementById('compInsta').value.trim(),
+                location: document.getElementById('compLocation').value.trim(), obs: document.getElementById('compObs')
+                    .value.trim() });
+            ['compName', 'compInsta', 'compLocation', 'compObs'].forEach(id => document.getElementById(id).value = '');
+            renderCompetitors();
+            updateDashboard();
+        }
+
+        function deleteComp(id) { data.competitors = data.competitors.filter(c => c.id !== id);
+            renderCompetitors();
+            updateDashboard(); }
+
+        // ========== CAMPANHAS ==========
+        function renderCampaigns() {
+            document.getElementById('campaignCount').textContent = data.campaigns.length + ' ativa(s)';
+            document.getElementById('campaignList').innerHTML = data.campaigns.map(c => `
+                <div class="p-4 bg-[#18181b] border border-white/5 rounded-xl text-xs space-y-2">
+                    <div class="flex justify-between font-bold text-white"><span>${c.name} [${c.status}]</span><button onclick="deleteCamp(${c.id})" class="text-red-400 font-normal">Remover</button></div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="bg-black/20 p-2 rounded">Investido: <span class="text-white font-bold">${formatCurrency(c.invest)}</span></div>
+                        <div class="bg-black/20 p-2 rounded">Retorno: <span class="text-emerald-400 font-bold">${formatCurrency(c.return)}</span></div>
+                    </div>
+                </div>
+            `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Nenhuma campanha orçamentada.</p>';
+        }
+
+        function addCampaign() {
+            const name = document.getElementById('campName').value.trim();
+            if (!name) return;
+            data.campaigns.push({ id: generateId(), name, status: document.getElementById('campStatus').value, invest: parseFloat(
+                    document.getElementById('campInvest').value) || 0, return: parseFloat(document.getElementById(
+                    'campReturn').value) || 0, desc: document.getElementById('campDesc').value.trim() });
+            ['campName', 'campInvest', 'campReturn', 'campDesc'].forEach(id => document.getElementById(id).value = '');
+            renderCampaigns();
+            updateDashboard();
+        }
+
+        function deleteCamp(id) { data.campaigns = data.campaigns.filter(c => c.id !== id);
+            renderCampaigns();
+            updateDashboard(); }
+
+        // ========== FINANCEIRO ==========
+        function renderFinancial() {
+            const totalIncome = data.financial.filter(f => f.type === 'Entrada').reduce((sum, f) => sum + (f.amount || 0), 0);
+            const totalExpense = data.financial.filter(f => f.type === 'Saída').reduce((sum, f) => sum + (f.amount || 0), 0);
+            const balance = totalIncome - totalExpense;
+
+            document.getElementById('financialList').innerHTML = data.financial.map(f => `
+                <div class="flex justify-between items-center p-3 bg-[#18181b] border border-white/5 rounded-xl text-xs">
+                    <div><span class="font-bold text-white">${f.desc}</span></div>
+                    <div class="flex items-center gap-3"><span class="font-mono font-bold ${f.type==='Entrada'?'text-emerald-400':'text-red-400'}">${formatCurrency(f.amount)}</span><button onclick="deleteFin(${f.id})" class="text-gray-600 hover:text-red-400">X</button></div>
+                </div>
+            `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Sem movimentações fiscais.</p>';
+
+            document.getElementById('financialSummary').innerHTML = `
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4 pt-4 border-t border-white/5 text-center text-xs">
+                    <div class="bg-black/20 p-3 rounded-xl border border-white/5">Entradas: <span class="text-emerald-400 font-bold block text-sm mt-0.5">${formatCurrency(totalIncome)}</span></div>
+                    <div class="bg-black/20 p-3 rounded-xl border border-white/5">Despesas: <span class="text-red-400 font-bold block text-sm mt-0.5">${formatCurrency(totalExpense)}</span></div>
+                    <div class="gold-gradient p-3 rounded-xl text-black font-bold">Saldo Bruto: <span class="block text-sm font-black mt-0.5">${formatCurrency(balance)}</span></div>
+                </div>
+            `;
+        }
+
+        function addFinancial() {
+            const amount = parseFloat(document.getElementById('finAmount').value);
+            const desc = document.getElementById('finDesc').value.trim();
+            if (!amount || !desc) return;
+            data.financial.push({ id: generateId(), type: document.getElementById('finType').value, amount, desc });
+            document.getElementById('finAmount').value = '';
+            document.getElementById('finDesc').value = '';
+            renderFinancial();
+            updateDashboard();
+        }
+
+        function deleteFin(id) { data.financial = data.financial.filter(f => f.id !== id);
+            renderFinancial();
+            updateDashboard(); }
+
+        // ========== CONFIGURAÇÕES ==========
+        function updateVideoUrl() {
+            const url = document.getElementById('videoUrl').value.trim();
+            if (url) {
+                data.settings.videoUrl = url;
+                updateVideoDisplay();
+                showToast('Link do vídeo atualizado.', 'success');
+            }
+        }
+
+        // ========== RECURSOS IA - PROMPT ==========
+        function setIACategory(category) {
+            document.getElementById('iaCategoryPrompt').value = category;
+            document.getElementById('iaCategoryDisplay').textContent = `Categoria selecionada: ${category}`;
+            // Estiliza o botão clicado
+            document.querySelectorAll('#iaCategoryList button').forEach(btn => {
+                btn.classList.remove('bg-fuchsia-500/20', 'border-fuchsia-500/40', 'text-fuchsia-300');
+            });
+            // Não temos como mapear o botão exato facilmente aqui, então apenas mostramos no display
+        }
+
+        function generateAndPreviewPrompt() {
+            const category = document.getElementById('iaCategoryPrompt').value.trim();
+            const custom = document.getElementById('iaCustomPrompt').value.trim();
+            let fullPrompt = '';
+
+            if (category) {
+                fullPrompt += `CATEGORIA: ${category}\n\n`;
+            }
+            if (custom) {
+                fullPrompt += `DESCRIÇÃO PERSONALIZADA:\n${custom}\n\n`;
+            }
+            fullPrompt += `--- DADOS COMPLETOS DO SISTEMA (Key.json) ---\n`;
+            fullPrompt += JSON.stringify(data, null, 2);
+
+            document.getElementById('iaPromptPreview').value = fullPrompt;
+            showToast('Prompt gerado com sucesso!', 'success');
+        }
+
+        function downloadPromptTXT() {
+            const preview = document.getElementById('iaPromptPreview').value;
+            if (!preview) {
+                showToast('Gere o prompt primeiro antes de baixar.', 'error');
+                return;
+            }
+            const blob = new Blob([preview], { type: 'text/plain;charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'prompt_ia_savannah.txt';
+            a.click();
+            showToast('Prompt baixado com sucesso!', 'success');
+        }
+
+        function clearIAPrompt() {
+            document.getElementById('iaCategoryPrompt').value = '';
+            document.getElementById('iaCategoryDisplay').textContent = 'Nenhuma categoria selecionada';
+            document.getElementById('iaCustomPrompt').value = '';
+            document.getElementById('iaPromptPreview').value = '';
+            document.querySelectorAll('#iaCategoryList button').forEach(btn => {
+                btn.classList.remove('bg-fuchsia-500/20', 'border-fuchsia-500/40', 'text-fuchsia-300');
+            });
+            showToast('Campos limpos.', 'success');
+        }
+
+        // ========== IMPORT / EXPORT JSON ==========
+        function copyJSON() {
+            navigator.clipboard.writeText(JSON.stringify(data, null, 2)).then(() => showToast('JSON copiado.', 'success'));
+        }
+
+        function downloadJSON() {
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'Key.json';
+            a.click();
+            showToast('Backup Key.json baixado.', 'success');
+        }
+
+        function importJSON() {
+            const file = document.getElementById('importFile').files[0];
+            if (!file) return;
+            const r = new FileReader();
+            r.onload = function(e) {
+                try {
+                    const p = JSON.parse(e.target.result);
+                    if (p.clients) { data = p;
+                        updateUI();
+                        showToast('Sincronização injetada.', 'success'); }
+                } catch (err) { showToast('Erro estrutural JSON.', 'error'); }
+            };
+            r.readAsText(file);
+        }
+
+        // ========== INICIALIZAÇÃO ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animar letras do login
+            const spans = document.querySelectorAll('#titleLetters span');
+            spans.forEach((span, i) => {
+                span.style.animationDelay = (i * 0.08) + 's';
+            });
+
+            document.getElementById('loginPassword').addEventListener('keypress', (e) => { if (e.key === 'Enter') login(); });
+            updateVideoDisplay();
+            renderCalendarGrid();
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
