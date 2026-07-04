@@ -15,6 +15,7 @@
             --bg-secondary: #121212;
             --border-color: rgba(255, 255, 255, 0.06);
             --gold: #c9a96e;
+            --version: "1.4";
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -164,8 +165,9 @@
             </button>
         </div>
 
-        <div class="mt-6 text-center border-t border-white/5 pt-4">
+        <div class="mt-6 text-center border-t border-white/5 pt-4 flex justify-between items-center">
             <p class="text-[10px] text-gray-500 font-medium tracking-wide">Igor Freire - Gestor de Marketing</p>
+            <span class="text-[10px] text-gray-600 font-mono">v1.4</span>
         </div>
     </div>
 
@@ -523,6 +525,7 @@
         // ========== CONFIGURAÇÕES ==========
         const DEFAULT_PASS = 'savannah2026';
         const DEFAULT_VIDEO_URL = 'https://youtu.be/dQw4w9WgXcQ';
+        const VERSION = '1.4';
 
         // Contexto do calendário (mês/ano)
         const now = new Date();
@@ -561,6 +564,18 @@
             toast._timer = setTimeout(() => { toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4'); }, 3000);
         }
 
+        // ========== FUNÇÕES DE SCROLL E ICONES ==========
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function refreshIcons() {
+            // Aguarda o DOM atualizar e recria os ícones
+            setTimeout(() => {
+                lucide.createIcons();
+            }, 100);
+        }
+
         // ========== LOGIN / LOGOUT ==========
         function login() {
             const password = document.getElementById('loginPassword').value.trim();
@@ -572,6 +587,8 @@
                 document.getElementById('loginPassword').value = '';
                 showHub();
                 updateUI();
+                // Força ícones após login
+                setTimeout(() => lucide.createIcons(), 150);
             } else {
                 errorEl.textContent = 'Senha incorreta. Tente novamente.';
                 errorEl.style.display = 'block';
@@ -592,9 +609,8 @@
             document.getElementById('area-config').style.display = 'none';
             document.getElementById('area-ia').style.display = 'none';
             updateVideoDisplay();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            // Recria ícones do hub
-            lucide.createIcons();
+            scrollToTop();
+            refreshIcons();
         }
 
         function showArea(area) {
@@ -605,12 +621,11 @@
             document.getElementById('area-config').style.display = area === 'config' ? 'block' : 'none';
             document.getElementById('area-ia').style.display = area === 'ia' ? 'block' : 'none';
             if (area === 'ia') updateVideoDisplay();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            // Força a atualização dos ícones em todas as áreas
-            setTimeout(() => {
-                lucide.createIcons();
-            }, 50);
+            scrollToTop();
+            // Atualiza os dados da área
             updateUI();
+            // Recria ícones com atraso
+            refreshIcons();
         }
 
         // ========== ATUALIZAR EXIBIÇÃO DO VÍDEO ==========
@@ -642,7 +657,8 @@
             renderStock();
             renderCalendarGrid();
             updateDashboard();
-            lucide.createIcons();
+            // Garantir ícones após renderização
+            setTimeout(() => lucide.createIcons(), 50);
         }
 
         // ========== DASHBOARD ==========
@@ -834,7 +850,8 @@
                     </div>
                 </div>
             `).join('');
-            lucide.createIcons();
+            // Recria ícones após renderizar
+            setTimeout(() => lucide.createIcons(), 50);
         }
 
         function addClient() {
@@ -1019,14 +1036,12 @@
         function setIACategory(category) {
             document.getElementById('iaCategoryPrompt').value = category;
             document.getElementById('iaCategoryDisplay').textContent = `Categoria selecionada: ${category}`;
-            // Limpa seleção anterior nos botões
             document.querySelectorAll('#iaCategoryList button').forEach(btn => {
                 btn.classList.remove('bg-fuchsia-500/20', 'border-fuchsia-500/40', 'text-fuchsia-300');
             });
-            // Marca o botão clicado (encontrado pelo texto)
             const btns = document.querySelectorAll('#iaCategoryList button');
             btns.forEach(btn => {
-                if (btn.textContent.trim() === category.split(' ')[0]) { // simplificado
+                if (btn.textContent.trim() === category.split(' ')[0]) {
                     btn.classList.add('bg-fuchsia-500/20', 'border-fuchsia-500/40', 'text-fuchsia-300');
                 }
             });
@@ -1115,7 +1130,8 @@
             document.getElementById('loginPassword').addEventListener('keypress', (e) => { if (e.key === 'Enter') login(); });
             updateVideoDisplay();
             renderCalendarGrid();
-            lucide.createIcons();
+            // Primeira chamada de ícones
+            setTimeout(() => lucide.createIcons(), 100);
         });
     </script>
 </body>
