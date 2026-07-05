@@ -130,7 +130,6 @@
             animation: wave 2s ease-in-out infinite;
         }
 
-        /* Sub-abas da Tatuagem */
         .sub-tab-btn {
             transition: all 0.2s;
         }
@@ -144,6 +143,123 @@
         ::-webkit-scrollbar-track { background: var(--bg-primary); }
         ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+        /* ===== NOVOS ESTILOS ===== */
+        .badge-stage {
+            padding: 0.1rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-stage.briefing { background: #3b3b3b; color: #aaa; }
+        .badge-stage.desenho { background: #1e3a5f; color: #7ab7ff; }
+        .badge-stage.ativo { background: #1e4a2b; color: #6fcf97; }
+        .badge-stage.pausado { background: #5f3a1e; color: #f2a365; }
+        .badge-stage.concluido { background: #1a3a3a; color: #66d9d9; }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            padding: 1rem;
+        }
+        .modal-content {
+            background: #1a1a1a;
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            max-width: 500px;
+            width: 100%;
+            padding: 1.5rem;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            animation: fadeInUp 0.3s ease;
+        }
+        .modal-content h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .flash-item {
+            transition: background 0.3s;
+        }
+        .flash-item.added {
+            background: rgba(201, 169, 110, 0.15);
+        }
+
+        .event-item {
+            background: rgba(255,255,255,0.03);
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            margin-top: 2px;
+        }
+        .event-item .evt-actions button {
+            background: transparent;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            padding: 0 4px;
+        }
+        .event-item .evt-actions button:hover { color: white; }
+        .event-item .evt-actions .del { color: #e74c3c; }
+        .event-item .evt-actions .del:hover { color: #ff6b6b; }
+
+        .cal-day-occupied .day-number {
+            color: var(--gold) !important;
+            font-weight: 700;
+        }
+        .cal-day-occupied::after {
+            content: "•";
+            color: var(--gold);
+            font-size: 0.8rem;
+            display: block;
+            text-align: center;
+            line-height: 0.5;
+        }
+        .cal-day-past {
+            opacity: 0.4;
+        }
+
+        .thumb-img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .historico-filtro {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .historico-filtro button {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid transparent;
+            border-radius: 20px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.65rem;
+            color: #aaa;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .historico-filtro button.active {
+            background: var(--gold);
+            color: black;
+            font-weight: 600;
+        }
+        .historico-filtro button:hover {
+            border-color: var(--gold);
+        }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-0 md:p-4">
@@ -175,37 +291,31 @@
 
         <div class="mt-6 text-center border-t border-white/5 pt-4 flex justify-between items-center">
             <p class="text-[10px] text-gray-500 font-medium tracking-wide">Igor Freire - Gestor de Marketing</p>
-            <span class="text-[10px] font-mono font-bold text-[#c9a96e]">v0.9.12</span>
+            <span class="text-[10px] font-mono font-bold text-[#c9a96e]">v1.0.0</span>
         </div>
     </div>
 
-    <!-- ========== APP (pós-login) ========== -->
+    <!-- ========== APP ========== -->
     <div id="app" class="w-full max-w-[1440px] min-h-[90vh] hidden flex-col">
 
-        <!-- ===== PÁGINA DE NOVIDADES (CHANGELOG) ===== -->
+        <!-- ===== CHANGELOG ===== -->
         <div id="changelog" class="flex-1 flex items-center justify-center p-4">
             <div class="glass-card p-8 rounded-2xl max-w-xl w-full border border-white/5 text-center">
                 <div class="flex items-center justify-center gap-3 mb-4">
                     <span class="text-3xl">🎉</span>
-                    <h2 class="text-2xl font-bold text-[#c9a96e]">Novidades da versão 0.9.12</h2>
+                    <h2 class="text-2xl font-bold text-[#c9a96e]">Novidades da versão 1.0.0</h2>
                 </div>
                 <div class="text-left space-y-3 text-sm text-gray-300 leading-relaxed">
-                    <p>📅 <strong>Sub-abas na área Tatuagem</strong> – organize melhor suas ferramentas.</p>
-                    <p>⏰ <strong>Lembretes inteligentes</strong> – defina dias para contatar clientes após a conclusão da tatuagem, e o sistema agenda automaticamente no calendário.</p>
-                    <p>📋 <strong>Histórico de ações</strong> – veja as últimas alterações feitas no sistema.</p>
-                    <p>🔔 <strong>Alarme visual</strong> – lembretes pendentes são destacados para você não esquecer.</p>
-                    <p>📦 <strong>Importar Key.json</strong> – agora você pode restaurar seu backup direto aqui.</p>
-                </div>
-                <!-- Importar Key.json no changelog -->
-                <div class="mt-6 pt-4 border-t border-white/5">
-                    <p class="text-xs text-gray-400 mb-2">Importe seu arquivo <strong>Key.json</strong> para restaurar todos os dados:</p>
-                    <div class="flex items-center justify-center gap-3">
-                        <input type="file" id="importFileChangelog" accept=".json" class="hidden" onchange="importJSONFromChangelog()" />
-                        <button onclick="document.getElementById('importFileChangelog').click()" class="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-xs font-semibold text-gray-300 hover:bg-white/10 transition flex items-center gap-2">
-                            <i data-lucide="upload" class="w-3.5 h-3.5"></i> Selecionar Key.json
-                        </button>
-                        <span class="text-xs text-gray-400" id="importFileNameChangelog"></span>
-                    </div>
+                    <p>🔍 <strong>Busca instantânea</strong> – filtre clientes em tempo real.</p>
+                    <p>✏️ <strong>Edição verdadeira</strong> – corrija lançamentos, clientes, lembretes e eventos sem deletar.</p>
+                    <p>📊 <strong>Gráfico de evolução mensal</strong> – veja o faturamento dos últimos 6 meses.</p>
+                    <p>📅 <strong>Eventos editáveis</strong> – clique no dia para gerenciar agendamentos.</p>
+                    <p>🛡️ <strong>Confirmação de exclusão</strong> – segurança em todas as remoções.</p>
+                    <p>📌 <strong>Estágios com cores</strong> – visual rápido do funil de clientes.</p>
+                    <p>🖼️ <strong>Miniaturas no portfólio</strong> – insira links de imagens.</p>
+                    <p>⏰ <strong>Lembretes ordenados por urgência</strong> e botão "Adiar".</p>
+                    <p>🧹 <strong>Histórico com filtro</strong> e limpeza seletiva.</p>
+                    <p>📋 <strong>Copiar prompt com um clique</strong> na área IA.</p>
                 </div>
                 <button onclick="goToHub()" class="mt-6 px-8 py-3 gold-gradient text-black font-bold rounded-xl text-sm hover:opacity-90 transition">
                     Ir para o Painel
@@ -213,7 +323,7 @@
             </div>
         </div>
 
-        <!-- ===== HUB INICIAL ===== -->
+        <!-- ===== HUB ===== -->
         <div id="hub" class="hidden flex-1 flex-col items-center justify-center gap-8 py-8">
             <h2 class="text-3xl font-bold text-center">Escolha sua área de trabalho</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-5xl" id="hubCards">
@@ -238,7 +348,6 @@
                     <p class="text-xs text-gray-400 mt-1">Vídeo Criativo e Geração de Prompts</p>
                 </div>
             </div>
-            <!-- Botão de download do Key.json -->
             <button onclick="downloadJSON()" class="mt-2 px-5 py-2 bg-white/5 border border-white/10 rounded-xl text-xs font-medium text-gray-300 hover:bg-white/10 transition flex items-center gap-2">
                 <i data-lucide="download" class="w-3.5 h-3.5"></i> Baixar Key.json
             </button>
@@ -281,13 +390,23 @@
                     <div class="mt-6 border-t border-white/5 pt-4">
                         <p id="dashSummary" class="text-xs text-gray-400 leading-relaxed"></p>
                     </div>
+                    <!-- NOVO: Gráfico de evolução mensal -->
+                    <div class="mt-6 border-t border-white/5 pt-4">
+                        <p class="text-xs font-semibold text-gray-400 mb-2">📊 Evolução mensal (últimos 6 meses)</p>
+                        <div id="monthlyChart" class="flex items-end gap-1 h-24 w-full"></div>
+                    </div>
+                    <!-- NOVO: Alertas inteligentes -->
+                    <div id="smartAlerts" class="mt-4 space-y-1 text-xs"></div>
                 </div>
 
                 <!-- Financeiro -->
                 <div class="glass-card p-6 rounded-2xl border border-white/5">
-                    <div class="flex justify-between items-center mb-4">
+                    <div class="flex justify-between items-center mb-4 flex-wrap gap-2">
                         <h3 class="font-bold text-base flex items-center gap-2"><i data-lucide="dollar-sign" class="w-5 h-5 text-emerald-400"></i> Financeiro</h3>
-                        <span class="text-xs text-gray-400" id="financialCount">0 transações</span>
+                        <div class="flex items-center gap-2">
+                            <input type="month" id="finFilterMonth" onchange="renderFinancial()" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-2 py-1 text-xs text-white" />
+                            <span class="text-xs text-gray-400" id="financialCount">0 transações</span>
+                        </div>
                     </div>
                     <div id="financialFormContainer" class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
                         <select id="finType" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm"><option>Entrada</option><option>Saída</option></select>
@@ -301,7 +420,7 @@
             </div>
         </div>
 
-        <!-- ===== ÁREA TATUAGEM (COM SUB-ABAS) ===== -->
+        <!-- ===== ÁREA TATUAGEM ===== -->
         <div id="area-tatuagem" class="hidden flex-1 space-y-6">
             <div class="flex items-center justify-between">
                 <h2 class="text-2xl font-bold text-blue-400 flex items-center gap-2"><i data-lucide="palette" class="w-6 h-6"></i> Área Tatuagem</h2>
@@ -361,9 +480,12 @@
                 <!-- SUB-ABA CLIENTES -->
                 <div id="sub-clientes" class="sub-content hidden">
                     <div class="glass-card p-6 rounded-2xl border border-white/5">
-                        <div class="flex justify-between items-center mb-4">
+                        <div class="flex justify-between items-center mb-4 flex-wrap gap-2">
                             <h3 class="font-bold text-base flex items-center gap-2"><i data-lucide="users" class="w-5 h-5 text-[#c9a96e]"></i> CRM Clientes</h3>
-                            <span class="text-xs text-gray-400" id="clientCount">0 clientes</span>
+                            <div class="flex items-center gap-2">
+                                <input type="text" id="clientSearch" placeholder="🔍 Buscar..." oninput="renderClients()" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white" />
+                                <span class="text-xs text-gray-400" id="clientCount">0 clientes</span>
+                            </div>
                         </div>
                         <div id="clientFormContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
                             <input type="text" id="clientName" placeholder="Nome *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
@@ -381,25 +503,36 @@
                 <div id="sub-estoque" class="sub-content hidden">
                     <div class="glass-card p-6 rounded-2xl border border-white/5">
                         <h3 class="font-bold text-base flex items-center gap-2 mb-4"><i data-lucide="package-open" class="w-5 h-5 text-blue-400"></i> Estoque</h3>
-                        <div id="stockFormContainer" class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
+                        <div id="stockFormContainer" class="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
                             <input type="text" id="stockName" placeholder="Insumo *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
                             <input type="number" id="stockQty" placeholder="Quantidade" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                            <input type="number" id="stockMin" placeholder="Qtd. mínima" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
                             <button onclick="addStockItem()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl py-2 transition">+ Cadastrar</button>
                         </div>
-                        <div class="overflow-x-auto"><table class="w-full text-left text-xs"><thead><tr class="text-gray-400 border-b border-white/5"><th class="pb-2">Insumo</th><th class="pb-2">Qtd</th><th class="pb-2">Status</th><th class="pb-2 text-right">Ações</th></tr></thead><tbody id="stockTableBody"></tbody></table></div>
+                        <div class="overflow-x-auto"><table class="w-full text-left text-xs"><thead><tr class="text-gray-400 border-b border-white/5"><th class="pb-2">Insumo</th><th class="pb-2">Qtd</th><th class="pb-2">Mín.</th><th class="pb-2">Status</th><th class="pb-2">Últ. compra</th><th class="pb-2 text-right">Ações</th></tr></thead><tbody id="stockTableBody"></tbody></table></div>
                     </div>
                 </div>
 
                 <!-- SUB-ABA PORTFÓLIO -->
                 <div id="sub-portfolio" class="sub-content hidden">
                     <div class="glass-card p-6 rounded-2xl border border-white/5">
-                        <div class="flex justify-between items-center mb-4">
+                        <div class="flex justify-between items-center mb-4 flex-wrap gap-2">
                             <h3 class="font-bold text-base flex items-center gap-2"><i data-lucide="palette" class="w-5 h-5 text-blue-400"></i> Portfólio</h3>
-                            <span class="text-xs text-gray-400" id="portfolioCount">0 artes</span>
+                            <div class="flex items-center gap-2">
+                                <select id="portfolioFilter" onchange="renderPortfolio()" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-2 py-1 text-xs">
+                                    <option value="todos">Todos</option>
+                                    <option value="Realismo">Realismo</option>
+                                    <option value="Blackwork">Blackwork</option>
+                                    <option value="Fine Line">Fine Line</option>
+                                    <option value="Old School">Old School</option>
+                                </select>
+                                <span class="text-xs text-gray-400" id="portfolioCount">0 artes</span>
+                            </div>
                         </div>
                         <div id="portfolioFormContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
                             <input type="text" id="portTitle" placeholder="Título *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
                             <select id="portStyle" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm"><option>Realismo</option><option>Blackwork</option><option>Fine Line</option><option>Old School</option></select>
+                            <input type="text" id="portImage" placeholder="Link da imagem (opcional)" class="md:col-span-2 bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
                             <textarea id="portDesc" placeholder="Ficha técnica" class="md:col-span-2 bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm h-16"></textarea>
                             <button onclick="addPortfolio()" class="md:col-span-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl py-2 transition">+ Incorporar</button>
                         </div>
@@ -424,7 +557,19 @@
                 <!-- SUB-ABA HISTÓRICO -->
                 <div id="sub-historico" class="sub-content hidden">
                     <div class="glass-card p-6 rounded-2xl border border-white/5">
-                        <h3 class="font-bold text-base flex items-center gap-2 mb-4"><i data-lucide="clock" class="w-5 h-5 text-blue-400"></i> Histórico de Ações</h3>
+                        <div class="flex justify-between items-center mb-4 flex-wrap gap-2">
+                            <h3 class="font-bold text-base flex items-center gap-2"><i data-lucide="clock" class="w-5 h-5 text-blue-400"></i> Histórico de Ações</h3>
+                            <div class="flex items-center gap-2">
+                                <div class="historico-filtro" id="historicoFiltro">
+                                    <button class="active" data-modulo="todos" onclick="setHistoricoFiltro('todos')">Todos</button>
+                                    <button data-modulo="clientes" onclick="setHistoricoFiltro('clientes')">Clientes</button>
+                                    <button data-modulo="estoque" onclick="setHistoricoFiltro('estoque')">Estoque</button>
+                                    <button data-modulo="financeiro" onclick="setHistoricoFiltro('financeiro')">Financeiro</button>
+                                    <button data-modulo="outros" onclick="setHistoricoFiltro('outros')">Outros</button>
+                                </div>
+                                <button onclick="limparHistorico()" class="bg-red-600/20 hover:bg-red-600/30 text-red-400 text-[10px] font-bold px-3 py-1 rounded-xl border border-red-500/20 transition">Limpar</button>
+                            </div>
+                        </div>
                         <div id="historicoList" class="space-y-2 max-h-96 overflow-y-auto"></div>
                     </div>
                 </div>
@@ -453,6 +598,8 @@
                         <button onclick="addCompetitor()" class="md:col-span-3 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold rounded-xl py-2 transition">+ Monitorar</button>
                     </div>
                     <div id="competitorList" class="space-y-3"></div>
+                    <!-- NOVO: Resumo de concorrentes -->
+                    <div id="competitorSummary" class="mt-4 text-xs text-gray-400 border-t border-white/5 pt-4"></div>
                 </div>
 
                 <div class="glass-card p-6 rounded-2xl border border-white/5">
@@ -473,7 +620,7 @@
             </div>
         </div>
 
-        <!-- ===== ÁREA RECURSOS IA ===== -->
+        <!-- ===== ÁREA IA ===== -->
         <div id="area-ia" class="hidden flex-1 space-y-6">
             <div class="flex items-center justify-between">
                 <h2 class="text-2xl font-bold text-fuchsia-400 flex items-center gap-2"><i data-lucide="sparkles" class="w-6 h-6"></i> Recursos IA</h2>
@@ -521,11 +668,17 @@
                         <div class="flex flex-wrap gap-3">
                             <button onclick="generateAndPreviewPrompt()" class="px-5 py-2.5 bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold text-xs rounded-xl transition flex items-center gap-2"><i data-lucide="eye" class="w-3.5 h-3.5"></i> Visualizar Prompt</button>
                             <button onclick="downloadPromptTXT()" class="px-5 py-2.5 gold-gradient text-black font-bold text-xs rounded-xl transition flex items-center gap-2"><i data-lucide="file-text" class="w-3.5 h-3.5"></i> Baixar Prompt (.txt)</button>
+                            <button onclick="copyPrompt()" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-white/10 text-white font-bold text-xs rounded-xl transition flex items-center gap-2"><i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar</button>
                             <button onclick="clearIAPrompt()" class="px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-xs text-gray-400 hover:text-white transition">Limpar</button>
                         </div>
                         <div class="mt-4 border-t border-white/5 pt-4">
                             <label class="block text-[11px] font-semibold text-gray-400 uppercase mb-1.5">Prévia do Prompt Gerado</label>
                             <textarea id="iaPromptPreview" readonly class="w-full bg-[#0a0a0a] border border-white/5 rounded-xl px-3 py-2 text-xs font-mono text-[#c9a96e] h-64 resize-y"></textarea>
+                        </div>
+                        <!-- NOVO: Histórico de prompts -->
+                        <div class="border-t border-white/5 pt-4">
+                            <p class="text-xs font-semibold text-gray-400 mb-2">📜 Histórico de Prompts</p>
+                            <div id="iaPromptHistory" class="space-y-1 max-h-32 overflow-y-auto"></div>
                         </div>
                     </div>
                 </div>
@@ -540,7 +693,7 @@
         // ========== CONFIGURAÇÕES ==========
         const DEFAULT_PASS = 'savannah2026';
         const DEFAULT_VIDEO_URL = 'https://youtu.be/dQw4w9WgXcQ';
-        const VERSION = '0.9.12';
+        const VERSION = '1.0.0';
 
         const now = new Date();
         let calCtx = { month: now.getMonth(), year: now.getFullYear() };
@@ -552,9 +705,9 @@
             campaigns: [],
             financial: [],
             stock: [
-                { id: 1, name: 'Cartuchos 3RL', qty: 14 },
-                { id: 2, name: 'Tintas Dynamic Black', qty: 2 },
-                { id: 3, name: 'Plástico Filme Protetor', qty: 0 }
+                { id: 1, name: 'Cartuchos 3RL', qty: 14, min: 5, lastBuy: Date.now() - 30*24*60*60*1000 },
+                { id: 2, name: 'Tintas Dynamic Black', qty: 2, min: 3, lastBuy: Date.now() - 15*24*60*60*1000 },
+                { id: 3, name: 'Plástico Filme Protetor', qty: 0, min: 2, lastBuy: Date.now() - 60*24*60*60*1000 }
             ],
             calendarEvents: [
                 { id: 1, day: 5, title: 'Sessão Mariana (Braço)', month: now.getMonth(), year: now.getFullYear() },
@@ -562,13 +715,17 @@
             ],
             lembretes: [],
             historico: [],
-            settings: { videoUrl: DEFAULT_VIDEO_URL }
+            promptHistory: [],
+            settings: { videoUrl: DEFAULT_VIDEO_URL },
+            // novo campo para controle de edição
+            editing: { type: null, id: null }
         };
 
         // ========== UTILITÁRIOS ==========
         function generateId() { return Date.now() + Math.floor(Math.random() * 1000); }
         function formatCurrency(val) { return 'R$ ' + val.toFixed(2).replace('.', ','); }
         function formatDate(d) { return d.toLocaleDateString('pt-BR'); }
+        function hojeISO() { return new Date().toISOString(); }
 
         function showToast(msg, type) {
             const toast = document.getElementById('toast');
@@ -581,13 +738,17 @@
             toast._timer = setTimeout(() => { toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4'); }, 3000);
         }
 
-        function addHistorico(acao) {
-            data.historico.unshift({ id: generateId(), acao, data: new Date().toISOString() });
-            if (data.historico.length > 50) data.historico.pop();
+        function addHistorico(acao, modulo = 'outros') {
+            data.historico.unshift({ id: generateId(), acao, modulo, data: new Date().toISOString() });
+            if (data.historico.length > 200) data.historico.pop();
             renderHistorico();
         }
 
-        // ========== FUNÇÕES DE SCROLL E ICONES ==========
+        function confirmarAcao(msg) {
+            return confirm(msg);
+        }
+
+        // ========== ICONES E SCROLL ==========
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
         function refreshIcons() {
             setTimeout(() => { lucide.createIcons(); }, 100);
@@ -621,12 +782,7 @@
             scrollToTop();
         }
 
-        function logout() {
-            document.getElementById('app').style.display = 'none';
-            document.getElementById('loginScreen').style.display = 'block';
-        }
-
-        // ========== NAVEGAÇÃO ENTRE ÁREAS ==========
+        // ========== NAVEGAÇÃO ==========
         function showHub() {
             document.getElementById('hub').style.display = 'flex';
             document.querySelectorAll('[id^="area-"]').forEach(el => el.style.display = 'none');
@@ -648,7 +804,7 @@
             refreshIcons();
         }
 
-        // ========== SUB-ABAS DA TATUAGEM ==========
+        // ========== SUB-ABAS ==========
         function showSubTab(tab) {
             document.querySelectorAll('.sub-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.sub-tab-btn').forEach(el => el.classList.remove('active-sub'));
@@ -681,14 +837,14 @@
                 concluido: false
             };
             data.lembretes.push(lembrete);
-            addHistorico(`Lembrete criado para ${nome} (em ${dias} dias)`);
+            addHistorico(`Lembrete criado para ${nome} (em ${dias} dias)`, 'clientes');
 
             const day = dataLembrete.getDate();
             const month = dataLembrete.getMonth();
             const year = dataLembrete.getFullYear();
             const title = `🔔 Contatar ${nome}`;
             data.calendarEvents.push({ id: generateId(), day, month, year, title });
-            addHistorico(`Evento de lembrete para ${nome} adicionado ao calendário (${formatDate(dataLembrete)})`);
+            addHistorico(`Evento de lembrete para ${nome} adicionado ao calendário (${formatDate(dataLembrete)})`, 'clientes');
 
             document.getElementById('lembreteNome').value = '';
             document.getElementById('lembreteDias').value = '';
@@ -702,28 +858,65 @@
             const lembrete = data.lembretes.find(l => l.id === id);
             if (lembrete) {
                 lembrete.concluido = true;
-                addHistorico(`Lembrete de ${lembrete.nome} concluído`);
+                addHistorico(`Lembrete de ${lembrete.nome} concluído`, 'clientes');
                 renderLembretes();
                 showToast('Lembrete marcado como concluído!', 'success');
             }
         }
 
-        function deleteLembrete(id) {
-            data.lembretes = data.lembretes.filter(l => l.id !== id);
+        function adiarLembrete(id) {
+            const lembrete = data.lembretes.find(l => l.id === id);
+            if (!lembrete || lembrete.concluido) return;
+            const dataAtual = new Date(lembrete.dataLembrete);
+            dataAtual.setDate(dataAtual.getDate() + 5);
+            lembrete.dataLembrete = dataAtual.toISOString();
+            // Atualiza o evento no calendário
+            const evento = data.calendarEvents.find(e => e.title.includes(lembrete.nome) && e.month === dataAtual.getMonth() && e.year === dataAtual.getFullYear());
+            if (evento) {
+                evento.day = dataAtual.getDate();
+                evento.month = dataAtual.getMonth();
+                evento.year = dataAtual.getFullYear();
+            } else {
+                // se não achou, cria novo
+                data.calendarEvents.push({ id: generateId(), day: dataAtual.getDate(), month: dataAtual.getMonth(), year: dataAtual.getFullYear(), title: `🔔 Contatar ${lembrete.nome}` });
+            }
+            addHistorico(`Lembrete de ${lembrete.nome} adiado em 5 dias`, 'clientes');
             renderLembretes();
+            renderCalendarGrid();
+            showToast('Lembrete adiado em 5 dias.', 'success');
+        }
+
+        function deleteLembrete(id) {
+            if (!confirmarAcao('Deseja realmente excluir este lembrete?')) return;
+            const l = data.lembretes.find(x => x.id === id);
+            if (l) addHistorico(`Lembrete de ${l.nome} removido`, 'clientes');
+            data.lembretes = data.lembretes.filter(l => l.id !== id);
+            // Remove eventos associados
+            data.calendarEvents = data.calendarEvents.filter(e => !e.title.includes(l?.nome || ''));
+            renderLembretes();
+            renderCalendarGrid();
             showToast('Lembrete removido.', 'success');
         }
 
         function renderLembretes() {
             const container = document.getElementById('lembretesList');
             if (!container) return;
-            if (data.lembretes.length === 0) {
+            // Ordenar por urgência (menos dias restantes primeiro, atrasados no topo)
+            const hoje = new Date();
+            const ordenados = [...data.lembretes].sort((a, b) => {
+                if (a.concluido && !b.concluido) return 1;
+                if (!a.concluido && b.concluido) return -1;
+                const diffA = (new Date(a.dataLembrete) - hoje) / (1000*60*60*24);
+                const diffB = (new Date(b.dataLembrete) - hoje) / (1000*60*60*24);
+                return diffA - diffB;
+            });
+
+            if (ordenados.length === 0) {
                 container.innerHTML = '<p class="text-center text-xs text-gray-500 py-4">Nenhum lembrete criado.</p>';
                 return;
             }
-            container.innerHTML = data.lembretes.map(l => {
+            container.innerHTML = ordenados.map(l => {
                 const dataL = new Date(l.dataLembrete);
-                const hoje = new Date();
                 const diff = Math.ceil((dataL - hoje) / (1000 * 60 * 60 * 24));
                 let statusBadge = '';
                 if (l.concluido) {
@@ -733,17 +926,18 @@
                 } else if (diff <= 3) {
                     statusBadge = '<span class="text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded text-[10px]">🔔 Em breve!</span>';
                 } else {
-                    statusBadge = `<span class="text-gray-400 bg-white/5 px-2 py-0.5 rounded text-[10px]">${diff} dias restantes</span>`;
+                    statusBadge = `<span class="text-gray-400 bg-white/5 px-2 py-0.5 rounded text-[10px]">${diff} dias</span>`;
                 }
                 return `
                     <div class="flex items-center justify-between p-3 bg-[#18181b] border border-white/5 rounded-xl text-xs">
                         <div>
                             <span class="font-bold text-white">${l.nome}</span>
-                            <span class="text-gray-400 ml-2">${formatDate(new Date(l.dataLembrete))}</span>
+                            <span class="text-gray-400 ml-2">${formatDate(dataL)}</span>
                         </div>
                         <div class="flex items-center gap-2">
                             ${statusBadge}
                             ${!l.concluido ? `<button onclick="concluirLembrete(${l.id})" class="text-emerald-400 hover:bg-emerald-500/10 p-1 rounded"><i data-lucide="check" class="w-4 h-4"></i></button>` : ''}
+                            ${!l.concluido ? `<button onclick="adiarLembrete(${l.id})" class="text-amber-400 hover:bg-amber-500/10 p-1 rounded"><i data-lucide="clock" class="w-4 h-4"></i></button>` : ''}
                             <button onclick="deleteLembrete(${l.id})" class="text-red-400 hover:bg-red-500/10 p-1 rounded"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                         </div>
                     </div>
@@ -753,14 +947,28 @@
         }
 
         // ========== HISTÓRICO ==========
+        let historicoFiltro = 'todos';
+
+        function setHistoricoFiltro(modulo) {
+            historicoFiltro = modulo;
+            document.querySelectorAll('#historicoFiltro button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.modulo === modulo);
+            });
+            renderHistorico();
+        }
+
         function renderHistorico() {
             const container = document.getElementById('historicoList');
             if (!container) return;
-            if (data.historico.length === 0) {
-                container.innerHTML = '<p class="text-center text-xs text-gray-500 py-4">Nenhuma ação registrada ainda.</p>';
+            let items = data.historico;
+            if (historicoFiltro !== 'todos') {
+                items = items.filter(h => h.modulo === historicoFiltro);
+            }
+            if (items.length === 0) {
+                container.innerHTML = '<p class="text-center text-xs text-gray-500 py-4">Nenhuma ação registrada.</p>';
                 return;
             }
-            container.innerHTML = data.historico.map(h => `
+            container.innerHTML = items.map(h => `
                 <div class="flex justify-between items-center p-2 bg-black/20 border border-white/5 rounded-lg text-xs">
                     <span class="text-gray-300">${h.acao}</span>
                     <span class="text-gray-500 text-[10px]">${formatDate(new Date(h.data))}</span>
@@ -768,7 +976,14 @@
             `).join('');
         }
 
-        // ========== ATUALIZAR EXIBIÇÃO DO VÍDEO ==========
+        function limparHistorico() {
+            if (!confirmarAcao('Deseja realmente limpar todo o histórico?')) return;
+            data.historico = [];
+            renderHistorico();
+            showToast('Histórico limpo.', 'success');
+        }
+
+        // ========== VIDEO ==========
         function updateVideoDisplay() {
             const url = data.settings.videoUrl || DEFAULT_VIDEO_URL;
             document.getElementById('youtubeButtonIA').href = url;
@@ -789,26 +1004,11 @@
             if (url) {
                 data.settings.videoUrl = url;
                 updateVideoDisplay();
-                showToast('Link do vídeo atualizado com sucesso!', 'success');
-                addHistorico('Link do vídeo atualizado');
+                showToast('Link do vídeo atualizado!', 'success');
+                addHistorico('Link do vídeo atualizado', 'outros');
             } else {
-                showToast('Por favor, insira um link válido.', 'error');
+                showToast('Insira um link válido.', 'error');
             }
-        }
-
-        // ========== RENDERIZAÇÃO GERAL ==========
-        function updateUI() {
-            renderClients();
-            renderPortfolio();
-            renderCompetitors();
-            renderCampaigns();
-            renderFinancial();
-            renderStock();
-            renderCalendarGrid();
-            renderLembretes();
-            renderHistorico();
-            updateDashboard();
-            refreshIcons();
         }
 
         // ========== DASHBOARD ==========
@@ -842,8 +1042,54 @@
             document.getElementById('chartActiveCamps').textContent = activeCamps;
             document.getElementById('chartClosedCamps').textContent = completedCamps;
 
+            // Resumo inteligente
+            const alerts = [];
+            const clientesParados = data.clients.filter(c => c.stage === 'Briefing' || c.stage === 'Pausado').length;
+            if (clientesParados > 3) alerts.push(`🔔 ${clientesParados} clientes parados no funil.`);
+            const estoqueCritico = data.stock.filter(s => s.qty <= (s.min || 0)).length;
+            if (estoqueCritico > 0) alerts.push(`⚠️ ${estoqueCritico} insumo(s) com estoque crítico.`);
+            const lembretesPendentes = data.lembretes.filter(l => !l.concluido && new Date(l.dataLembrete) < new Date()).length;
+            if (lembretesPendentes > 0) alerts.push(`⏰ ${lembretesPendentes} lembrete(s) atrasado(s).`);
+            document.getElementById('smartAlerts').innerHTML = alerts.map(a => `<div class="text-amber-400">${a}</div>`).join('') || '<div class="text-gray-500">Nenhum alerta crítico.</div>';
+
+            // Gráfico mensal
+            renderMonthlyChart();
+
             document.getElementById('dashSummary').innerHTML =
-                `O ecossistema estratégico da <strong>Savannah_tattoo_</strong> computa <strong>${totalClients}</strong> leads ativos em pipeline. O balanço fiscal aponta saldo de <strong>${formatCurrency(balance)}</strong> líquido, sob métricas configuradas pelo gestor Igor Freire.`;
+                `Ecossistema <strong>Savannah_tattoo_</strong>: ${totalClients} leads, saldo ${formatCurrency(balance)}, ROI ${conversionRate}%.`;
+        }
+
+        // ===== GRÁFICO DE EVOLUÇÃO MENSAL =====
+        function renderMonthlyChart() {
+            const container = document.getElementById('monthlyChart');
+            if (!container) return;
+            // Últimos 6 meses a partir de hoje
+            const hoje = new Date();
+            const meses = [];
+            for (let i = 5; i >= 0; i--) {
+                const d = new Date(hoje.getFullYear(), hoje.getMonth() - i, 1);
+                meses.push({ month: d.getMonth(), year: d.getFullYear(), label: d.toLocaleString('pt-BR', { month: 'short' }) });
+            }
+            const maxVal = 0.01;
+            const totals = meses.map(m => {
+                const total = data.financial.filter(f => {
+                    const d = new Date(f.data || hoje);
+                    return f.type === 'Entrada' && d.getMonth() === m.month && d.getFullYear() === m.year;
+                }).reduce((s, f) => s + f.amount, 0);
+                return total;
+            });
+            const maxTotal = Math.max(...totals, 0.01);
+            container.innerHTML = meses.map((m, i) => {
+                const pct = (totals[i] / maxTotal) * 100;
+                const cor = pct > 0 ? 'bg-emerald-500' : 'bg-gray-600';
+                return `<div class="flex-1 flex flex-col items-center gap-1">
+                            <span class="text-[9px] text-gray-400">${m.label}</span>
+                            <div class="w-full flex justify-center" style="height: ${Math.max(pct, 2)}px;">
+                                <div class="${cor} w-4 rounded-t transition-all" style="height: ${Math.max(pct, 2)}%; min-height: 2px;"></div>
+                            </div>
+                            <span class="text-[8px] text-gray-500">${formatCurrency(totals[i])}</span>
+                        </div>`;
+            }).join('');
         }
 
         // ========== CALENDÁRIO ==========
@@ -855,13 +1101,14 @@
             const { month, year } = calCtx;
             const firstDay = new Date(year, month, 1).getDay();
             const lastDate = new Date(year, month + 1, 0).getDate();
+            const hoje = new Date();
 
             const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
                 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
             ];
-            const monthYearEl = document.getElementById('calMonthYear');
-            if (monthYearEl) monthYearEl.textContent = `${monthNames[month]} ${year}`;
+            document.getElementById('calMonthYear').textContent = `${monthNames[month]} ${year}`;
 
+            // Dias vazios
             for (let i = 0; i < firstDay; i++) {
                 const empty = document.createElement('div');
                 empty.className = 'glass-card min-h-[70px] p-1.5 border border-white/[0.03] opacity-30';
@@ -875,31 +1122,34 @@
                     parseInt(e.year) === year
                 );
 
-                const evtsHtml = dayEvents.map(e => `
-                    <div class="w-full text-[9px] bg-amber-500/20 border border-amber-500/30 text-amber-300 rounded px-1 truncate mt-1">${e.title}</div>
-                `).join('');
+                const isPast = new Date(year, month, d) < new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
+                const isToday = d === hoje.getDate() && month === hoje.getMonth() && year === hoje.getFullYear();
 
                 const div = document.createElement('div');
-                div.className =
-                    'glass-card min-h-[70px] p-1.5 flex flex-col justify-between text-left border border-white/[0.03] hover:border-[#c9a96e]/40 transition cursor-pointer';
+                div.className = `glass-card min-h-[70px] p-1.5 flex flex-col justify-between text-left border border-white/[0.03] hover:border-[#c9a96e]/40 transition cursor-pointer ${isPast ? 'cal-day-past' : ''} ${dayEvents.length > 0 ? 'cal-day-occupied' : ''}`;
+                if (isToday) div.style.borderColor = '#c9a96e';
+
+                let evtsHtml = dayEvents.map(e => `
+                            <div class="event-item">
+                                <span class="truncate max-w-[80px]">${e.title}</span>
+                                <div class="evt-actions">
+                                    <button onclick="editEvent(${e.id}, '${e.title}', ${d}, ${month}, ${year})" title="Editar"><i data-lucide="edit-2" class="w-3 h-3"></i></button>
+                                    <button class="del" onclick="deleteEvent(${e.id})" title="Excluir"><i data-lucide="x" class="w-3 h-3"></i></button>
+                                </div>
+                            </div>
+                        `).join('');
+
                 div.innerHTML = `
-                    <span class="text-gray-500 font-bold text-[10px]">${d}</span>
-                    <div class="overflow-y-auto max-h-[45px] w-full">${evtsHtml}</div>
-                `;
-                div.onclick = () => selectCalendarDay(d);
+                            <span class="day-number text-gray-500 font-bold text-[10px]">${d}</span>
+                            <div class="overflow-y-auto max-h-[45px] w-full">${evtsHtml}</div>
+                        `;
+                div.onclick = (e) => {
+                    if (e.target.closest('.evt-actions')) return;
+                    selectCalendarDay(d);
+                };
                 grid.appendChild(div);
             }
-        }
-
-        function changeMonth(delta) {
-            calCtx.month += delta;
-            if (calCtx.month < 0) { calCtx.month = 11;
-                calCtx.year--; }
-            if (calCtx.month > 11) { calCtx.month = 0;
-                calCtx.year++; }
-            renderCalendarGrid();
-            const form = document.getElementById('calendarFormContainer');
-            if (form) form.style.display = 'none';
+            refreshIcons();
         }
 
         function selectCalendarDay(day) {
@@ -907,13 +1157,28 @@
             if (form) form.style.display = 'grid';
             document.getElementById('evtDay').value = day;
             document.getElementById('evtTitle').focus();
-            showToast(`Dia ${day}/${calCtx.month+1}/${calCtx.year} selecionado.`, 'success');
+            // Limpa estado de edição
+            data.editing = { type: null, id: null };
+            document.querySelector('#calendarFormContainer button').textContent = '+ Gravar';
+            document.querySelector('#calendarFormContainer button').onclick = addCalendarEvent;
+            showToast(`Dia ${day} selecionado.`, 'success');
         }
 
         function addCalendarEvent() {
             const day = parseInt(document.getElementById('evtDay').value);
             const title = document.getElementById('evtTitle').value.trim();
             if (!day || day < 1 || day > 31 || !title) { showToast('Preencha os campos.', 'error'); return; }
+
+            // Se estiver editando, remove o antigo
+            if (data.editing.type === 'event') {
+                data.calendarEvents = data.calendarEvents.filter(e => e.id !== data.editing.id);
+                addHistorico(`Evento "${title}" editado`, 'outros');
+                data.editing = { type: null, id: null };
+                document.querySelector('#calendarFormContainer button').textContent = '+ Gravar';
+                document.querySelector('#calendarFormContainer button').onclick = addCalendarEvent;
+            } else {
+                addHistorico(`Evento "${title}" adicionado ao calendário`, 'outros');
+            }
 
             data.calendarEvents.push({
                 id: generateId(),
@@ -922,47 +1187,91 @@
                 year: calCtx.year,
                 title: title
             });
-            addHistorico(`Evento "${title}" adicionado ao calendário`);
             document.getElementById('evtTitle').value = '';
             renderCalendarGrid();
             updateDashboard();
             showToast('Evento registrado.', 'success');
         }
 
+        function editEvent(id, title, day, month, year) {
+            document.getElementById('evtDay').value = day;
+            document.getElementById('evtTitle').value = title;
+            const form = document.getElementById('calendarFormContainer');
+            if (form) form.style.display = 'grid';
+            data.editing = { type: 'event', id: id };
+            const btn = document.querySelector('#calendarFormContainer button');
+            btn.textContent = '🔄 Atualizar Evento';
+            btn.onclick = addCalendarEvent;
+            // Ajustar mês/ano no contexto para o mês do evento
+            calCtx.month = month;
+            calCtx.year = year;
+            renderCalendarGrid();
+            showToast('Editando evento. Altere o título e clique em Atualizar.', 'success');
+        }
+
+        function deleteEvent(id) {
+            if (!confirmarAcao('Excluir este evento?')) return;
+            const evt = data.calendarEvents.find(e => e.id === id);
+            if (evt) addHistorico(`Evento "${evt.title}" excluído`, 'outros');
+            data.calendarEvents = data.calendarEvents.filter(e => e.id !== id);
+            renderCalendarGrid();
+            updateDashboard();
+            showToast('Evento excluído.', 'success');
+        }
+
+        function changeMonth(delta) {
+            calCtx.month += delta;
+            if (calCtx.month < 0) { calCtx.month = 11; calCtx.year--; }
+            if (calCtx.month > 11) { calCtx.month = 0; calCtx.year++; }
+            renderCalendarGrid();
+            const form = document.getElementById('calendarFormContainer');
+            if (form) form.style.display = 'none';
+            // Reset edit state
+            data.editing = { type: null, id: null };
+            const btn = document.querySelector('#calendarFormContainer button');
+            if (btn) { btn.textContent = '+ Gravar'; btn.onclick = addCalendarEvent; }
+        }
+
         // ========== ESTOQUE ==========
         function renderStock() {
             const tbody = document.getElementById('stockTableBody');
             if (!tbody) return;
-            tbody.innerHTML = data.stock.map(item => {
+            // Ordem alfabética
+            const sorted = [...data.stock].sort((a,b) => a.name.localeCompare(b.name));
+            tbody.innerHTML = sorted.map(item => {
                 let badge = 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
                 let statusText = 'Abastecido';
-                if (item.qty <= 0) { badge = 'bg-red-500/10 text-red-400 border border-red-500/20';
-                    statusText = 'ESGOTADO'; } else if (item.qty <= 3) { badge =
-                        'bg-amber-500/10 text-amber-400 border border-amber-500/20';
-                    statusText = 'Baixo Nível'; }
+                const min = item.min || 0;
+                if (item.qty <= 0) { badge = 'bg-red-500/10 text-red-400 border border-red-500/20'; statusText = 'ESGOTADO'; }
+                else if (item.qty <= min) { badge = 'bg-amber-500/10 text-amber-400 border border-amber-500/20'; statusText = 'Baixo Nível'; }
+                const lastBuy = item.lastBuy ? formatDate(new Date(item.lastBuy)) : '—';
                 return `
-                    <tr>
-                        <td class="py-3 font-medium text-white">${item.name}</td>
-                        <td class="py-3 font-bold">${item.qty} un</td>
-                        <td class="py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${badge}">${statusText}</span></td>
-                        <td class="py-3 text-right">
-                            <button onclick="changeStock(${item.id}, 1)" class="px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-gray-300 font-bold hover:bg-white/10">+</button>
-                            <button onclick="changeStock(${item.id}, -1)" class="px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-gray-300 font-bold hover:bg-white/10 ml-1">-</button>
-                            <button onclick="deleteStock(${item.id})" class="text-red-400 ml-2 text-[11px] hover:underline">Deletar</button>
-                        </td>
-                    </tr>
-                `;
+                            <tr>
+                                <td class="py-3 font-medium text-white">${item.name}</td>
+                                <td class="py-3 font-bold">${item.qty} un</td>
+                                <td class="py-3">${min}</td>
+                                <td class="py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${badge}">${statusText}</span></td>
+                                <td class="py-3 text-gray-400 text-[10px]">${lastBuy}</td>
+                                <td class="py-3 text-right">
+                                    <button onclick="changeStock(${item.id}, 1)" class="px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-gray-300 font-bold hover:bg-white/10">+</button>
+                                    <button onclick="changeStock(${item.id}, -1)" class="px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-gray-300 font-bold hover:bg-white/10 ml-1">-</button>
+                                    <button onclick="deleteStock(${item.id})" class="text-red-400 ml-2 text-[11px] hover:underline">Deletar</button>
+                                </td>
+                            </tr>
+                        `;
             }).join('');
         }
 
         function addStockItem() {
             const name = document.getElementById('stockName').value.trim();
             const qty = parseInt(document.getElementById('stockQty').value) || 0;
+            const min = parseInt(document.getElementById('stockMin').value) || 0;
             if (!name) return;
-            data.stock.push({ id: generateId(), name, qty });
-            addHistorico(`Insumo "${name}" cadastrado com ${qty} unidades`);
+            data.stock.push({ id: generateId(), name, qty, min, lastBuy: Date.now() });
+            addHistorico(`Insumo "${name}" cadastrado com ${qty} unidades (mín. ${min})`, 'estoque');
             document.getElementById('stockName').value = '';
             document.getElementById('stockQty').value = '';
+            document.getElementById('stockMin').value = '';
             renderStock();
             updateDashboard();
         }
@@ -971,15 +1280,17 @@
             const item = data.stock.find(s => s.id === id);
             if (item) {
                 item.qty = Math.max(0, item.qty + val);
-                addHistorico(`Estoque de "${item.name}" alterado para ${item.qty}`);
+                if (val > 0) item.lastBuy = Date.now();
+                addHistorico(`Estoque de "${item.name}" alterado para ${item.qty}`, 'estoque');
                 renderStock();
                 updateDashboard();
             }
         }
 
         function deleteStock(id) {
+            if (!confirmarAcao('Remover este insumo do estoque?')) return;
             const item = data.stock.find(s => s.id === id);
-            if (item) addHistorico(`Insumo "${item.name}" removido do estoque`);
+            if (item) addHistorico(`Insumo "${item.name}" removido do estoque`, 'estoque');
             data.stock = data.stock.filter(s => s.id !== id);
             renderStock();
             updateDashboard();
@@ -989,25 +1300,37 @@
         function renderClients() {
             const container = document.getElementById('clientList');
             if (!container) return;
-            document.getElementById('clientCount').textContent = data.clients.length + ' registro(s)';
-            if (data.clients.length === 0) { container.innerHTML =
-                    `<p class="text-center text-xs text-gray-500 border border-dashed border-white/5 py-8 rounded-xl">Nenhum lead arquivado.</p>`; return; }
-            container.innerHTML = data.clients.map(c => `
-                <div class="flex items-start sm:items-center justify-between p-4 bg-[#18181b] border border-white/5 rounded-xl gap-4 flex-col sm:flex-row hover:border-white/10 transition">
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <h4 class="text-sm font-bold text-white">${c.name}</h4>
-                            <span class="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-[9px] font-bold uppercase rounded border border-blue-500/20">${c.stage || 'Briefing'}</span>
-                        </div>
-                        <p class="text-xs text-gray-400 mt-1 font-medium">📱 Wpp: ${c.phone || '—'} | 📸 Insta: ${c.insta || '—'}</p>
-                        ${c.obs ? `<p class="text-xs text-gray-500 bg-black/20 border border-white/[0.02] p-2 rounded-lg mt-1.5">${c.obs}</p>` : ''}
-                    </div>
-                    <div class="flex items-center gap-2 shrink-0 self-end sm:self-auto">
-                        <button onclick="editClient(${c.id})" class="p-2 text-blue-400 hover:bg-blue-500/5 rounded-lg"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
-                        <button onclick="deleteClient(${c.id})" class="p-2 text-red-400 hover:bg-red-500/5 rounded-lg"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
-                    </div>
-                </div>
-            `).join('');
+            const search = document.getElementById('clientSearch').value.toLowerCase();
+            let filtered = data.clients.filter(c =>
+                c.name.toLowerCase().includes(search) ||
+                (c.phone && c.phone.includes(search)) ||
+                (c.insta && c.insta.toLowerCase().includes(search))
+            );
+            document.getElementById('clientCount').textContent = filtered.length + ' registro(s)';
+            if (filtered.length === 0) {
+                container.innerHTML = `<p class="text-center text-xs text-gray-500 border border-dashed border-white/5 py-8 rounded-xl">Nenhum lead encontrado.</p>`;
+                return;
+            }
+            container.innerHTML = filtered.map(c => {
+                const stageClass = c.stage ? c.stage.toLowerCase() : 'briefing';
+                return `
+                            <div class="flex items-start sm:items-center justify-between p-4 bg-[#18181b] border border-white/5 rounded-xl gap-4 flex-col sm:flex-row hover:border-white/10 transition">
+                                <div>
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <h4 class="text-sm font-bold text-white">${c.name}</h4>
+                                        <span class="badge-stage ${stageClass}">${c.stage || 'Briefing'}</span>
+                                    </div>
+                                    <p class="text-xs text-gray-400 mt-1 font-medium">📱 Wpp: ${c.phone || '—'} | 📸 Insta: ${c.insta || '—'}</p>
+                                    ${c.obs ? `<p class="text-xs text-gray-500 bg-black/20 border border-white/[0.02] p-2 rounded-lg mt-1.5">${c.obs}</p>` : ''}
+                                    ${c.ultimoContato ? `<p class="text-[10px] text-gray-500 mt-1">Último contato: ${formatDate(new Date(c.ultimoContato))}</p>` : ''}
+                                </div>
+                                <div class="flex items-center gap-2 shrink-0 self-end sm:self-auto">
+                                    <button onclick="editClient(${c.id})" class="p-2 text-blue-400 hover:bg-blue-500/5 rounded-lg"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                                    <button onclick="deleteClient(${c.id})" class="p-2 text-red-400 hover:bg-red-500/5 rounded-lg"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                                </div>
+                            </div>
+                        `;
+            }).join('');
             refreshIcons();
         }
 
@@ -1015,15 +1338,33 @@
             const name = document.getElementById('clientName').value.trim();
             if (!name) return;
             const stage = document.getElementById('clientStage').value;
-            data.clients.push({
-                id: generateId(),
-                name,
-                phone: document.getElementById('clientPhone').value.trim(),
-                stage: stage,
-                insta: document.getElementById('clientInsta').value.trim(),
-                obs: document.getElementById('clientObs').value.trim()
-            });
-            addHistorico(`Cliente "${name}" adicionado (${stage})`);
+            // Se estiver editando
+            if (data.editing.type === 'client') {
+                const old = data.clients.find(c => c.id === data.editing.id);
+                if (old) {
+                    old.name = name;
+                    old.phone = document.getElementById('clientPhone').value.trim();
+                    old.stage = stage;
+                    old.insta = document.getElementById('clientInsta').value.trim();
+                    old.obs = document.getElementById('clientObs').value.trim();
+                    old.ultimoContato = Date.now();
+                    addHistorico(`Cliente "${name}" atualizado`, 'clientes');
+                }
+                data.editing = { type: null, id: null };
+                document.querySelector('#clientFormContainer button').textContent = '+ Adicionar';
+                document.querySelector('#clientFormContainer button').onclick = addClient;
+            } else {
+                data.clients.push({
+                    id: generateId(),
+                    name,
+                    phone: document.getElementById('clientPhone').value.trim(),
+                    stage: stage,
+                    insta: document.getElementById('clientInsta').value.trim(),
+                    obs: document.getElementById('clientObs').value.trim(),
+                    ultimoContato: Date.now()
+                });
+                addHistorico(`Cliente "${name}" adicionado (${stage})`, 'clientes');
+            }
             ['clientName', 'clientPhone', 'clientInsta', 'clientObs'].forEach(id => document.getElementById(id).value = '');
             renderClients();
             updateDashboard();
@@ -1031,8 +1372,9 @@
         }
 
         function deleteClient(id) {
+            if (!confirmarAcao('Remover este cliente?')) return;
             const c = data.clients.find(x => x.id === id);
-            if (c) addHistorico(`Cliente "${c.name}" removido`);
+            if (c) addHistorico(`Cliente "${c.name}" removido`, 'clientes');
             data.clients = data.clients.filter(c => c.id !== id);
             renderClients();
             updateDashboard();
@@ -1042,46 +1384,64 @@
             const c = data.clients.find(x => x.id === id);
             if (!c) return;
             document.getElementById('clientName').value = c.name;
-            document.getElementById('clientPhone').value = c.phone;
+            document.getElementById('clientPhone').value = c.phone || '';
             document.getElementById('clientStage').value = c.stage || 'Briefing';
-            document.getElementById('clientInsta').value = c.insta;
-            document.getElementById('clientObs').value = c.obs;
-            data.clients = data.clients.filter(x => x.id !== id);
-            const btn = document.getElementById('addClientBtn');
-            btn.textContent = '🔄 Atualizar Cadastro';
-            btn.onclick = function() { btn.textContent = '+ Adicionar ao CRM';
-                btn.onclick = addClient;
-                addClient(); };
+            document.getElementById('clientInsta').value = c.insta || '';
+            document.getElementById('clientObs').value = c.obs || '';
+            data.editing = { type: 'client', id: c.id };
+            const btn = document.querySelector('#clientFormContainer button');
+            btn.textContent = '🔄 Atualizar Cliente';
+            btn.onclick = addClient;
+            showToast('Editando cliente. Altere e clique em Atualizar.', 'success');
         }
 
         // ========== PORTFÓLIO ==========
         function renderPortfolio() {
             const container = document.getElementById('portfolioList');
             if (!container) return;
-            document.getElementById('portfolioCount').textContent = data.portfolio.length + ' registro(s)';
-            container.innerHTML = data.portfolio.map(p => `
-                <div class="p-4 bg-[#18181b] border border-white/5 rounded-xl flex justify-between items-center text-xs">
-                    <div><span class="font-bold text-white text-sm block">${p.title}</span><span class="text-blue-400 font-semibold block mt-0.5 text-[10px]">${p.style}</span></div>
-                    <button onclick="deletePort(${p.id})" class="text-red-400">Excluir</button>
-                </div>
-            `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Galeria vazia.</p>';
+            const filter = document.getElementById('portfolioFilter').value;
+            let filtered = data.portfolio;
+            if (filter !== 'todos') {
+                filtered = filtered.filter(p => p.style === filter);
+            }
+            // Ordenação cronológica (mais recentes primeiro)
+            filtered = [...filtered].sort((a,b) => b.id - a.id);
+            document.getElementById('portfolioCount').textContent = filtered.length + ' registro(s)';
+            container.innerHTML = filtered.map(p => `
+                        <div class="p-4 bg-[#18181b] border border-white/5 rounded-xl flex items-center gap-4 text-xs">
+                            ${p.image ? `<img src="${p.image}" class="thumb-img" alt="${p.title}" />` : `<div class="thumb-img bg-white/5 flex items-center justify-center text-2xl">🖼️</div>`}
+                            <div class="flex-1">
+                                <span class="font-bold text-white text-sm block">${p.title}</span>
+                                <span class="text-blue-400 font-semibold block mt-0.5 text-[10px]">${p.style}</span>
+                                ${p.desc ? `<p class="text-gray-400 text-[10px] mt-1">${p.desc}</p>` : ''}
+                            </div>
+                            <button onclick="deletePort(${p.id})" class="text-red-400">Excluir</button>
+                        </div>
+                    `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Galeria vazia.</p>';
         }
 
         function addPortfolio() {
             const title = document.getElementById('portTitle').value.trim();
             if (!title) return;
-            data.portfolio.push({ id: generateId(), title, style: document.getElementById('portStyle').value, desc: document
-                    .getElementById('portDesc').value.trim() });
-            addHistorico(`Tatuagem "${title}" adicionada ao portfólio`);
+            data.portfolio.push({
+                id: generateId(),
+                title,
+                style: document.getElementById('portStyle').value,
+                image: document.getElementById('portImage').value.trim(),
+                desc: document.getElementById('portDesc').value.trim()
+            });
+            addHistorico(`Tatuagem "${title}" adicionada ao portfólio`, 'outros');
             document.getElementById('portTitle').value = '';
+            document.getElementById('portImage').value = '';
             document.getElementById('portDesc').value = '';
             renderPortfolio();
             updateDashboard();
         }
 
         function deletePort(id) {
+            if (!confirmarAcao('Remover esta arte do portfólio?')) return;
             const p = data.portfolio.find(x => x.id === id);
-            if (p) addHistorico(`Tatuagem "${p.title}" removida do portfólio`);
+            if (p) addHistorico(`Tatuagem "${p.title}" removida do portfólio`, 'outros');
             data.portfolio = data.portfolio.filter(p => p.id !== id);
             renderPortfolio();
             updateDashboard();
@@ -1093,28 +1453,41 @@
             if (!container) return;
             document.getElementById('competitorCount').textContent = data.competitors.length + ' alvo(s)';
             container.innerHTML = data.competitors.map(c => `
-                <div class="p-4 bg-[#18181b] border border-white/5 rounded-xl text-xs flex justify-between">
-                    <div><p class="font-bold text-white">${c.name} (${c.insta})</p><p class="text-gray-400 mt-1">📍 Região: ${c.location}</p></div>
-                    <button onclick="deleteComp(${c.id})" class="text-red-400">Remover</button>
-                </div>
-            `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Nenhum estúdio concorrente mapeado.</p>';
+                        <div class="p-4 bg-[#18181b] border border-white/5 rounded-xl text-xs flex justify-between">
+                            <div><p class="font-bold text-white">${c.name} (${c.insta})</p><p class="text-gray-400 mt-1">📍 ${c.location || 'Região não informada'}</p></div>
+                            <button onclick="deleteComp(${c.id})" class="text-red-400">Remover</button>
+                        </div>
+                    `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Nenhum concorrente mapeado.</p>';
+            // Resumo por região
+            const regioes = {};
+            data.competitors.forEach(c => {
+                const reg = c.location || 'Não informada';
+                regioes[reg] = (regioes[reg] || 0) + 1;
+            });
+            const summary = Object.entries(regioes).map(([reg, qtd]) => `${reg}: ${qtd} concorrente(s)`).join(' | ');
+            document.getElementById('competitorSummary').textContent = summary ? '📌 ' + summary : 'Nenhum dado de região disponível.';
         }
 
         function addCompetitor() {
             const name = document.getElementById('compName').value.trim();
             if (!name) return;
-            data.competitors.push({ id: generateId(), name, insta: document.getElementById('compInsta').value.trim(),
-                location: document.getElementById('compLocation').value.trim(), obs: document.getElementById('compObs')
-                    .value.trim() });
-            addHistorico(`Concorrente "${name}" mapeado`);
+            data.competitors.push({
+                id: generateId(),
+                name,
+                insta: document.getElementById('compInsta').value.trim(),
+                location: document.getElementById('compLocation').value.trim(),
+                obs: document.getElementById('compObs').value.trim()
+            });
+            addHistorico(`Concorrente "${name}" mapeado`, 'outros');
             ['compName', 'compInsta', 'compLocation', 'compObs'].forEach(id => document.getElementById(id).value = '');
             renderCompetitors();
             updateDashboard();
         }
 
         function deleteComp(id) {
+            if (!confirmarAcao('Remover este concorrente?')) return;
             const c = data.competitors.find(x => x.id === id);
-            if (c) addHistorico(`Concorrente "${c.name}" removido`);
+            if (c) addHistorico(`Concorrente "${c.name}" removido`, 'outros');
             data.competitors = data.competitors.filter(c => c.id !== id);
             renderCompetitors();
             updateDashboard();
@@ -1125,32 +1498,46 @@
             const container = document.getElementById('campaignList');
             if (!container) return;
             document.getElementById('campaignCount').textContent = data.campaigns.length + ' ativa(s)';
-            container.innerHTML = data.campaigns.map(c => `
-                <div class="p-4 bg-[#18181b] border border-white/5 rounded-xl text-xs space-y-2">
-                    <div class="flex justify-between font-bold text-white"><span>${c.name} [${c.status}]</span><button onclick="deleteCamp(${c.id})" class="text-red-400 font-normal">Remover</button></div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="bg-black/20 p-2 rounded">Investido: <span class="text-white font-bold">${formatCurrency(c.invest)}</span></div>
-                        <div class="bg-black/20 p-2 rounded">Retorno: <span class="text-emerald-400 font-bold">${formatCurrency(c.return)}</span></div>
-                    </div>
-                </div>
-            `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Nenhuma campanha orçamentada.</p>';
+            container.innerHTML = data.campaigns.map(c => {
+                const roi = c.invest > 0 ? ((c.return - c.invest) / c.invest * 100) : 0;
+                const roiColor = roi >= 0 ? 'text-emerald-400' : 'text-red-400';
+                return `
+                            <div class="p-4 bg-[#18181b] border border-white/5 rounded-xl text-xs space-y-2">
+                                <div class="flex justify-between font-bold text-white">
+                                    <span>${c.name} [${c.status}]</span>
+                                    <span class="${roiColor}">ROI: ${roi.toFixed(1)}%</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="bg-black/20 p-2 rounded">Investido: <span class="text-white font-bold">${formatCurrency(c.invest)}</span></div>
+                                    <div class="bg-black/20 p-2 rounded">Retorno: <span class="text-emerald-400 font-bold">${formatCurrency(c.return)}</span></div>
+                                </div>
+                                <button onclick="deleteCamp(${c.id})" class="text-red-400 text-[10px]">Remover</button>
+                            </div>
+                        `;
+            }).join('') || '<p class="text-center text-gray-500 text-xs py-4">Nenhuma campanha orçamentada.</p>';
         }
 
         function addCampaign() {
             const name = document.getElementById('campName').value.trim();
             if (!name) return;
-            data.campaigns.push({ id: generateId(), name, status: document.getElementById('campStatus').value, invest: parseFloat(
-                    document.getElementById('campInvest').value) || 0, return: parseFloat(document.getElementById(
-                    'campReturn').value) || 0, desc: document.getElementById('campDesc').value.trim() });
-            addHistorico(`Campanha "${name}" criada (${document.getElementById('campStatus').value})`);
+            data.campaigns.push({
+                id: generateId(),
+                name,
+                status: document.getElementById('campStatus').value,
+                invest: parseFloat(document.getElementById('campInvest').value) || 0,
+                return: parseFloat(document.getElementById('campReturn').value) || 0,
+                desc: document.getElementById('campDesc').value.trim()
+            });
+            addHistorico(`Campanha "${name}" criada (${document.getElementById('campStatus').value})`, 'outros');
             ['campName', 'campInvest', 'campReturn', 'campDesc'].forEach(id => document.getElementById(id).value = '');
             renderCampaigns();
             updateDashboard();
         }
 
         function deleteCamp(id) {
+            if (!confirmarAcao('Remover esta campanha?')) return;
             const c = data.campaigns.find(x => x.id === id);
-            if (c) addHistorico(`Campanha "${c.name}" removida`);
+            if (c) addHistorico(`Campanha "${c.name}" removida`, 'outros');
             data.campaigns = data.campaigns.filter(c => c.id !== id);
             renderCampaigns();
             updateDashboard();
@@ -1160,27 +1547,42 @@
         function renderFinancial() {
             const list = document.getElementById('financialList');
             if (!list) return;
-            const totalIncome = data.financial.filter(f => f.type === 'Entrada').reduce((sum, f) => sum + (f.amount || 0), 0);
-            const totalExpense = data.financial.filter(f => f.type === 'Saída').reduce((sum, f) => sum + (f.amount || 0), 0);
+            const filterMonth = document.getElementById('finFilterMonth').value;
+            let filtered = data.financial;
+            if (filterMonth) {
+                const [ano, mes] = filterMonth.split('-').map(Number);
+                filtered = filtered.filter(f => {
+                    const d = f.data ? new Date(f.data) : new Date();
+                    return d.getFullYear() === ano && d.getMonth() === mes - 1;
+                });
+            }
+            const totalIncome = filtered.filter(f => f.type === 'Entrada').reduce((sum, f) => sum + (f.amount || 0), 0);
+            const totalExpense = filtered.filter(f => f.type === 'Saída').reduce((sum, f) => sum + (f.amount || 0), 0);
             const balance = totalIncome - totalExpense;
 
-            list.innerHTML = data.financial.map(f => `
-                <div class="flex justify-between items-center p-3 bg-[#18181b] border border-white/5 rounded-xl text-xs">
-                    <div><span class="font-bold text-white">${f.desc}</span></div>
-                    <div class="flex items-center gap-3"><span class="font-mono font-bold ${f.type==='Entrada'?'text-emerald-400':'text-red-400'}">${formatCurrency(f.amount)}</span><button onclick="deleteFin(${f.id})" class="text-gray-600 hover:text-red-400">X</button></div>
-                </div>
-            `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Sem movimentações fiscais.</p>';
+            list.innerHTML = filtered.map(f => `
+                        <div class="flex justify-between items-center p-3 bg-[#18181b] border border-white/5 rounded-xl text-xs">
+                            <div><span class="font-bold text-white">${f.desc}</span> <span class="text-gray-500 text-[10px]">${f.data ? formatDate(new Date(f.data)) : ''}</span></div>
+                            <div class="flex items-center gap-3">
+                                <span class="font-mono font-bold ${f.type==='Entrada'?'text-emerald-400':'text-red-400'}">${formatCurrency(f.amount)}</span>
+                                <button onclick="editFinancial(${f.id})" class="text-blue-400 hover:bg-blue-500/10 p-1 rounded"><i data-lucide="edit-2" class="w-3 h-3"></i></button>
+                                <button onclick="deleteFin(${f.id})" class="text-gray-600 hover:text-red-400"><i data-lucide="x" class="w-3 h-3"></i></button>
+                            </div>
+                        </div>
+                    `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Sem movimentações fiscais.</p>';
 
             const summary = document.getElementById('financialSummary');
             if (summary) {
                 summary.innerHTML = `
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4 pt-4 border-t border-white/5 text-center text-xs">
-                        <div class="bg-black/20 p-3 rounded-xl border border-white/5">Entradas: <span class="text-emerald-400 font-bold block text-sm mt-0.5">${formatCurrency(totalIncome)}</span></div>
-                        <div class="bg-black/20 p-3 rounded-xl border border-white/5">Despesas: <span class="text-red-400 font-bold block text-sm mt-0.5">${formatCurrency(totalExpense)}</span></div>
-                        <div class="gold-gradient p-3 rounded-xl text-black font-bold">Saldo Bruto: <span class="block text-sm font-black mt-0.5">${formatCurrency(balance)}</span></div>
-                    </div>
-                `;
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4 pt-4 border-t border-white/5 text-center text-xs">
+                                <div class="bg-black/20 p-3 rounded-xl border border-white/5">Entradas: <span class="text-emerald-400 font-bold block text-sm mt-0.5">${formatCurrency(totalIncome)}</span></div>
+                                <div class="bg-black/20 p-3 rounded-xl border border-white/5">Despesas: <span class="text-red-400 font-bold block text-sm mt-0.5">${formatCurrency(totalExpense)}</span></div>
+                                <div class="gold-gradient p-3 rounded-xl text-black font-bold">Saldo Bruto: <span class="block text-sm font-black mt-0.5">${formatCurrency(balance)}</span></div>
+                            </div>
+                        `;
             }
+            document.getElementById('financialCount').textContent = filtered.length + ' transações';
+            refreshIcons();
         }
 
         function addFinancial() {
@@ -1188,23 +1590,50 @@
             const desc = document.getElementById('finDesc').value.trim();
             if (!amount || !desc) return;
             const type = document.getElementById('finType').value;
-            data.financial.push({ id: generateId(), type, amount, desc });
-            addHistorico(`Lançamento financeiro: ${type} de ${formatCurrency(amount)} - ${desc}`);
+            if (data.editing.type === 'financial') {
+                const old = data.financial.find(f => f.id === data.editing.id);
+                if (old) {
+                    old.type = type;
+                    old.amount = amount;
+                    old.desc = desc;
+                    addHistorico(`Lançamento "${desc}" atualizado`, 'financeiro');
+                }
+                data.editing = { type: null, id: null };
+                document.querySelector('#financialFormContainer button').textContent = '+ Lançar';
+                document.querySelector('#financialFormContainer button').onclick = addFinancial;
+            } else {
+                data.financial.push({ id: generateId(), type, amount, desc, data: new Date().toISOString() });
+                addHistorico(`Lançamento financeiro: ${type} de ${formatCurrency(amount)} - ${desc}`, 'financeiro');
+            }
             document.getElementById('finAmount').value = '';
             document.getElementById('finDesc').value = '';
             renderFinancial();
             updateDashboard();
         }
 
-        function deleteFin(id) {
+        function editFinancial(id) {
             const f = data.financial.find(x => x.id === id);
-            if (f) addHistorico(`Lançamento "${f.desc}" removido`);
+            if (!f) return;
+            document.getElementById('finType').value = f.type;
+            document.getElementById('finAmount').value = f.amount;
+            document.getElementById('finDesc').value = f.desc;
+            data.editing = { type: 'financial', id: f.id };
+            const btn = document.querySelector('#financialFormContainer button');
+            btn.textContent = '🔄 Atualizar Lançamento';
+            btn.onclick = addFinancial;
+            showToast('Editando lançamento. Altere e clique em Atualizar.', 'success');
+        }
+
+        function deleteFin(id) {
+            if (!confirmarAcao('Excluir este lançamento?')) return;
+            const f = data.financial.find(x => x.id === id);
+            if (f) addHistorico(`Lançamento "${f.desc}" removido`, 'financeiro');
             data.financial = data.financial.filter(f => f.id !== id);
             renderFinancial();
             updateDashboard();
         }
 
-        // ========== RECURSOS IA - PROMPT ==========
+        // ========== IA - PROMPT ==========
         function setIACategory(category) {
             document.getElementById('iaCategoryPrompt').value = category;
             document.getElementById('iaCategoryDisplay').textContent = `Categoria selecionada: ${category}`;
@@ -1234,13 +1663,53 @@
             fullPrompt += JSON.stringify(data, null, 2);
 
             document.getElementById('iaPromptPreview').value = fullPrompt;
-            showToast('Prompt gerado com sucesso!', 'success');
+            // Salvar no histórico
+            data.promptHistory.push({ id: generateId(), prompt: fullPrompt, data: new Date().toISOString() });
+            if (data.promptHistory.length > 20) data.promptHistory.shift();
+            renderPromptHistory();
+            showToast('Prompt gerado e salvo no histórico!', 'success');
+        }
+
+        function renderPromptHistory() {
+            const container = document.getElementById('iaPromptHistory');
+            if (!container) return;
+            if (data.promptHistory.length === 0) {
+                container.innerHTML = '<p class="text-center text-gray-500 text-[10px] py-2">Nenhum prompt gerado.</p>';
+                return;
+            }
+            container.innerHTML = data.promptHistory.slice().reverse().map((p, i) => `
+                        <div class="flex justify-between items-center p-2 bg-black/20 border border-white/5 rounded-lg text-[10px]">
+                            <span class="text-gray-400 truncate max-w-[200px]">${p.prompt.substring(0, 50)}...</span>
+                            <div>
+                                <button onclick="reutilizarPrompt(${i})" class="text-fuchsia-400 hover:bg-fuchsia-500/10 p-1 rounded"><i data-lucide="rotate-ccw" class="w-3 h-3"></i></button>
+                                <button onclick="deletarPromptHistorico(${i})" class="text-red-400 hover:bg-red-500/10 p-1 rounded"><i data-lucide="x" class="w-3 h-3"></i></button>
+                            </div>
+                        </div>
+                    `).join('');
+            refreshIcons();
+        }
+
+        function reutilizarPrompt(index) {
+            const realIndex = data.promptHistory.length - 1 - index;
+            const p = data.promptHistory[realIndex];
+            if (p) {
+                document.getElementById('iaPromptPreview').value = p.prompt;
+                showToast('Prompt reutilizado!', 'success');
+            }
+        }
+
+        function deletarPromptHistorico(index) {
+            if (!confirmarAcao('Remover este prompt do histórico?')) return;
+            const realIndex = data.promptHistory.length - 1 - index;
+            data.promptHistory.splice(realIndex, 1);
+            renderPromptHistory();
+            showToast('Prompt removido do histórico.', 'success');
         }
 
         function downloadPromptTXT() {
             const preview = document.getElementById('iaPromptPreview').value;
             if (!preview) {
-                showToast('Gere o prompt primeiro antes de baixar.', 'error');
+                showToast('Gere o prompt primeiro.', 'error');
                 return;
             }
             const blob = new Blob([preview], { type: 'text/plain;charset=utf-8' });
@@ -1248,7 +1717,24 @@
             a.href = URL.createObjectURL(blob);
             a.download = 'prompt_ia_savannah.txt';
             a.click();
-            showToast('Prompt baixado com sucesso!', 'success');
+            showToast('Prompt baixado!', 'success');
+        }
+
+        function copyPrompt() {
+            const preview = document.getElementById('iaPromptPreview').value;
+            if (!preview) { showToast('Gere o prompt primeiro.', 'error'); return; }
+            navigator.clipboard.writeText(preview).then(() => {
+                showToast('Prompt copiado para a área de transferência!', 'success');
+            }).catch(() => {
+                // Fallback
+                const ta = document.createElement('textarea');
+                ta.value = preview;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                ta.remove();
+                showToast('Prompt copiado!', 'success');
+            });
         }
 
         function clearIAPrompt() {
@@ -1262,11 +1748,7 @@
             showToast('Campos limpos.', 'success');
         }
 
-        // ========== IMPORT / EXPORT JSON ==========
-        function copyJSON() {
-            navigator.clipboard.writeText(JSON.stringify(data, null, 2)).then(() => showToast('JSON copiado.', 'success'));
-        }
-
+        // ========== IMPORT / EXPORT ==========
         function downloadJSON() {
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const a = document.createElement('a');
@@ -1276,34 +1758,22 @@
             showToast('Backup Key.json baixado.', 'success');
         }
 
-        // Import do changelog
-        function importJSONFromChangelog() {
-            const file = document.getElementById('importFileChangelog').files[0];
-            if (!file) return;
-            const r = new FileReader();
-            r.onload = function(e) {
-                try {
-                    const p = JSON.parse(e.target.result);
-                    if (p.clients) {
-                        data = p;
-                        updateUI();
-                        // Atualiza também o campo de vídeo
-                        if (data.settings && data.settings.videoUrl) {
-                            updateVideoDisplay();
-                        }
-                        document.getElementById('importFileNameChangelog').textContent = file.name;
-                        showToast('Sincronização injetada com sucesso!', 'success');
-                    } else {
-                        showToast('Arquivo inválido. Estrutura não reconhecida.', 'error');
-                    }
-                } catch (err) {
-                    showToast('Erro ao ler o arquivo JSON.', 'error');
-                }
-            };
-            r.readAsText(file);
+        // ========== INICIALIZAÇÃO ==========
+        function updateUI() {
+            renderClients();
+            renderPortfolio();
+            renderCompetitors();
+            renderCampaigns();
+            renderFinancial();
+            renderStock();
+            renderCalendarGrid();
+            renderLembretes();
+            renderHistorico();
+            renderPromptHistory();
+            updateDashboard();
+            refreshIcons();
         }
 
-        // ========== INICIALIZAÇÃO ==========
         document.addEventListener('DOMContentLoaded', () => {
             const spans = document.querySelectorAll('#titleLetters span');
             spans.forEach((span, i) => {
@@ -1314,6 +1784,16 @@
             updateVideoDisplay();
             renderCalendarGrid();
             refreshIcons();
+
+            // Atalhos de teclado nos formulários
+            document.querySelectorAll('#clientFormContainer input, #clientFormContainer textarea, #stockFormContainer input, #campaignFormContainer input, #financialFormContainer input, #lembreteNome, #lembreteDias, #competitorFormContainer input').forEach(el => {
+                el.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        const btn = el.closest('.grid')?.querySelector('button') || el.closest('.space-y-4')?.querySelector('button');
+                        if (btn) btn.click();
+                    }
+                });
+            });
         });
     </script>
 </body>
