@@ -3,201 +3,128 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Savannah_tattoo_ | Tatuadora OS</title>
-
+    <title>Savannah_OS | Power BI Style</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
+        /* ===== BASE ===== */
         :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #121212;
-            --border-color: rgba(255, 255, 255, 0.06);
+            --bg: #0b0d0f;
+            --bg2: #14171a;
+            --card: #1a1e23;
+            --card2: #22282e;
+            --border: rgba(255,255,255,0.06);
             --gold: #c9a96e;
+            --gold2: #a88953;
+            --blue: #3b82f6;
+            --purple: #8b5cf6;
+            --fuchsia: #d946ef;
+            --text: #f0ece4;
+            --text2: #9ca3af;
         }
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-primary);
-            color: #f0ece4;
-            overflow-x: hidden;
-        }
-        .glass-card {
-            background: rgba(18, 18, 18, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border-color);
-        }
-        .gold-gradient {
-            background: linear-gradient(135deg, #c9a96e 0%, #a88953 100%);
-        }
-        .area-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-        .area-card:hover {
-            transform: scale(1.05) translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-        }
-        .video-thumb {
-            background: #000;
-            border-radius: 16px;
-            overflow: hidden;
-            position: relative;
-        }
-        .video-thumb img {
-            width: 100%;
-            height: auto;
-            display: block;
-            opacity: 0.75;
-            transition: opacity 0.3s;
-        }
-        .video-thumb:hover img {
-            opacity: 1;
-        }
-        .video-play-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 0, 0, 0.85);
-            border-radius: 50%;
-            width: 70px;
-            height: 70px;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.3s;
-            animation: pulse 2s ease-in-out infinite;
+            padding: 12px;
         }
-        .video-play-btn:hover {
-            background: #ff0000;
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
-        }
-        @keyframes floatSlow {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-        @keyframes shimmer {
-            0% { background-position: -300% 0; }
-            100% { background-position: 300% 0; }
-        }
-        @keyframes pulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
-            50% { transform: translate(-50%, -50%) scale(1.05); box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            14% { transform: scale(1.2); }
-            28% { transform: scale(1); }
-            42% { transform: scale(1.2); }
-            70% { transform: scale(1); }
-        }
-        @keyframes wave {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .animate-float { animation: float 4s ease-in-out infinite; }
-        .animate-float-slow { animation: floatSlow 5s ease-in-out infinite; }
-        .animate-shimmer { background-size: 300% 100%; animation: shimmer 6s linear infinite; }
-        .animate-fade-up { animation: fadeInUp 0.6s ease forwards; opacity: 0; }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.25s; }
-        .delay-3 { animation-delay: 0.4s; }
-        .delay-4 { animation-delay: 0.55s; }
-        .heart-beat { display: inline-block; animation: heartbeat 1.8s ease-in-out infinite; }
-
-        .login-card { animation: float 4s ease-in-out infinite; }
-        .login-gold-line {
-            height: 3px;
-            background: linear-gradient(90deg, #c9a96e, #f5e6a8, #c9a96e);
-            background-size: 300% 100%;
-            animation: shimmer 4s linear infinite;
-        }
-
-        #titleLetters span {
-            display: inline-block;
-            animation: wave 2s ease-in-out infinite;
-        }
-
-        .sub-tab-btn.active-sub {
-            background-color: #2563eb;
-            color: white;
-            font-weight: 600;
-        }
-        .sub-tab-btn {
-            transition: all 0.2s;
-        }
-
-        .badge-ameaca-baixo { background: #22c55e20; color: #22c55e; border: 1px solid #22c55e40; }
-        .badge-ameaca-medio { background: #eab30820; color: #eab308; border: 1px solid #eab30840; }
-        .badge-ameaca-alto { background: #ef444420; color: #ef4444; border: 1px solid #ef444440; }
-
-        .notif-badge {
-            position: relative;
-            display: inline-block;
-        }
-        .notif-badge .badge-count {
-            position: absolute;
-            top: -6px;
-            right: -6px;
-            background: #ef4444;
-            color: white;
-            border-radius: 50%;
-            font-size: 9px;
-            font-weight: bold;
-            width: 18px;
-            height: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #0a0a0a;
-        }
-
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-primary); }
-        ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
+        /* ===== SCROLL ===== */
+        ::-webkit-scrollbar { width: 4px; height:4px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 
-        .notif-modal {
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            width: 360px;
-            max-height: 400px;
-            overflow-y: auto;
-            z-index: 1000;
-            background: #1a1a1a;
-            border: 1px solid var(--border-color);
+        /* ===== CARDS POWER BI ===== */
+        .pb-card {
+            background: var(--card);
+            border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 16px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-            display: none;
+            padding: 20px;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .notif-modal.active { display: block; }
-        .notif-item {
-            padding: 10px 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: 13px;
-            color: #d1d5db;
+        .pb-card:hover {
+            border-color: rgba(255,255,255,0.12);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
-        .notif-item:last-child { border-bottom: none; }
+        .pb-card .title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text2);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .pb-card .value {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        .pb-card .sub {
+            font-size: 12px;
+            color: var(--text2);
+            margin-top: 4px;
+        }
 
-        /* Calendário mobile */
+        /* ===== GRADIENTES ===== */
+        .grad-gold { background: linear-gradient(135deg, var(--gold), var(--gold2)); }
+        .grad-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .grad-purple { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+        .grad-fuchsia { background: linear-gradient(135deg, #d946ef, #a21caf); }
+
+        /* ===== BOTÕES ===== */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), var(--gold2));
+            color: #0a0a0a;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 10px;
+            transition: opacity 0.2s, transform 0.15s;
+            font-size: 12px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover { opacity:0.85; transform:scale(0.97); }
+        .btn-secondary {
+            background: var(--card2);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-size: 12px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.05); }
+
+        /* ===== SUB-ABAS ===== */
+        .sub-tab {
+            padding: 6px 16px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text2);
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+        .sub-tab:hover { color: white; background: rgba(255,255,255,0.03); }
+        .sub-tab.active {
+            background: var(--card2);
+            color: white;
+            border-color: rgba(255,255,255,0.08);
+        }
+
+        /* ===== CALENDÁRIO ===== */
         .cal-grid {
             display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
-            margin-top: 8px;
+            grid-template-columns: repeat(7,1fr);
+            gap: 6px;
         }
         .cal-day {
             aspect-ratio: 1/1;
@@ -205,554 +132,263 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: rgba(255,255,255,0.03);
-            border-radius: 8px;
-            font-size: 14px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            font-size: 13px;
             font-weight: 500;
             color: #aaa;
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.15s;
             position: relative;
-            min-height: 40px;
+            min-height: 44px;
+            border: 1px solid transparent;
         }
-        .cal-day.has-event {
-            background: rgba(255,255,255,0.07);
+        .cal-day:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.05); }
+        .cal-day .dots {
+            display: flex;
+            gap: 3px;
+            margin-top: 2px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         .cal-day .dot {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
-            margin-top: 2px;
+            display: inline-block;
         }
-        .cal-day .dot.sessao { background: #3b82f6; }
-        .cal-day .dot.lembrete { background: #22c55e; }
-        .cal-day .dot.healing { background: #a855f7; }
+        .dot-sessao { background: var(--blue); }
+        .dot-lembrete { background: #22c55e; }
+        .dot-healing { background: var(--purple); }
 
         .legenda {
             display: flex;
             gap: 16px;
             justify-content: center;
-            margin: 8px 0;
             font-size: 11px;
-            color: #aaa;
+            color: var(--text2);
+            margin: 8px 0;
         }
-        .legenda span::before {
-            content: "●";
-            margin-right: 4px;
-            font-size: 14px;
-        }
-        .legenda .sessao::before { color: #3b82f6; }
-        .legenda .lembrete::before { color: #22c55e; }
-        .legenda .healing::before { color: #a855f7; }
+        .legenda span::before { content:"●"; margin-right:4px; font-size:14px; }
+        .legenda .sessao::before { color:var(--blue); }
+        .legenda .lembrete::before { color:#22c55e; }
+        .legenda .healing::before { color:var(--purple); }
 
+        /* ===== MODAL ===== */
         .modal-overlay {
-            position: fixed;
-            inset: 0;
+            position: fixed; inset:0;
             background: rgba(0,0,0,0.7);
             backdrop-filter: blur(4px);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 999;
+            padding:16px;
         }
-        .modal-overlay.active {
-            display: flex;
-        }
-        .modal-content {
-            background: #1a1a1a;
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            max-width: 400px;
-            width: 90%;
-            padding: 20px;
-            max-height: 80vh;
+        .modal-overlay.active { display: flex; }
+        .modal-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            max-width: 480px;
+            width: 100%;
+            padding: 24px;
+            max-height: 85vh;
             overflow-y: auto;
         }
-        .modal-content .close-btn {
-            float: right;
-            background: none;
-            border: none;
-            color: #888;
-            font-size: 18px;
-            cursor: pointer;
-        }
-        .modal-content .close-btn:hover { color: white; }
+        .modal-box .close { float:right; background:none; border:none; color:#888; font-size:20px; cursor:pointer; }
+        .modal-box .close:hover { color:#fff; }
 
-        @media (max-width: 480px) {
-            .cal-day { font-size: 12px; min-height: 32px; }
+        /* ===== NOTIFICAÇÕES ===== */
+        .notif-drop {
+            position: fixed; top:72px; right:20px;
+            width:340px; max-height:400px; overflow-y:auto;
+            background: var(--card); border:1px solid var(--border);
+            border-radius:16px; padding:16px;
+            box-shadow:0 20px 60px rgba(0,0,0,0.8);
+            display:none; z-index:1000;
+        }
+        .notif-drop.active { display:block; }
+        .notif-item { padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.04); font-size:13px; color:#d1d5db; }
+        .notif-item:last-child { border-bottom:none; }
+        .notif-badge { position:relative; cursor:pointer; }
+        .notif-badge .count {
+            position:absolute; top:-6px; right:-6px;
+            background:#ef4444; color:#fff; border-radius:50%;
+            width:18px; height:18px; font-size:9px; font-weight:bold;
+            display:flex; align-items:center; justify-content:center;
+            border:2px solid var(--bg);
+        }
+
+        /* ===== TABELAS ===== */
+        .table-wrap { overflow-x:auto; }
+        .table-wrap table { width:100%; border-collapse:collapse; font-size:13px; }
+        .table-wrap th { text-align:left; padding:10px 12px; color:var(--text2); font-weight:500; border-bottom:1px solid var(--border); }
+        .table-wrap td { padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.03); }
+        .table-wrap tr:hover td { background:rgba(255,255,255,0.02); }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width:640px) {
+            .cal-day { font-size:11px; min-height:32px; }
+            .modal-box { margin:0 12px; padding:16px; }
+            .pb-card .value { font-size:22px; }
+        }
+        /* ===== ANIMAÇÃO DE LOGIN ===== */
+        @keyframes float {
+            0%,100%{transform:translateY(0)}
+            50%{transform:translateY(-12px)}
+        }
+        @keyframes shimmer {
+            0%{background-position:-300% 0}
+            100%{background-position:300% 0}
+        }
+        .login-float { animation: float 4s ease-in-out infinite; }
+        .login-line {
+            height:3px;
+            background: linear-gradient(90deg, #c9a96e, #f5e6a8, #c9a96e);
+            background-size:300% 100%;
+            animation: shimmer 4s linear infinite;
+        }
+        #titleLetters span {
+            display:inline-block;
+            animation: float 2.2s ease-in-out infinite;
+            animation-delay: calc(0.08s * var(--i,0));
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-0 md:p-4">
+<body>
 
-    <!-- ========== TELA DE LOGIN ========== -->
-    <div id="loginScreen" class="w-full max-w-[420px] bg-[#121212] rounded-2xl border border-white/5 p-8 md:p-10 shadow-2xl relative overflow-hidden mx-4 login-card">
-        <div class="absolute top-0 left-0 right-0 login-gold-line"></div>
-        <div class="text-center mb-6">
-            <span class="text-5xl block mb-3 heart-beat">🖤</span>
-            <h1 id="titleLetters" class="text-2xl font-bold tracking-tight">
-                <span>S</span><span>a</span><span>v</span><span>a</span><span>n</span><span>n</span><span>a</span><span>h</span><span style="color: #c9a96e;">_</span>
-                <span style="color: #c9a96e;">t</span><span style="color: #c9a96e;">a</span><span style="color: #c9a96e;">t</span><span style="color: #c9a96e;">t</span><span style="color: #c9a96e;">o</span><span style="color: #c9a96e;">o</span><span style="color: #c9a96e;">_</span>
-            </h1>
-            <p class="text-xs text-gray-300 mt-1 max-w-xs mx-auto leading-relaxed">Organize, gerencie e escale seu estúdio com inteligência.</p>
-        </div>
-
-        <div id="loginError" class="mb-4 text-xs text-red-400 bg-red-500/10 border border-red-500/20 p-3 rounded-xl text-center hidden"></div>
-
-        <div class="space-y-4">
-            <div>
-                <label class="block text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Senha de Acesso</label>
-                <input type="password" id="loginPassword" placeholder="Digite a senha" class="w-full bg-[#0d0d0d] border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-[#c9a96e] transition" />
+    <!-- ===== LOGIN ===== -->
+    <div id="loginScreen" class="w-full max-w-[400px] mx-auto login-float">
+        <div class="bg-[#14171a] rounded-2xl p-8 md:p-10 relative overflow-hidden border border-white/5">
+            <div class="absolute top-0 left-0 right-0 login-line"></div>
+            <div class="text-center mb-6">
+                <span class="text-5xl block mb-3" style="animation: float 2s ease-in-out infinite;">🖤</span>
+                <h1 id="titleLetters" class="text-2xl font-bold tracking-tight">
+                    <span style="--i:0">S</span><span style="--i:1">a</span><span style="--i:2">v</span><span style="--i:3">a</span><span style="--i:4">n</span><span style="--i:5">n</span><span style="--i:6">a</span><span style="--i:7">h</span>
+                    <span style="color:var(--gold);--i:8">_</span>
+                    <span style="color:var(--gold);--i:9">t</span><span style="color:var(--gold);--i:10">a</span><span style="color:var(--gold);--i:11">t</span><span style="color:var(--gold);--i:12">t</span><span style="color:var(--gold);--i:13">o</span><span style="color:var(--gold);--i:14">o</span><span style="color:var(--gold);--i:15">_</span>
+                </h1>
+                <p class="text-xs text-gray-400 mt-1 max-w-xs mx-auto leading-relaxed">Organize, gerencie e escale seu estúdio com inteligência.</p>
             </div>
-            <button onclick="login()" class="w-full py-3.5 gold-gradient text-black font-bold rounded-xl text-sm hover:opacity-90 transition relative overflow-hidden group">
-                <span class="relative z-10">Acessar Savannah OS</span>
-                <span class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition"></span>
-            </button>
-        </div>
-
-        <!-- Import/Export Key.json na tela de login -->
-        <div class="mt-4 flex flex-wrap items-center justify-center gap-3 border-t border-white/5 pt-4">
-            <button onclick="exportLoginKey()" class="text-[10px] text-gray-400 hover:text-white transition flex items-center gap-1">
-                <i data-lucide="download" class="w-3 h-3"></i> Exportar Key
-            </button>
-            <label class="text-[10px] text-gray-400 hover:text-white transition flex items-center gap-1 cursor-pointer">
-                <i data-lucide="upload" class="w-3 h-3"></i> Importar Key
-                <input type="file" id="importKeyLogin" accept=".json" class="hidden" onchange="importKeyFromLogin(event)" />
-            </label>
-        </div>
-
-        <div class="mt-4 text-center border-t border-white/5 pt-4 flex justify-between items-center">
-            <p class="text-[10px] text-gray-500 font-medium tracking-wide">Igor Freire – gestor de tráfego</p>
-            <span class="text-[10px] font-mono font-bold text-[#c9a96e]">v0.9.30</span>
+            <div id="loginError" class="mb-4 text-xs text-red-400 bg-red-500/10 border border-red-500/20 p-3 rounded-xl text-center hidden"></div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Senha</label>
+                    <input type="password" id="loginPassword" placeholder="Digite a senha" class="w-full bg-[#0d0d0d] border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-[#c9a96e] transition" />
+                </div>
+                <button onclick="login()" class="w-full py-3.5 btn-primary text-sm rounded-xl">Acessar Savannah OS</button>
+            </div>
+            <div class="mt-4 flex items-center justify-center gap-4 text-[10px] text-gray-500 border-t border-white/5 pt-4">
+                <button onclick="exportLoginKey()" class="hover:text-white transition flex items-center gap-1"><i data-lucide="download" class="w-3 h-3"></i> Exportar Key</button>
+                <label class="hover:text-white transition flex items-center gap-1 cursor-pointer">
+                    <i data-lucide="upload" class="w-3 h-3"></i> Importar Key
+                    <input type="file" id="importKeyLogin" accept=".json" class="hidden" onchange="importKeyFromLogin(event)" />
+                </label>
+            </div>
+            <div class="mt-4 text-center border-t border-white/5 pt-4 flex justify-between items-center text-[10px]">
+                <span class="text-gray-500">Igor Freire – gestor de tráfego</span>
+                <span class="font-mono font-bold text-[#c9a96e]">v0.9.31</span>
+            </div>
         </div>
     </div>
 
-    <!-- ========== APP ========== -->
-    <div id="app" class="w-full max-w-[1440px] min-h-[90vh] hidden flex-col">
+    <!-- ===== APP ===== -->
+    <div id="app" class="w-full max-w-[1440px] min-h-[90vh] hidden flex-col gap-4">
 
         <!-- ===== HEADER ===== -->
-        <header class="glass-card rounded-2xl p-4 px-6 flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+        <header class="bg-[#14171a] rounded-2xl p-4 px-6 flex flex-wrap items-center justify-between gap-3 border border-white/5">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-full gold-gradient flex items-center justify-center text-black font-bold text-base shadow-lg">🖤</div>
+                <div class="w-9 h-9 rounded-full grad-gold flex items-center justify-center text-black font-bold shadow-lg">🖤</div>
                 <div>
-                    <h2 class="font-bold text-base tracking-wide">Savannah_<span class="text-[#c9a96e]">tattoo_</span> <span class="text-[10px] text-gray-500 font-mono">OS v0.9.30</span></h2>
-                    <p class="text-[10px] text-gray-500 tracking-wider uppercase font-semibold">Tatuadora & Gestão</p>
+                    <h2 class="font-bold text-base">Savannah_<span class="text-[#c9a96e]">tattoo_</span> <span class="text-[10px] text-gray-500 font-mono">v0.9.31</span></h2>
+                    <p class="text-[10px] text-gray-500 uppercase font-semibold">Power BI Style</p>
                 </div>
             </div>
-            <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
-                <div class="notif-badge cursor-pointer" onclick="toggleNotifModal()">
+            <div class="flex items-center gap-4">
+                <div class="notif-badge" onclick="toggleNotif()">
                     <i data-lucide="bell" class="w-5 h-5 text-gray-300 hover:text-white transition"></i>
-                    <span class="badge-count" id="notifCount">0</span>
+                    <span class="count" id="notifCount">0</span>
                 </div>
-                <span class="text-[11px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full border border-white/10 text-gray-400" id="userRole">Tatuadora</span>
+                <span class="text-[11px] font-bold uppercase px-3 py-1.5 rounded-full border border-white/10 text-gray-400">Tatuadora</span>
                 <button onclick="logout()" class="px-4 py-1.5 bg-white/5 hover:bg-red-500/10 hover:text-red-400 border border-white/5 rounded-xl text-xs font-medium text-gray-400 transition flex items-center gap-2">
                     <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Sair
                 </button>
             </div>
         </header>
 
-        <!-- ===== NOTIFICAÇÕES MODAL ===== -->
-        <div id="notifModal" class="notif-modal">
+        <!-- ===== NOTIFICAÇÕES ===== -->
+        <div id="notifDrop" class="notif-drop">
             <div class="flex justify-between items-center mb-3">
-                <span class="font-bold text-sm text-white">🔔 Notificações</span>
-                <button onclick="closeNotifModal()" class="text-gray-400 hover:text-white text-xs">✕</button>
+                <span class="font-bold text-sm">🔔 Notificações</span>
+                <button onclick="closeNotif()" class="text-gray-400 hover:text-white text-xs">✕</button>
             </div>
             <div id="notifList"></div>
         </div>
 
         <!-- ===== CHANGELOG ===== -->
         <div id="changelog" class="flex-1 flex items-center justify-center p-4">
-            <div class="glass-card p-8 rounded-2xl max-w-xl w-full border border-white/5 text-center">
+            <div class="bg-[#14171a] rounded-2xl p-8 max-w-xl w-full border border-white/5 text-center">
                 <div class="flex items-center justify-center gap-3 mb-4">
                     <span class="text-3xl">🚀</span>
-                    <h2 class="text-2xl font-bold text-[#c9a96e]">Savannah OS v0.9.30</h2>
+                    <h2 class="text-2xl font-bold text-[#c9a96e]">Savannah OS v0.9.31</h2>
                 </div>
                 <div class="text-left space-y-2 text-sm text-gray-300 leading-relaxed">
-                    <p>✅ <strong>Calendário mobile</strong> – grade com bolinhas, legenda e modal de eventos.</p>
-                    <p>✅ <strong>Clientes</strong> – links para Instagram e WhatsApp.</p>
-                    <p>✅ <strong>Estoque</strong> – link de compra.</p>
-                    <p>✅ <strong>Sem dados pré-preenchidos</strong> – tudo vazio ao iniciar.</p>
-                    <p>✅ <strong>Marketing</strong> – abas separadas: Campanhas e Concorrência.</p>
-                    <p>✅ <strong>IA</strong> – apenas player, sem edição de link.</p>
-                    <p>✅ <strong>Import/Export Key</strong> – na tela de login.</p>
+                    <p>✅ <strong>Layout Power BI</strong> – design complexo com cards, métricas, visualizações.</p>
+                    <p>✅ <strong>Calendário com múltiplas bolinhas</strong> – vários eventos por dia com cores.</p>
+                    <p>✅ <strong>CRUD completo</strong> – edite clientes, estoque, financeiro, concorrentes, campanhas.</p>
+                    <p>✅ <strong>Links diretos</strong> – Instagram, WhatsApp, compra de insumos.</p>
+                    <p>✅ <strong>Checklist personalizável</strong>, Healing Check, lembretes, sessão.</p>
+                    <p>✅ <strong>Exportação CSV</strong> e <strong>Backup Key.json</strong>.</p>
+                    <p>✅ <strong>Notificações</strong> e <strong>IA Prompt V2</strong>.</p>
                 </div>
-                <button onclick="goToHub()" class="mt-6 px-8 py-3 gold-gradient text-black font-bold rounded-xl text-sm hover:opacity-90 transition">
-                    Ir para o Painel
-                </button>
+                <button onclick="goToHub()" class="mt-6 px-8 py-3 btn-primary text-sm rounded-xl">Ir para o Painel</button>
             </div>
         </div>
 
-        <!-- ===== HUB ===== -->
-        <div id="hub" class="hidden flex-1 flex-col items-center justify-center gap-8 py-8">
-            <h2 class="text-3xl font-bold text-center">Escolha sua área de trabalho</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-5xl" id="hubCards">
-                <div onclick="showArea('geral')" class="area-card glass-card p-6 rounded-2xl text-center border-2 border-[#c9a96e]/30 hover:border-[#c9a96e] transition animate-fade-up delay-1">
-                    <div class="w-14 h-14 rounded-full bg-[#c9a96e]/10 flex items-center justify-center mx-auto mb-3 text-[#c9a96e]"><i data-lucide="layout-dashboard" class="w-7 h-7"></i></div>
-                    <h3 class="text-lg font-bold text-[#c9a96e]">Geral</h3>
-                    <p class="text-xs text-gray-400 mt-1">Dashboard e Financeiro</p>
-                </div>
-                <div onclick="showArea('tatuagem')" class="area-card glass-card p-6 rounded-2xl text-center border-2 border-blue-500/30 hover:border-blue-500 transition animate-fade-up delay-2">
-                    <div class="w-14 h-14 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto mb-3 text-blue-400"><i data-lucide="palette" class="w-7 h-7"></i></div>
-                    <h3 class="text-lg font-bold text-blue-400">Tatuagem</h3>
-                    <p class="text-xs text-gray-400 mt-1">Agenda, Clientes, Estoque, Portfólio, Lembretes, Checklist</p>
-                </div>
-                <div onclick="showArea('marketing')" class="area-card glass-card p-6 rounded-2xl text-center border-2 border-purple-500/30 hover:border-purple-500 transition animate-fade-up delay-3">
-                    <div class="w-14 h-14 rounded-full bg-purple-500/10 flex items-center justify-center mx-auto mb-3 text-purple-400"><i data-lucide="megaphone" class="w-7 h-7"></i></div>
-                    <h3 class="text-lg font-bold text-purple-400">Marketing</h3>
-                    <p class="text-xs text-gray-400 mt-1">Campanhas e Concorrência</p>
-                </div>
-                <div onclick="showArea('ia')" class="area-card glass-card p-6 rounded-2xl text-center border-2 border-fuchsia-500/30 hover:border-fuchsia-500 transition animate-fade-up delay-4">
-                    <div class="w-14 h-14 rounded-full bg-fuchsia-500/10 flex items-center justify-center mx-auto mb-3 text-fuchsia-400"><i data-lucide="sparkles" class="w-7 h-7"></i></div>
-                    <h3 class="text-lg font-bold text-fuchsia-400">Recursos IA</h3>
-                    <p class="text-xs text-gray-400 mt-1">Vídeo Criativo e Geração de Prompts</p>
-                </div>
+        <!-- ===== HUB (tabs Power BI) ===== -->
+        <div id="hub" class="hidden flex-1 flex-col gap-6">
+            <div class="flex flex-wrap gap-2 border-b border-white/5 pb-4">
+                <button class="sub-tab active" data-tab="geral" onclick="switchTab('geral')"><i data-lucide="layout-dashboard" class="w-4 h-4 inline mr-1"></i> Geral</button>
+                <button class="sub-tab" data-tab="tatuagem" onclick="switchTab('tatuagem')"><i data-lucide="palette" class="w-4 h-4 inline mr-1"></i> Tatuagem</button>
+                <button class="sub-tab" data-tab="marketing" onclick="switchTab('marketing')"><i data-lucide="megaphone" class="w-4 h-4 inline mr-1"></i> Marketing</button>
+                <button class="sub-tab" data-tab="ia" onclick="switchTab('ia')"><i data-lucide="sparkles" class="w-4 h-4 inline mr-1"></i> IA</button>
+                <button onclick="downloadJSON()" class="btn-secondary ml-auto text-xs flex items-center gap-1"><i data-lucide="download" class="w-3 h-3"></i> Key.json</button>
             </div>
-            <button onclick="downloadJSON()" class="mt-2 px-5 py-2 bg-white/5 border border-white/10 rounded-xl text-xs font-medium text-gray-300 hover:bg-white/10 transition flex items-center gap-2">
-                <i data-lucide="download" class="w-3.5 h-3.5"></i> Baixar Key.json
-            </button>
-        </div>
-
-        <!-- ===== ÁREA GERAL ===== -->
-        <div id="area-geral" class="hidden flex-1 space-y-6">
-            <div class="flex items-center justify-between">
-                <h2 class="text-2xl font-bold text-[#c9a96e] flex items-center gap-2"><i data-lucide="layout-dashboard" class="w-6 h-6"></i> Área Geral</h2>
-                <button onclick="showHub()" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-medium text-gray-300 transition flex items-center gap-2">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar ao Menu
-                </button>
-            </div>
-            <div class="space-y-6">
-                <!-- Dashboard -->
-                <div class="glass-card p-6 rounded-2xl border border-white/5">
-                    <h3 class="font-bold text-base flex items-center gap-2 mb-4"><i data-lucide="bar-chart-3" class="w-5 h-5 text-[#c9a96e]"></i> Indicadores Gerais</h3>
-                    <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4" id="dashGrid">
-                        <div class="bg-black/30 p-3 rounded-xl"><div class="text-xs text-gray-400">Leads</div><div class="text-xl font-bold text-white" id="dashClients">0</div></div>
-                        <div class="bg-black/30 p-3 rounded-xl"><div class="text-xs text-gray-400">Portfólio</div><div class="text-xl font-bold text-white" id="dashPortfolio">0</div></div>
-                        <div class="bg-black/30 p-3 rounded-xl"><div class="text-xs text-gray-400">Concorrentes</div><div class="text-xl font-bold text-white" id="dashCompetitors">0</div></div>
-                        <div class="bg-black/30 p-3 rounded-xl"><div class="text-xs text-gray-400">Campanhas</div><div class="text-xl font-bold text-white" id="dashCampaigns">0</div></div>
-                        <div class="bg-black/30 p-3 rounded-xl"><div class="text-xs text-gray-400">Saldo</div><div class="text-xl font-bold text-emerald-400" id="dashBalance">R$ 0</div></div>
-                        <div class="bg-black/30 p-3 rounded-xl"><div class="text-xs text-gray-400">ROI</div><div class="text-xl font-bold text-cyan-400" id="dashConversion">0%</div></div>
-                    </div>
-                    <div id="estoqueCriticoBanner" class="mt-4 hidden bg-red-500/10 border border-red-500/30 p-3 rounded-xl text-red-400 text-xs"></div>
-                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <div class="flex justify-between text-xs mb-1"><span class="text-gray-400">Entradas</span><span id="chartInValue" class="text-emerald-400">R$ 0</span></div>
-                            <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden"><div id="chartInBar" class="bg-emerald-500 h-full transition-all" style="width:0%"></div></div>
-                            <div class="flex justify-between text-xs mt-3 mb-1"><span class="text-gray-400">Despesas</span><span id="chartOutValue" class="text-red-400">R$ 0</span></div>
-                            <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden"><div id="chartOutBar" class="bg-red-500 h-full transition-all" style="width:0%"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-16 h-16 rounded-full border-4 border-amber-500/20 flex items-center justify-center text-xl font-bold text-amber-400"><span id="chartCirclePerc">0%</span></div>
-                                <div class="text-xs text-gray-400"><p>Campanhas Ativas: <span id="chartActiveCamps" class="text-white font-bold">0</span></p><p>Concluídas: <span id="chartClosedCamps" class="text-white font-bold">0</span></p></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-6 border-t border-white/5 pt-4">
-                        <p id="dashSummary" class="text-xs text-gray-400 leading-relaxed"></p>
-                    </div>
-                </div>
-
-                <!-- Financeiro -->
-                <div class="glass-card p-6 rounded-2xl border border-white/5">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="font-bold text-base flex items-center gap-2"><i data-lucide="dollar-sign" class="w-5 h-5 text-emerald-400"></i> Financeiro</h3>
-                        <div class="flex gap-2">
-                            <span class="text-xs text-gray-400" id="financialCount">0 transações</span>
-                            <button onclick="exportFinancialCSV()" class="text-[10px] bg-emerald-600/20 text-emerald-400 px-2 py-1 rounded-xl hover:bg-emerald-600/30 transition">📥 CSV</button>
-                        </div>
-                    </div>
-                    <div id="financialFormContainer" class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
-                        <select id="finType" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm"><option>Entrada</option><option>Saída</option></select>
-                        <input type="number" id="finAmount" placeholder="Valor (R$)" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                        <input type="text" id="finDesc" placeholder="Descrição (ex: Cliente - Tatuagem)" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                        <button id="addFinBtn" onclick="addFinancial()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl py-2 transition">+ Lançar</button>
-                    </div>
-                    <div id="financialList" class="space-y-2"></div>
-                    <div id="financialSummary"></div>
-                </div>
-
-                <!-- Exportação CSV Geral -->
-                <div class="glass-card p-4 rounded-2xl border border-white/5 flex flex-wrap gap-3">
-                    <button onclick="exportClientsCSV()" class="px-4 py-2 bg-blue-600/20 text-blue-400 rounded-xl text-xs font-semibold hover:bg-blue-600/30 transition">📊 Exportar Clientes CSV</button>
-                    <button onclick="exportFinancialCSV()" class="px-4 py-2 bg-emerald-600/20 text-emerald-400 rounded-xl text-xs font-semibold hover:bg-emerald-600/30 transition">💰 Exportar Financeiro CSV</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== ÁREA TATUAGEM ===== -->
-        <div id="area-tatuagem" class="hidden flex-1 space-y-6">
-            <div class="flex items-center justify-between">
-                <h2 class="text-2xl font-bold text-blue-400 flex items-center gap-2"><i data-lucide="palette" class="w-6 h-6"></i> Área Tatuagem</h2>
-                <button onclick="showHub()" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-medium text-gray-300 transition flex items-center gap-2">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar ao Menu
-                </button>
-            </div>
-
-            <div class="flex flex-wrap gap-1.5 p-1.5 bg-[#121212] border border-white/5 rounded-2xl overflow-x-auto">
-                <button class="sub-tab-btn active-sub px-4 py-2 rounded-xl text-xs font-medium text-gray-400 hover:text-white transition" data-subtab="agenda" onclick="showSubTab('agenda')"><i data-lucide="calendar" class="w-4 h-4 inline mr-1"></i> Agenda</button>
-                <button class="sub-tab-btn px-4 py-2 rounded-xl text-xs font-medium text-gray-400 hover:text-white transition" data-subtab="clientes" onclick="showSubTab('clientes')"><i data-lucide="users" class="w-4 h-4 inline mr-1"></i> Clientes</button>
-                <button class="sub-tab-btn px-4 py-2 rounded-xl text-xs font-medium text-gray-400 hover:text-white transition" data-subtab="estoque" onclick="showSubTab('estoque')"><i data-lucide="package-open" class="w-4 h-4 inline mr-1"></i> Estoque</button>
-                <button class="sub-tab-btn px-4 py-2 rounded-xl text-xs font-medium text-gray-400 hover:text-white transition" data-subtab="portfolio" onclick="showSubTab('portfolio')"><i data-lucide="palette" class="w-4 h-4 inline mr-1"></i> Portfólio</button>
-                <button class="sub-tab-btn px-4 py-2 rounded-xl text-xs font-medium text-gray-400 hover:text-white transition" data-subtab="lembretes" onclick="showSubTab('lembretes')"><i data-lucide="bell" class="w-4 h-4 inline mr-1"></i> Lembretes</button>
-                <button class="sub-tab-btn px-4 py-2 rounded-xl text-xs font-medium text-gray-400 hover:text-white transition" data-subtab="checklist" onclick="showSubTab('checklist')"><i data-lucide="check-square" class="w-4 h-4 inline mr-1"></i> Checklist</button>
-            </div>
-
-            <div class="space-y-6">
-                <!-- Sub-aba Agenda -->
-                <div id="sub-agenda" class="sub-content">
-                    <div class="glass-card p-6 rounded-2xl border border-white/5">
-                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
-                            <h3 class="font-bold text-base flex items-center gap-2"><i data-lucide="calendar" class="w-5 h-5 text-amber-400"></i> Agenda</h3>
-                            <div class="flex items-center gap-2 bg-black/30 p-1 rounded-xl border border-white/5">
-                                <button onclick="changeMonth(-1)" class="px-3 py-1.5 bg-white/5 hover:bg-white/10 rounded-lg text-xs text-gray-300 transition"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
-                                <span id="calMonthYear" class="text-sm font-bold text-white min-w-[120px] text-center">Janeiro 2026</span>
-                                <button onclick="changeMonth(1)" class="px-3 py-1.5 bg-white/5 hover:bg-white/10 rounded-lg text-xs text-gray-300 transition"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
-                            </div>
-                        </div>
-
-                        <!-- Legenda -->
-                        <div class="legenda">
-                            <span class="sessao">Sessão</span>
-                            <span class="lembrete">Lembrete</span>
-                            <span class="healing">Healing Check</span>
-                        </div>
-
-                        <!-- Grade de dias -->
-                        <div id="calendarGrid" class="cal-grid"></div>
-
-                        <!-- Modal de eventos do dia -->
-                        <div id="dayModal" class="modal-overlay" onclick="if(event.target===this) closeDayModal()">
-                            <div class="modal-content">
-                                <button class="close-btn" onclick="closeDayModal()">✕</button>
-                                <h4 id="modalDayTitle" class="font-bold text-white text-lg mb-2">Dia X</h4>
-                                <div id="modalEventsList" class="space-y-2 text-sm"></div>
-                                <div class="mt-4">
-                                    <input type="time" id="newEventTime" class="bg-[#0d0d0d] border border-white/10 rounded px-2 py-1 text-sm w-full mb-2" />
-                                    <input type="text" id="newEventTitle" placeholder="Título" class="bg-[#0d0d0d] border border-white/10 rounded px-2 py-1 text-sm w-full mb-2" />
-                                    <select id="newEventType" class="bg-[#0d0d0d] border border-white/10 rounded px-2 py-1 text-sm w-full mb-2">
-                                        <option value="sessao">Sessão</option>
-                                        <option value="lembrete">Lembrete</option>
-                                        <option value="healing">Healing Check</option>
-                                    </select>
-                                    <button onclick="addEventToDay()" class="gold-gradient text-black font-bold text-xs rounded-xl px-4 py-2 w-full">Adicionar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sub-aba Clientes -->
-                <div id="sub-clientes" class="sub-content hidden">
-                    <div class="glass-card p-6 rounded-2xl border border-white/5">
-                        <div class="flex flex-wrap justify-between items-center mb-4 gap-2">
-                            <h3 class="font-bold text-base flex items-center gap-2"><i data-lucide="users" class="w-5 h-5 text-[#c9a96e]"></i> CRM Clientes</h3>
-                            <div class="flex items-center gap-2">
-                                <span class="text-xs text-gray-400" id="clientCount">0 clientes</span>
-                                <select id="clientFilterStage" onchange="renderClientes()" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-2 py-1 text-xs text-white">
-                                    <option value="todos">Todos</option>
-                                    <option value="Briefing">Briefing</option>
-                                    <option value="Desenho">Desenho</option>
-                                    <option value="Ativo">Ativo</option>
-                                    <option value="Pausado">Pausado</option>
-                                    <option value="Concluído">Concluído</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div id="clientFormContainer" class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
-                            <input type="text" id="clientName" placeholder="Nome *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                            <input type="tel" id="clientPhone" placeholder="Telefone" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                            <select id="clientStage" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm">
-                                <option>Briefing</option><option>Desenho</option><option>Ativo</option><option>Pausado</option><option>Concluído</option>
-                            </select>
-                            <input type="text" id="clientInsta" placeholder="@instagram" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                            <select id="clientOrigem" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm">
-                                <option value="Orgânico (Instagram)">Orgânico (Instagram)</option>
-                                <option value="Tráfego Pago (Meta)">Tráfego Pago (Meta)</option>
-                                <option value="Indicação">Indicação</option>
-                                <option value="Google">Google</option>
-                                <option value="Evento/Feira">Evento/Feira</option>
-                            </select>
-                            <textarea id="clientObs" placeholder="Briefing" class="md:col-span-2 bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm h-16"></textarea>
-                            <button id="addClientBtn" onclick="addClient()" class="md:col-span-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl py-2 transition">+ Adicionar</button>
-                        </div>
-                        <div id="clientList" class="space-y-3"></div>
-                    </div>
-                </div>
-
-                <!-- Sub-aba Estoque -->
-                <div id="sub-estoque" class="sub-content hidden">
-                    <div class="glass-card p-6 rounded-2xl border border-white/5">
-                        <h3 class="font-bold text-base flex items-center gap-2 mb-4"><i data-lucide="package-open" class="w-5 h-5 text-blue-400"></i> Estoque</h3>
-                        <div id="stockFormContainer" class="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
-                            <input type="text" id="stockName" placeholder="Insumo *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                            <input type="number" id="stockQty" placeholder="Quantidade" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                            <input type="url" id="stockLink" placeholder="Link de compra" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                            <button id="stockSubmitBtn" onclick="submitStock()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl py-2 transition">+ Cadastrar</button>
-                        </div>
-                        <div id="estoqueCriticoBannerSub" class="mb-4 hidden bg-red-500/10 border border-red-500/30 p-2 rounded-xl text-red-400 text-xs"></div>
-                        <div class="overflow-x-auto"><table class="w-full text-left text-xs"><thead><tr class="text-gray-400 border-b border-white/5"><th class="pb-2">Insumo</th><th class="pb-2">Qtd</th><th class="pb-2">Status</th><th class="pb-2">Link</th><th class="pb-2 text-right">Ações</th></tr></thead><tbody id="stockTableBody"></tbody></table></div>
-                    </div>
-                </div>
-
-                <!-- Sub-aba Portfólio -->
-                <div id="sub-portfolio" class="sub-content hidden">
-                    <div class="glass-card p-6 rounded-2xl border border-white/5">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="font-bold text-base flex items-center gap-2"><i data-lucide="palette" class="w-5 h-5 text-blue-400"></i> Portfólio</h3>
-                            <span class="text-xs text-gray-400" id="portfolioCount">0 artes</span>
-                        </div>
-                        <div id="portfolioFormContainer" class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
-                            <input type="text" id="portTitle" placeholder="Título *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                            <select id="portStyle" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm"><option>Realismo</option><option>Blackwork</option><option>Fine Line</option><option>Old School</option></select>
-                            <textarea id="portDesc" placeholder="Ficha técnica" class="md:col-span-2 bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm h-16"></textarea>
-                            <button id="portSubmitBtn" onclick="submitPortfolio()" class="md:col-span-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl py-2 transition">+ Incorporar</button>
-                        </div>
-                        <div id="portfolioList" class="space-y-3"></div>
-                    </div>
-                </div>
-
-                <!-- Sub-aba Lembretes -->
-                <div id="sub-lembretes" class="sub-content hidden">
-                    <div class="glass-card p-6 rounded-2xl border border-white/5">
-                        <h3 class="font-bold text-base flex items-center gap-2 mb-4"><i data-lucide="bell" class="w-5 h-5 text-amber-400"></i> Lembretes Inteligentes</h3>
-                        <p class="text-xs text-gray-400 mb-4">Crie lembretes para contatar clientes. O sistema agenda automaticamente no calendário e cria Healing Check ao concluir cliente.</p>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
-                            <input type="text" id="lembreteNome" placeholder="Nome do cliente *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                            <input type="number" id="lembreteDias" placeholder="Dias para contatar" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                            <button onclick="addLembrete()" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl py-2 transition">+ Criar Lembrete</button>
-                        </div>
-                        <div id="lembretesList" class="space-y-2"></div>
-                    </div>
-                </div>
-
-                <!-- Sub-aba Checklist -->
-                <div id="sub-checklist" class="sub-content hidden">
-                    <div class="glass-card p-6 rounded-2xl border border-white/5">
-                        <h3 class="font-bold text-base flex items-center gap-2 mb-4"><i data-lucide="check-square" class="w-5 h-5 text-green-400"></i> Checklist do Dia</h3>
-                        <p class="text-xs text-gray-400 mb-4">Adicione itens, marque como concluído ou remova.</p>
-                        <div class="flex gap-2 mb-4">
-                            <input type="text" id="newChecklistItem" placeholder="Novo item..." class="flex-1 bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                            <button onclick="addChecklistItem()" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded-xl transition">+ Adicionar</button>
-                        </div>
-                        <div id="checklistContainer" class="space-y-2"></div>
-                        <button onclick="resetChecklist()" class="mt-4 px-4 py-2 bg-red-500/10 text-red-400 text-xs rounded-xl hover:bg-red-500/20 transition">Resetar Checklist</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== ÁREA MARKETING (com sub-abas) ===== -->
-        <div id="area-marketing" class="hidden flex-1 space-y-6">
-            <div class="flex items-center justify-between">
-                <h2 class="text-2xl font-bold text-purple-400 flex items-center gap-2"><i data-lucide="megaphone" class="w-6 h-6"></i> Área Marketing</h2>
-                <button onclick="showHub()" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-medium text-gray-300 transition flex items-center gap-2">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar ao Menu
-                </button>
-            </div>
-
-            <!-- Sub-abas Marketing -->
-            <div class="flex flex-wrap gap-1.5 p-1.5 bg-[#121212] border border-white/5 rounded-2xl overflow-x-auto">
-                <button class="sub-tab-btn active-sub px-4 py-2 rounded-xl text-xs font-medium text-gray-400 hover:text-white transition" data-subtab="campanhas" onclick="showMarketingSubTab('campanhas')"><i data-lucide="megaphone" class="w-4 h-4 inline mr-1"></i> Campanhas</button>
-                <button class="sub-tab-btn px-4 py-2 rounded-xl text-xs font-medium text-gray-400 hover:text-white transition" data-subtab="concorrencia" onclick="showMarketingSubTab('concorrencia')"><i data-lucide="eye" class="w-4 h-4 inline mr-1"></i> Concorrência</button>
-            </div>
-
-            <div class="space-y-6">
-                <!-- Sub-aba Campanhas -->
-                <div id="sub-campanhas" class="sub-content">
-                    <div class="glass-card p-6 rounded-2xl border border-white/5">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="font-bold text-base flex items-center gap-2"><i data-lucide="megaphone" class="w-5 h-5 text-amber-500"></i> Campanhas</h3>
-                            <span class="text-xs text-gray-400" id="campaignCount">0 campanhas</span>
-                        </div>
-                        <div id="campaignFormContainer" class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
-                            <input type="text" id="campName" placeholder="Nome *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                            <select id="campStatus" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm"><option>Planejamento</option><option>Ativa</option><option>Pausada</option><option>Concluída</option></select>
-                            <input type="number" id="campInvest" placeholder="Investimento (R$)" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                            <input type="number" id="campReturn" placeholder="Retorno (R$)" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                            <textarea id="campDesc" placeholder="Estratégia" class="md:col-span-5 bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm h-16"></textarea>
-                            <button id="campSubmitBtn" onclick="submitCampaign()" class="md:col-span-5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl py-2 transition">+ Publicar</button>
-                        </div>
-                        <div id="campaignList" class="space-y-3"></div>
-                    </div>
-                </div>
-
-                <!-- Sub-aba Concorrência -->
-                <div id="sub-concorrencia" class="sub-content hidden">
-                    <div class="glass-card p-6 rounded-2xl border border-white/5">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="font-bold text-base flex items-center gap-2"><i data-lucide="eye" class="w-5 h-5 text-purple-400"></i> Concorrentes</h3>
-                            <span class="text-xs text-gray-400" id="competitorCount">0 alvos</span>
-                        </div>
-                        <div id="competitorFormContainer" class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4 bg-white/[0.01] p-3 rounded-xl border border-white/5">
-                            <input type="text" id="compName" placeholder="Nome *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                            <input type="text" id="compInsta" placeholder="@instagram" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                            <input type="text" id="compLocation" placeholder="Região" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
-                            <select id="compAmeaca" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm">
-                                <option value="Baixo">Baixo</option><option value="Médio">Médio</option><option value="Alto">Alto</option>
-                            </select>
-                            <textarea id="compObs" placeholder="Análise" class="md:col-span-4 bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm h-16"></textarea>
-                            <button id="compSubmitBtn" onclick="submitCompetitor()" class="md:col-span-4 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold rounded-xl py-2 transition">+ Monitorar</button>
-                        </div>
-                        <div id="competitorList" class="space-y-3"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== ÁREA IA ===== -->
-        <div id="area-ia" class="hidden flex-1 space-y-6">
-            <div class="flex items-center justify-between">
-                <h2 class="text-2xl font-bold text-fuchsia-400 flex items-center gap-2"><i data-lucide="sparkles" class="w-6 h-6"></i> Recursos IA</h2>
-                <button onclick="showHub()" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-medium text-gray-300 transition flex items-center gap-2">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar ao Menu
-                </button>
-            </div>
-            <div class="space-y-6">
-                <!-- Vídeo (sem edição) -->
-                <div class="glass-card p-6 rounded-2xl border border-white/5">
-                    <h3 class="font-bold text-base flex items-center gap-2 mb-3"><i data-lucide="video" class="w-5 h-5 text-red-500"></i> Criativo Ativo para Análise</h3>
-                    <p class="text-xs text-gray-400 mb-4">Este vídeo será usado como base para resumo geral e análise estratégica pela IA.</p>
-                    <div class="w-full max-w-3xl mx-auto video-thumb border border-white/5 p-1">
-                        <a href="#" id="youtubeButtonIA" target="_blank" rel="noopener noreferrer" class="block relative">
-                            <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Vídeo Criativo" id="videoThumbnailIA" class="rounded-xl" />
-                            <div class="video-play-btn"><i data-lucide="play" class="w-8 h-8 fill-white text-white"></i></div>
-                        </a>
-                        <p class="text-center text-xs text-gray-400 py-2">📺 Clique no botão para assistir ao criativo ativo no YouTube</p>
-                    </div>
-                </div>
-
-                <!-- Gerador de Prompt IA V2 -->
-                <div class="glass-card p-6 rounded-2xl border border-white/5">
-                    <h3 class="font-bold text-base flex items-center gap-2 mb-3"><i data-lucide="brain" class="w-5 h-5 text-fuchsia-400"></i> Gerador de Prompt IA V2</h3>
-                    <p class="text-xs text-gray-400 mb-4">Gere um resumo executivo estruturado com base nos dados do sistema. Copie ou baixe como .txt.</p>
-                    <div class="flex flex-wrap gap-3 mb-4">
-                        <button onclick="generateIAPrompt()" class="px-5 py-2.5 bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold text-xs rounded-xl transition flex items-center gap-2"><i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Gerar Resumo IA</button>
-                        <button onclick="copyIAPrompt()" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl transition flex items-center gap-2"><i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar</button>
-                        <button onclick="downloadIAPrompt()" class="px-5 py-2.5 gold-gradient text-black font-bold text-xs rounded-xl transition flex items-center gap-2"><i data-lucide="file-text" class="w-3.5 h-3.5"></i> Baixar .txt</button>
-                    </div>
-                    <textarea id="iaPromptPreview" readonly class="w-full bg-[#0a0a0a] border border-white/5 rounded-xl px-3 py-2 text-xs font-mono text-[#c9a96e] h-96 resize-y"></textarea>
-                </div>
-            </div>
+            <div id="tabContent" class="flex-1"></div>
         </div>
 
     </div>
 
+    <!-- ===== TOAST ===== -->
     <div id="toast" class="fixed bottom-6 right-6 px-5 py-3.5 rounded-xl text-xs font-semibold text-white border opacity-0 pointer-events-none translate-y-4 transition-all duration-300 z-50 shadow-xl"></div>
+
+    <!-- ===== MODAL CALENDÁRIO ===== -->
+    <div id="dayModal" class="modal-overlay" onclick="if(event.target===this) closeDayModal()">
+        <div class="modal-box">
+            <button class="close" onclick="closeDayModal()">✕</button>
+            <h4 id="modalDayTitle" class="font-bold text-white text-lg mb-2">Dia X</h4>
+            <div id="modalEventsList" class="space-y-2 text-sm"></div>
+            <div class="mt-4 border-t border-white/5 pt-4">
+                <input type="time" id="newEventTime" class="bg-[#0d0d0d] border border-white/10 rounded px-2 py-1 text-sm w-full mb-2" />
+                <input type="text" id="newEventTitle" placeholder="Título" class="bg-[#0d0d0d] border border-white/10 rounded px-2 py-1 text-sm w-full mb-2" />
+                <select id="newEventType" class="bg-[#0d0d0d] border border-white/10 rounded px-2 py-1 text-sm w-full mb-2">
+                    <option value="sessao">Sessão</option>
+                    <option value="lembrete">Lembrete</option>
+                    <option value="healing">Healing Check</option>
+                </select>
+                <button onclick="addEventToDay()" class="btn-primary w-full rounded-xl py-2 text-sm font-bold">Adicionar</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // ======================================================================
-        // 1. PERSISTÊNCIA (localStorage)
+        // DATA LAYER
         // ======================================================================
-        const DEFAULT_DATA = {
-            clients: [],
-            portfolio: [],
-            competitors: [],
-            campaigns: [],
-            financial: [],
-            stock: [],
-            calendarEvents: [],
-            lembretes: [],
-            historico: [],
+        const DEFAULT = {
+            clients: [], portfolio: [], competitors: [], campaigns: [], financial: [], stock: [],
+            calendarEvents: [], lembretes: [], historico: [],
             settings: {
                 videoUrl: 'https://youtu.be/dQw4w9WgXcQ',
                 comissao: 30,
@@ -764,21 +400,19 @@
             },
             checklist: {}
         };
-
         let data = {};
-        let timerInterval = null;
-        let timerSeconds = 0;
-        let sessaoAtiva = null;
+        let timerInterval = null, timerSeconds = 0, sessaoAtiva = null;
+        let calCtx = { month: new Date().getMonth(), year: new Date().getFullYear() };
+        let selectedDay = null;
 
         function loadData() {
             const saved = localStorage.getItem('savannah_data');
             if (saved) {
                 try {
-                    const parsed = JSON.parse(saved);
-                    data = { ...DEFAULT_DATA, ...parsed };
-                    // Garantir que todos os campos existam
-                    if (!data.settings) data.settings = DEFAULT_DATA.settings;
-                    if (!data.settings.templatesWhats) data.settings.templatesWhats = DEFAULT_DATA.settings.templatesWhats;
+                    const p = JSON.parse(saved);
+                    data = { ...DEFAULT, ...p };
+                    if (!data.settings) data.settings = DEFAULT.settings;
+                    if (!data.settings.templatesWhats) data.settings.templatesWhats = DEFAULT.settings.templatesWhats;
                     if (!data.lembretes) data.lembretes = [];
                     if (!data.historico) data.historico = [];
                     if (!data.checklist) data.checklist = {};
@@ -789,73 +423,65 @@
                     if (!data.clients) data.clients = [];
                     if (!data.stock) data.stock = [];
                     if (!data.competitors) data.competitors = [];
-                } catch (e) {
-                    data = { ...DEFAULT_DATA };
-                }
-            } else {
-                data = { ...DEFAULT_DATA };
-                saveData();
-            }
+                } catch (e) { data = { ...DEFAULT }; }
+            } else { data = { ...DEFAULT };
+                saveData(); }
         }
 
-        function saveData() {
-            localStorage.setItem('savannah_data', JSON.stringify(data));
-        }
+        function saveData() { localStorage.setItem('savannah_data', JSON.stringify(data)); }
 
-        function generateId() { return Date.now() + Math.floor(Math.random() * 1000); }
+        function genId() { return Date.now() + Math.floor(Math.random() * 1000); }
 
-        function formatCurrency(val) { return 'R$ ' + val.toFixed(2).replace('.', ','); }
+        function fmt(v) { return 'R$ ' + v.toFixed(2).replace('.', ','); }
 
-        function formatDate(d) { return new Date(d).toLocaleDateString('pt-BR'); }
+        function fmtDate(d) { return new Date(d).toLocaleDateString('pt-BR'); }
 
-        function formatDateTime(d) { return new Date(d).toLocaleString('pt-BR'); }
+        function fmtDateTime(d) { return new Date(d).toLocaleString('pt-BR'); }
 
         // ======================================================================
-        // 2. TOAST
+        // TOAST
         // ======================================================================
-        function showToast(msg, type) {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.className = 'fixed bottom-6 right-6 px-5 py-3.5 rounded-xl text-xs font-semibold text-white border transition-all duration-300 z-50 shadow-xl ' +
+        function toast(msg, type) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'fixed bottom-6 right-6 px-5 py-3.5 rounded-xl text-xs font-semibold text-white border transition-all duration-300 z-50 shadow-xl ' +
                 (type === 'success' ? 'bg-emerald-950/80 border-emerald-500/30 text-emerald-400' :
                     'bg-red-950/80 border-red-500/30 text-red-400');
-            toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
-            clearTimeout(toast._timer);
-            toast._timer = setTimeout(() => { toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4'); },
-            3000);
+            t.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+            clearTimeout(t._timer);
+            t._timer = setTimeout(() => { t.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4'); }, 3000);
         }
 
         // ======================================================================
-        // 3. LOGIN / LOGOUT
+        // LOGIN
         // ======================================================================
-        const DEFAULT_PASS = 'savannah2026';
+        const PASS = 'savannah2026';
 
         function login() {
-            const password = document.getElementById('loginPassword').value.trim();
-            const errorEl = document.getElementById('loginError');
-            if (password === DEFAULT_PASS) {
-                errorEl.style.display = 'none';
+            const pwd = document.getElementById('loginPassword').value.trim();
+            const err = document.getElementById('loginError');
+            if (pwd === PASS) {
+                err.style.display = 'none';
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('app').style.display = 'flex';
                 document.getElementById('loginPassword').value = '';
                 document.getElementById('changelog').style.display = 'flex';
                 document.getElementById('hub').style.display = 'none';
-                document.querySelectorAll('[id^="area-"]').forEach(el => el.style.display = 'none');
                 loadData();
                 renderAll();
                 refreshIcons();
-                generateNotifications();
-                showToast('Bem-vinda, Larissa! 🖤', 'success');
+                genNotifs();
+                toast('Bem-vinda, Larissa! 🖤', 'success');
             } else {
-                errorEl.textContent = 'Senha incorreta. Tente novamente.';
-                errorEl.style.display = 'block';
+                err.textContent = 'Senha incorreta.';
+                err.style.display = 'block';
             }
         }
 
         function logout() {
             document.getElementById('app').style.display = 'none';
             document.getElementById('loginScreen').style.display = 'block';
-            closeNotifModal();
+            closeNotif();
             if (timerInterval) { clearInterval(timerInterval);
                 timerInterval = null; }
         }
@@ -863,6 +489,7 @@
         function goToHub() {
             document.getElementById('changelog').style.display = 'none';
             document.getElementById('hub').style.display = 'flex';
+            switchTab('geral');
             refreshIcons();
             scrollToTop();
         }
@@ -870,189 +497,440 @@
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
         function refreshIcons() {
-            setTimeout(() => { lucide.createIcons(); }, 100);
-            setTimeout(() => { lucide.createIcons(); }, 300);
+            setTimeout(() => lucide.createIcons(), 100);
+            setTimeout(() => lucide.createIcons(), 300);
         }
 
         // ======================================================================
-        // 4. NAVEGAÇÃO ENTRE ÁREAS E SUB-ABAS
+        // NAVEGAÇÃO
         // ======================================================================
-        function showHub() {
-            document.getElementById('hub').style.display = 'flex';
-            document.querySelectorAll('[id^="area-"]').forEach(el => el.style.display = 'none');
-            scrollToTop();
+        function switchTab(tab) {
+            document.querySelectorAll('.sub-tab[data-tab]').forEach(el => el.classList.toggle('active', el.dataset.tab === tab));
+            renderTab(tab);
             refreshIcons();
         }
 
-        function showArea(area) {
-            document.getElementById('hub').style.display = 'none';
-            document.querySelectorAll('[id^="area-"]').forEach(el => el.style.display = 'none');
-            const target = document.getElementById(`area-${area}`);
-            if (target) {
-                target.style.display = 'block';
-                if (area === 'geral') renderGeral();
-                if (area === 'tatuagem') renderTatuagem();
-                if (area === 'marketing') renderMarketing();
-                if (area === 'ia') renderIA();
-            }
-            scrollToTop();
-            refreshIcons();
-        }
-
-        function showSubTab(tab) {
-            document.querySelectorAll('#area-tatuagem .sub-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('#area-tatuagem .sub-tab-btn').forEach(el => el.classList.remove('active-sub'));
-            document.getElementById(`sub-${tab}`).classList.remove('hidden');
-            const btn = document.querySelector(`#area-tatuagem .sub-tab-btn[data-subtab="${tab}"]`);
-            if (btn) btn.classList.add('active-sub');
-            if (tab === 'lembretes') renderLembretes();
-            if (tab === 'checklist') renderChecklist();
-            if (tab === 'clientes') renderClientes();
-            if (tab === 'estoque') renderStock();
-            if (tab === 'portfolio') renderPortfolio();
-            if (tab === 'agenda') renderCalendarGrid();
-            refreshIcons();
-        }
-
-        function showMarketingSubTab(tab) {
-            document.querySelectorAll('#area-marketing .sub-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('#area-marketing .sub-tab-btn').forEach(el => el.classList.remove('active-sub'));
-            document.getElementById(`sub-${tab}`).classList.remove('hidden');
-            const btn = document.querySelector(`#area-marketing .sub-tab-btn[data-subtab="${tab}"]`);
-            if (btn) btn.classList.add('active-sub');
-            if (tab === 'campanhas') renderCampaigns();
-            if (tab === 'concorrencia') renderCompetitors();
+        function renderTab(tab) {
+            const container = document.getElementById('tabContent');
+            if (tab === 'geral') container.innerHTML = renderGeral();
+            else if (tab === 'tatuagem') container.innerHTML = renderTatuagem();
+            else if (tab === 'marketing') container.innerHTML = renderMarketing();
+            else if (tab === 'ia') container.innerHTML = renderIA();
+            // Executa scripts internos
+            if (tab === 'geral') { updateDash();
+                renderFin(); }
+            if (tab === 'tatuagem') { renderCal();
+                renderClients();
+                renderStock();
+                renderPortfolio();
+                renderLembretes();
+                renderChecklist(); }
+            if (tab === 'marketing') { renderCampaigns();
+                renderCompetitors(); }
+            if (tab === 'ia') updateVideo();
             refreshIcons();
         }
 
         // ======================================================================
-        // 5. RENDERIZAÇÃO GERAL
-        // ======================================================================
-        function renderAll() {
-            renderGeral();
-            renderTatuagem();
-            renderMarketing();
-            renderIA();
-            updateDashboard();
-            generateNotifications();
-            refreshIcons();
-        }
-
-        // ======================================================================
-        // 6. ÁREA GERAL
+        // RENDER GERAL (Power BI Style)
         // ======================================================================
         function renderGeral() {
-            updateDashboard();
-            renderFinancial();
+            return `
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+                <div class="pb-card"><div class="title">Leads</div><div class="value" id="dashClients">0</div></div>
+                <div class="pb-card"><div class="title">Portfólio</div><div class="value" id="dashPortfolio">0</div></div>
+                <div class="pb-card"><div class="title">Concorrentes</div><div class="value" id="dashCompetitors">0</div></div>
+                <div class="pb-card"><div class="title">Campanhas</div><div class="value" id="dashCampaigns">0</div></div>
+                <div class="pb-card"><div class="title">Saldo</div><div class="value text-emerald-400" id="dashBalance">R$ 0</div></div>
+                <div class="pb-card"><div class="title">ROI</div><div class="value text-cyan-400" id="dashConversion">0%</div></div>
+                <div class="pb-card"><div class="title">Entradas</div><div class="value text-emerald-400" id="chartInValue">R$ 0</div></div>
+                <div class="pb-card"><div class="title">Despesas</div><div class="value text-red-400" id="chartOutValue">R$ 0</div></div>
+            </div>
+            <div id="estoqueCriticoBanner" class="hidden bg-red-500/10 border border-red-500/30 p-3 rounded-xl text-red-400 text-xs mb-4"></div>
+            <div class="pb-card mb-6">
+                <div class="title">Balanço</div>
+                <div class="flex items-center gap-4">
+                    <div class="flex-1"><div class="h-2 bg-white/5 rounded-full overflow-hidden"><div id="chartInBar" class="h-full bg-emerald-500 transition-all" style="width:0%"></div></div></div>
+                    <div class="flex-1"><div class="h-2 bg-white/5 rounded-full overflow-hidden"><div id="chartOutBar" class="h-full bg-red-500 transition-all" style="width:0%"></div></div></div>
+                </div>
+                <div class="flex justify-between text-xs mt-2"><span class="text-gray-400">Entradas</span><span id="chartInValue2">R$ 0</span><span class="text-gray-400">Despesas</span><span id="chartOutValue2">R$ 0</span></div>
+            </div>
+            <div class="pb-card mb-6">
+                <div class="title">Performance</div>
+                <div class="flex items-center gap-4">
+                    <div class="w-16 h-16 rounded-full border-4 border-amber-500/20 flex items-center justify-center text-xl font-bold text-amber-400"><span id="chartCirclePerc">0%</span></div>
+                    <div><p class="text-xs text-gray-400">Campanhas Ativas: <span id="chartActiveCamps" class="text-white font-bold">0</span></p><p class="text-xs text-gray-400">Concluídas: <span id="chartClosedCamps" class="text-white font-bold">0</span></p></div>
+                </div>
+            </div>
+            <div class="pb-card mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="title">Financeiro</div>
+                    <button onclick="exportFinancialCSV()" class="btn-secondary text-xs">📥 CSV</button>
+                </div>
+                <div id="financialForm" class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4 bg-black/20 p-3 rounded-xl border border-white/5">
+                    <select id="finType" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm"><option>Entrada</option><option>Saída</option></select>
+                    <input type="number" id="finAmount" placeholder="Valor" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <input type="text" id="finDesc" placeholder="Descrição" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <button id="addFinBtn" onclick="addFinancial()" class="btn-primary text-sm">+ Lançar</button>
+                </div>
+                <div id="financialList" class="space-y-2"></div>
+                <div id="financialSummary" class="mt-4"></div>
+            </div>
+            <div class="flex flex-wrap gap-3">
+                <button onclick="exportClientsCSV()" class="btn-secondary text-xs">📊 Clientes CSV</button>
+                <button onclick="exportFinancialCSV()" class="btn-secondary text-xs">💰 Financeiro CSV</button>
+            </div>
+            `;
+        }
+
+        // ======================================================================
+        // RENDER TATUAGEM
+        // ======================================================================
+        function renderTatuagem() {
+            return `
+            <div class="flex flex-wrap gap-1.5 mb-4">
+                <button class="sub-tab active" data-sub="agenda" onclick="showSub('agenda')"><i data-lucide="calendar" class="w-4 h-4 inline mr-1"></i> Agenda</button>
+                <button class="sub-tab" data-sub="clientes" onclick="showSub('clientes')"><i data-lucide="users" class="w-4 h-4 inline mr-1"></i> Clientes</button>
+                <button class="sub-tab" data-sub="estoque" onclick="showSub('estoque')"><i data-lucide="package-open" class="w-4 h-4 inline mr-1"></i> Estoque</button>
+                <button class="sub-tab" data-sub="portfolio" onclick="showSub('portfolio')"><i data-lucide="palette" class="w-4 h-4 inline mr-1"></i> Portfólio</button>
+                <button class="sub-tab" data-sub="lembretes" onclick="showSub('lembretes')"><i data-lucide="bell" class="w-4 h-4 inline mr-1"></i> Lembretes</button>
+                <button class="sub-tab" data-sub="checklist" onclick="showSub('checklist')"><i data-lucide="check-square" class="w-4 h-4 inline mr-1"></i> Checklist</button>
+            </div>
+            <div id="subContent" class="space-y-6"></div>
+            `;
+        }
+
+        function showSub(sub) {
+            document.querySelectorAll('#tabContent .sub-tab[data-sub]').forEach(el => el.classList.toggle('active', el.dataset
+                .sub === sub));
+            const container = document.getElementById('subContent');
+            if (sub === 'agenda') container.innerHTML = renderAgenda();
+            else if (sub === 'clientes') container.innerHTML = renderClientesHTML();
+            else if (sub === 'estoque') container.innerHTML = renderEstoqueHTML();
+            else if (sub === 'portfolio') container.innerHTML = renderPortfolioHTML();
+            else if (sub === 'lembretes') container.innerHTML = renderLembretesHTML();
+            else if (sub === 'checklist') container.innerHTML = renderChecklistHTML();
+            // Executa funções após renderizar
+            if (sub === 'agenda') renderCal();
+            if (sub === 'clientes') renderClientes();
+            if (sub === 'estoque') renderStock();
+            if (sub === 'portfolio') renderPortfolio();
+            if (sub === 'lembretes') renderLembretes();
+            if (sub === 'checklist') renderChecklist();
             refreshIcons();
         }
 
-        function updateDashboard() {
-            const totalClients = data.clients.length;
-            const totalPortfolio = data.portfolio.length;
-            const totalCompetitors = data.competitors.length;
-            const totalCampaigns = data.campaigns.length;
+        // ===== AGENDA =====
+        function renderAgenda() {
+            return `
+            <div class="pb-card">
+                <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+                    <div class="title">Agenda</div>
+                    <div class="flex items-center gap-2 bg-black/30 p-1 rounded-xl border border-white/5">
+                        <button onclick="changeMonth(-1)" class="px-3 py-1.5 bg-white/5 hover:bg-white/10 rounded-lg text-xs text-gray-300"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                        <span id="calMonthYear" class="text-sm font-bold text-white min-w-[120px] text-center">Janeiro 2026</span>
+                        <button onclick="changeMonth(1)" class="px-3 py-1.5 bg-white/5 hover:bg-white/10 rounded-lg text-xs text-gray-300"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                    </div>
+                </div>
+                <div class="legenda"><span class="sessao">Sessão</span><span class="lembrete">Lembrete</span><span class="healing">Healing</span></div>
+                <div id="calendarGrid" class="cal-grid"></div>
+            </div>
+            `;
+        }
 
-            const totalIncome = data.financial.filter(f => f.type === 'Entrada').reduce((sum, f) => sum + (f.amount || 0), 0);
-            const totalExpense = data.financial.filter(f => f.type === 'Saída').reduce((sum, f) => sum + (f.amount || 0), 0);
-            const balance = totalIncome - totalExpense;
+        // ===== CLIENTES =====
+        function renderClientesHTML() {
+            return `
+            <div class="pb-card">
+                <div class="flex flex-wrap justify-between items-center mb-4 gap-2">
+                    <div class="title">Clientes</div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs text-gray-400" id="clientCount">0</span>
+                        <select id="clientFilterStage" onchange="renderClientes()" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-2 py-1 text-xs text-white">
+                            <option value="todos">Todos</option>
+                            <option value="Briefing">Briefing</option><option value="Desenho">Desenho</option>
+                            <option value="Ativo">Ativo</option><option value="Pausado">Pausado</option><option value="Concluído">Concluído</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="clientForm" class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4 bg-black/20 p-3 rounded-xl border border-white/5">
+                    <input type="text" id="clientName" placeholder="Nome *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <input type="tel" id="clientPhone" placeholder="Telefone" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <select id="clientStage" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm">
+                        <option>Briefing</option><option>Desenho</option><option>Ativo</option><option>Pausado</option><option>Concluído</option>
+                    </select>
+                    <input type="text" id="clientInsta" placeholder="@instagram" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <select id="clientOrigem" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm">
+                        <option value="Orgânico (Instagram)">Orgânico (Instagram)</option>
+                        <option value="Tráfego Pago (Meta)">Tráfego Pago (Meta)</option>
+                        <option value="Indicação">Indicação</option>
+                        <option value="Google">Google</option>
+                        <option value="Evento/Feira">Evento/Feira</option>
+                    </select>
+                    <textarea id="clientObs" placeholder="Briefing" class="md:col-span-2 bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm h-16"></textarea>
+                    <button id="addClientBtn" onclick="addClient()" class="btn-primary md:col-span-3 text-sm">+ Adicionar</button>
+                </div>
+                <div id="clientList" class="space-y-3"></div>
+            </div>
+            `;
+        }
 
-            const activeCamps = data.campaigns.filter(c => c.status === 'Ativa').length;
-            const completedCamps = data.campaigns.filter(c => c.status === 'Concluída').length;
-            const conversionRate = totalCampaigns > 0 ? Math.round((completedCamps / totalCampaigns) * 100) : 0;
+        // ===== ESTOQUE =====
+        function renderEstoqueHTML() {
+            return `
+            <div class="pb-card">
+                <div class="title mb-4">Estoque</div>
+                <div id="stockForm" class="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-4 bg-black/20 p-3 rounded-xl border border-white/5">
+                    <input type="text" id="stockName" placeholder="Insumo *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <input type="number" id="stockQty" placeholder="Qtd" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <input type="url" id="stockLink" placeholder="Link de compra" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <button id="stockSubmitBtn" onclick="submitStock()" class="btn-primary text-sm">+ Cadastrar</button>
+                </div>
+                <div id="estoqueCriticoBannerSub" class="mb-4 hidden bg-red-500/10 border border-red-500/30 p-2 rounded-xl text-red-400 text-xs"></div>
+                <div class="table-wrap"><table><thead><tr><th>Insumo</th><th>Qtd</th><th>Status</th><th>Link</th><th class="text-right">Ações</th></tr></thead><tbody id="stockTable"></tbody></table></div>
+            </div>
+            `;
+        }
 
-            document.getElementById('dashClients').textContent = totalClients;
-            document.getElementById('dashPortfolio').textContent = totalPortfolio;
-            document.getElementById('dashCompetitors').textContent = totalCompetitors;
-            document.getElementById('dashCampaigns').textContent = totalCampaigns;
-            document.getElementById('dashBalance').textContent = formatCurrency(balance);
-            document.getElementById('dashConversion').textContent = conversionRate + '%';
+        // ===== PORTFÓLIO =====
+        function renderPortfolioHTML() {
+            return `
+            <div class="pb-card">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="title">Portfólio</div>
+                    <span class="text-xs text-gray-400" id="portfolioCount">0</span>
+                </div>
+                <div id="portfolioForm" class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4 bg-black/20 p-3 rounded-xl border border-white/5">
+                    <input type="text" id="portTitle" placeholder="Título *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <select id="portStyle" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm"><option>Realismo</option><option>Blackwork</option><option>Fine Line</option><option>Old School</option></select>
+                    <textarea id="portDesc" placeholder="Ficha técnica" class="md:col-span-2 bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm h-16"></textarea>
+                    <button id="portSubmitBtn" onclick="submitPortfolio()" class="btn-primary md:col-span-2 text-sm">+ Incorporar</button>
+                </div>
+                <div id="portfolioList" class="space-y-3"></div>
+            </div>
+            `;
+        }
 
-            document.getElementById('chartInValue').textContent = formatCurrency(totalIncome);
-            document.getElementById('chartOutValue').textContent = formatCurrency(totalExpense);
-            const totalVolume = totalIncome + totalExpense || 1;
-            document.getElementById('chartInBar').style.width = ((totalIncome / totalVolume) * 100) + '%';
-            document.getElementById('chartOutBar').style.width = ((totalExpense / totalVolume) * 100) + '%';
-            document.getElementById('chartCirclePerc').textContent = conversionRate + '%';
-            document.getElementById('chartActiveCamps').textContent = activeCamps;
-            document.getElementById('chartClosedCamps').textContent = completedCamps;
+        // ===== LEMBRETES =====
+        function renderLembretesHTML() {
+            return `
+            <div class="pb-card">
+                <div class="title mb-4">Lembretes</div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4 bg-black/20 p-3 rounded-xl border border-white/5">
+                    <input type="text" id="lembreteNome" placeholder="Cliente *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <input type="number" id="lembreteDias" placeholder="Dias" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <button onclick="addLembrete()" class="btn-primary text-sm">+ Criar</button>
+                </div>
+                <div id="lembretesList" class="space-y-2"></div>
+            </div>
+            `;
+        }
 
-            // Estoque crítico
-            const criticalItems = data.stock.filter(item => item.qty <= 3);
-            const banner = document.getElementById('estoqueCriticoBanner');
-            if (criticalItems.length > 0) {
-                banner.classList.remove('hidden');
-                banner.innerHTML = '⚠️ Atenção! ' + criticalItems.map(i => `${i.name} (Qtd: ${i.qty})`).join(' | ');
-            } else {
-                banner.classList.add('hidden');
-            }
-
-            document.getElementById('dashSummary').innerHTML =
-                `Savannah OS v0.9.30 - <strong>${totalClients}</strong> leads, <strong>${formatCurrency(balance)}</strong> de saldo, <strong>${conversionRate}%</strong> de conversão.`;
+        // ===== CHECKLIST =====
+        function renderChecklistHTML() {
+            return `
+            <div class="pb-card">
+                <div class="title mb-4">Checklist do Dia</div>
+                <div class="flex gap-2 mb-4">
+                    <input type="text" id="newChecklistItem" placeholder="Novo item..." class="flex-1 bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <button onclick="addChecklistItem()" class="btn-primary text-sm">+ Adicionar</button>
+                </div>
+                <div id="checklistContainer" class="space-y-2"></div>
+                <button onclick="resetChecklist()" class="btn-secondary text-xs mt-4">Resetar</button>
+            </div>
+            `;
         }
 
         // ======================================================================
-        // 7. FINANCEIRO
+        // RENDER MARKETING
         // ======================================================================
-        function renderFinancial() {
+        function renderMarketing() {
+            return `
+            <div class="flex flex-wrap gap-1.5 mb-4">
+                <button class="sub-tab active" data-sub="campanhas" onclick="showMarketingSub('campanhas')"><i data-lucide="megaphone" class="w-4 h-4 inline mr-1"></i> Campanhas</button>
+                <button class="sub-tab" data-sub="concorrencia" onclick="showMarketingSub('concorrencia')"><i data-lucide="eye" class="w-4 h-4 inline mr-1"></i> Concorrência</button>
+            </div>
+            <div id="marketingSubContent" class="space-y-6"></div>
+            `;
+        }
+
+        function showMarketingSub(sub) {
+            document.querySelectorAll('#tabContent .sub-tab[data-sub]').forEach(el => el.classList.toggle('active', el.dataset
+                .sub === sub));
+            const container = document.getElementById('marketingSubContent');
+            if (sub === 'campanhas') container.innerHTML = renderCampanhasHTML();
+            else if (sub === 'concorrencia') container.innerHTML = renderConcorrenciaHTML();
+            if (sub === 'campanhas') renderCampaigns();
+            if (sub === 'concorrencia') renderCompetitors();
+            refreshIcons();
+        }
+
+        function renderCampanhasHTML() {
+            return `
+            <div class="pb-card">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="title">Campanhas</div>
+                    <span class="text-xs text-gray-400" id="campaignCount">0</span>
+                </div>
+                <div id="campaignForm" class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-4 bg-black/20 p-3 rounded-xl border border-white/5">
+                    <input type="text" id="campName" placeholder="Nome *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <select id="campStatus" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm"><option>Planejamento</option><option>Ativa</option><option>Pausada</option><option>Concluída</option></select>
+                    <input type="number" id="campInvest" placeholder="Investimento (R$)" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <input type="number" id="campReturn" placeholder="Retorno (R$)" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <textarea id="campDesc" placeholder="Estratégia" class="md:col-span-5 bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm h-16"></textarea>
+                    <button id="campSubmitBtn" onclick="submitCampaign()" class="btn-primary md:col-span-5 text-sm">+ Publicar</button>
+                </div>
+                <div id="campaignList" class="space-y-3"></div>
+            </div>
+            `;
+        }
+
+        function renderConcorrenciaHTML() {
+            return `
+            <div class="pb-card">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="title">Concorrentes</div>
+                    <span class="text-xs text-gray-400" id="competitorCount">0</span>
+                </div>
+                <div id="competitorForm" class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4 bg-black/20 p-3 rounded-xl border border-white/5">
+                    <input type="text" id="compName" placeholder="Nome *" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <input type="text" id="compInsta" placeholder="@instagram" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <input type="text" id="compLocation" placeholder="Região" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm" />
+                    <select id="compAmeaca" class="bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm"><option value="Baixo">Baixo</option><option value="Médio">Médio</option><option value="Alto">Alto</option></select>
+                    <textarea id="compObs" placeholder="Análise" class="md:col-span-4 bg-[#0d0d0d] border border-white/10 rounded-xl px-3 py-2 text-sm h-16"></textarea>
+                    <button id="compSubmitBtn" onclick="submitCompetitor()" class="btn-primary md:col-span-4 text-sm">+ Monitorar</button>
+                </div>
+                <div id="competitorList" class="space-y-3"></div>
+            </div>
+            `;
+        }
+
+        // ======================================================================
+        // RENDER IA
+        // ======================================================================
+        function renderIA() {
+            return `
+            <div class="pb-card mb-6">
+                <div class="title mb-3">Criativo Ativo</div>
+                <div class="w-full max-w-3xl mx-auto border border-white/5 p-1 rounded-xl">
+                    <a href="#" id="youtubeButtonIA" target="_blank" rel="noopener noreferrer" class="block relative">
+                        <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Vídeo" id="videoThumbnailIA" class="rounded-xl w-full" />
+                        <div class="absolute inset-0 flex items-center justify-center"><div class="bg-red-600/80 rounded-full w-16 h-16 flex items-center justify-center"><i data-lucide="play" class="w-8 h-8 fill-white text-white"></i></div></div>
+                    </a>
+                    <p class="text-center text-xs text-gray-400 py-2">📺 Clique no botão para assistir no YouTube</p>
+                </div>
+            </div>
+            <div class="pb-card">
+                <div class="title mb-3">Gerador de Prompt IA V2</div>
+                <div class="flex flex-wrap gap-3 mb-4">
+                    <button onclick="generateIAPrompt()" class="btn-primary text-sm"><i data-lucide="sparkles" class="w-3.5 h-3.5 inline mr-1"></i> Gerar Resumo</button>
+                    <button onclick="copyIAPrompt()" class="btn-secondary text-sm"><i data-lucide="copy" class="w-3.5 h-3.5 inline mr-1"></i> Copiar</button>
+                    <button onclick="downloadIAPrompt()" class="btn-primary text-sm"><i data-lucide="file-text" class="w-3.5 h-3.5 inline mr-1"></i> Baixar .txt</button>
+                </div>
+                <textarea id="iaPromptPreview" readonly class="w-full bg-[#0a0a0a] border border-white/5 rounded-xl px-3 py-2 text-xs font-mono text-[#c9a96e] h-64 resize-y"></textarea>
+            </div>
+            `;
+        }
+
+        // ======================================================================
+        // FUNÇÕES DE DADOS (CRUD)
+        // ======================================================================
+
+        // ----- DASHBOARD -----
+        function updateDash() {
+            const tc = data.clients.length,
+                tp = data.portfolio.length,
+                tcomp = data.competitors.length,
+                tcamp = data.campaigns.length;
+            const inc = data.financial.filter(f => f.type === 'Entrada').reduce((s, f) => s + (f.amount || 0), 0);
+            const exp = data.financial.filter(f => f.type === 'Saída').reduce((s, f) => s + (f.amount || 0), 0);
+            const bal = inc - exp;
+            const at = data.campaigns.filter(c => c.status === 'Ativa').length;
+            const concl = data.campaigns.filter(c => c.status === 'Concluída').length;
+            const roi = tcamp ? Math.round((concl / tcamp) * 100) : 0;
+
+            document.getElementById('dashClients').textContent = tc;
+            document.getElementById('dashPortfolio').textContent = tp;
+            document.getElementById('dashCompetitors').textContent = tcomp;
+            document.getElementById('dashCampaigns').textContent = tcamp;
+            document.getElementById('dashBalance').textContent = fmt(bal);
+            document.getElementById('dashConversion').textContent = roi + '%';
+            document.getElementById('chartInValue').textContent = fmt(inc);
+            document.getElementById('chartOutValue').textContent = fmt(exp);
+            const tv = inc + exp || 1;
+            document.getElementById('chartInBar').style.width = ((inc / tv) * 100) + '%';
+            document.getElementById('chartOutBar').style.width = ((exp / tv) * 100) + '%';
+            document.getElementById('chartCirclePerc').textContent = roi + '%';
+            document.getElementById('chartActiveCamps').textContent = at;
+            document.getElementById('chartClosedCamps').textContent = concl;
+
+            // Estoque crítico
+            const crit = data.stock.filter(i => i.qty <= 3);
+            const banner = document.getElementById('estoqueCriticoBanner');
+            if (banner) {
+                if (crit.length) { banner.classList.remove('hidden');
+                    banner.innerHTML = '⚠️ ' + crit.map(i => `${i.name} (${i.qty})`).join(' | '); } else banner.classList
+                    .add('hidden');
+            }
+        }
+
+        // ----- FINANCEIRO -----
+        function renderFin() {
             const list = document.getElementById('financialList');
             if (!list) return;
-            const totalIncome = data.financial.filter(f => f.type === 'Entrada').reduce((sum, f) => sum + (f.amount || 0), 0);
-            const totalExpense = data.financial.filter(f => f.type === 'Saída').reduce((sum, f) => sum + (f.amount || 0), 0);
-            const balance = totalIncome - totalExpense;
-            const comissao = data.settings.comissao || 30;
-            const comissaoValor = totalIncome * (comissao / 100);
-            const estudio = totalIncome - comissaoValor;
+            const inc = data.financial.filter(f => f.type === 'Entrada').reduce((s, f) => s + (f.amount || 0), 0);
+            const exp = data.financial.filter(f => f.type === 'Saída').reduce((s, f) => s + (f.amount || 0), 0);
+            const bal = inc - exp;
+            const com = data.settings.comissao || 30;
+            const comVal = inc * (com / 100);
+            const est = inc - comVal;
 
             list.innerHTML = data.financial.map(f => `
-                <div class="flex justify-between items-center p-3 bg-[#18181b] border border-white/5 rounded-xl text-xs">
+                <div class="flex justify-between items-center p-3 bg-black/20 border border-white/5 rounded-xl text-xs">
                     <div><span class="font-bold text-white">${f.desc}</span></div>
                     <div class="flex items-center gap-3">
-                        <span class="font-mono font-bold ${f.type==='Entrada'?'text-emerald-400':'text-red-400'}">${formatCurrency(f.amount)}</span>
+                        <span class="font-mono font-bold ${f.type==='Entrada'?'text-emerald-400':'text-red-400'}">${fmt(f.amount)}</span>
                         <button onclick="editFinancial(${f.id})" class="text-blue-400"><i data-lucide="edit-3" class="w-3.5 h-3.5"></i></button>
                         <button onclick="deleteFin(${f.id})" class="text-red-400"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
                     </div>
                 </div>
-            `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Sem movimentações.</p>';
+            `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Nenhum lançamento.</p>';
 
-            const summary = document.getElementById('financialSummary');
-            if (summary) {
-                summary.innerHTML = `
-                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 mt-4 pt-4 border-t border-white/5 text-center text-xs">
-                        <div class="bg-black/20 p-3 rounded-xl border border-white/5">Entradas: <span class="text-emerald-400 font-bold block text-sm mt-0.5">${formatCurrency(totalIncome)}</span></div>
-                        <div class="bg-black/20 p-3 rounded-xl border border-white/5">Despesas: <span class="text-red-400 font-bold block text-sm mt-0.5">${formatCurrency(totalExpense)}</span></div>
-                        <div class="bg-black/20 p-3 rounded-xl border border-white/5">Saldo: <span class="text-amber-400 font-bold block text-sm mt-0.5">${formatCurrency(balance)}</span></div>
-                        <div class="gold-gradient p-3 rounded-xl text-black font-bold">Comissão (${comissao}%): <span class="block text-sm font-black">${formatCurrency(comissaoValor)}</span><span class="text-[9px]">Estúdio: ${formatCurrency(estudio)}</span></div>
-                    </div>
-                `;
-            }
-            refreshIcons();
+            document.getElementById('financialSummary').innerHTML = `
+                <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 mt-4 pt-4 border-t border-white/5 text-center text-xs">
+                    <div class="bg-black/20 p-3 rounded-xl">Entradas: <span class="text-emerald-400 font-bold block text-sm">${fmt(inc)}</span></div>
+                    <div class="bg-black/20 p-3 rounded-xl">Despesas: <span class="text-red-400 font-bold block text-sm">${fmt(exp)}</span></div>
+                    <div class="bg-black/20 p-3 rounded-xl">Saldo: <span class="text-amber-400 font-bold block text-sm">${fmt(bal)}</span></div>
+                    <div class="bg-black/20 p-3 rounded-xl">Comissão (${com}%): <span class="text-[#c9a96e] font-bold block text-sm">${fmt(comVal)}</span><span class="text-[9px] text-gray-400">Estúdio: ${fmt(est)}</span></div>
+                </div>
+            `;
+            document.getElementById('financialCount').textContent = data.financial.length;
         }
 
         function addFinancial() {
-            const amount = parseFloat(document.getElementById('finAmount').value);
+            const amt = parseFloat(document.getElementById('finAmount').value);
             const desc = document.getElementById('finDesc').value.trim();
-            if (!amount || !desc) { showToast('Preencha valor e descrição.', 'error'); return; }
+            if (!amt || !desc) { toast('Preencha valor e descrição.', 'error'); return; }
             const type = document.getElementById('finType').value;
             const editId = document.getElementById('finEditId')?.value;
             if (editId) {
                 const f = data.financial.find(x => x.id == editId);
                 if (f) { f.type = type;
-                    f.amount = amount;
+                    f.amount = amt;
                     f.desc = desc;
-                    addHistorico(`Lançamento "${desc}" atualizado`); }
+                    addHist(`Lançamento "${desc}" atualizado`); }
                 document.getElementById('finEditId').value = '';
                 document.getElementById('addFinBtn').textContent = '+ Lançar';
             } else {
-                data.financial.push({ id: generateId(), type, amount, desc });
-                addHistorico(`Lançamento: ${type} de ${formatCurrency(amount)} - ${desc}`);
+                data.financial.push({ id: genId(), type, amount: amt, desc });
+                addHist(`Lançamento: ${type} de ${fmt(amt)} - ${desc}`);
             }
             document.getElementById('finAmount').value = '';
             document.getElementById('finDesc').value = '';
             saveData();
-            renderFinancial();
-            updateDashboard();
-            showToast('Lançamento salvo!', 'success');
+            renderFin();
+            updateDash();
+            toast('Lançamento salvo!', 'success');
         }
 
         function editFinancial(id) {
@@ -1063,65 +941,55 @@
             document.getElementById('finDesc').value = f.desc;
             document.getElementById('finEditId').value = f.id;
             document.getElementById('addFinBtn').textContent = '🔄 Atualizar';
-            showToast('Edite e clique em Atualizar.', 'success');
+            toast('Edite e clique em Atualizar.', 'success');
         }
 
         function deleteFin(id) {
             const f = data.financial.find(x => x.id === id);
-            if (f) addHistorico(`Lançamento "${f.desc}" removido`);
+            if (f) addHist(`Lançamento "${f.desc}" removido`);
             data.financial = data.financial.filter(f => f.id !== id);
             saveData();
-            renderFinancial();
-            updateDashboard();
+            renderFin();
+            updateDash();
         }
 
-        // ======================================================================
-        // 8. ÁREA TATUAGEM
-        // ======================================================================
-        function renderTatuagem() {
-            renderCalendarGrid();
-            renderClientes();
-            renderStock();
-            renderPortfolio();
-            renderLembretes();
-            renderChecklist();
-            refreshIcons();
-        }
-
-        // ===== CALENDÁRIO (mobile-friendly) =====
-        let calCtx = { month: new Date().getMonth(), year: new Date().getFullYear() };
-        let selectedDay = null;
-
-        function renderCalendarGrid() {
+        // ----- CALENDÁRIO -----
+        function renderCal() {
             const grid = document.getElementById('calendarGrid');
             if (!grid) return;
             grid.innerHTML = '';
             const { month, year } = calCtx;
-            const firstDay = new Date(year, month, 1).getDay();
-            const lastDate = new Date(year, month + 1, 0).getDate();
-            const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-            const monthYearEl = document.getElementById('calMonthYear');
-            if (monthYearEl) monthYearEl.textContent = `${monthNames[month]} ${year}`;
+            const first = new Date(year, month, 1).getDay();
+            const last = new Date(year, month + 1, 0).getDate();
+            const months = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+            document.getElementById('calMonthYear').textContent = `${months[month]} ${year}`;
 
-            // Dias vazios
-            for (let i = 0; i < firstDay; i++) {
-                const empty = document.createElement('div');
-                empty.className = 'cal-day opacity-30';
-                grid.appendChild(empty);
+            for (let i = 0; i < first; i++) {
+                const d = document.createElement('div');
+                d.className = 'cal-day opacity-30';
+                grid.appendChild(d);
             }
-            // Dias do mês
-            for (let d = 1; d <= lastDate; d++) {
-                const dayEvents = data.calendarEvents.filter(e => parseInt(e.day) === d && parseInt(e.month) === month &&
-                    parseInt(e.year) === year);
+            for (let d = 1; d <= last; d++) {
+                const events = data.calendarEvents.filter(e => e.day === d && e.month === month && e.year === year);
                 const div = document.createElement('div');
                 div.className = 'cal-day';
-                if (dayEvents.length > 0) {
-                    div.classList.add('has-event');
-                    // Determinar cor da bolinha (prioridade: healing > sessao > lembrete)
-                    let tipo = 'sessao';
-                    if (dayEvents.some(e => e.tipo === 'healing')) tipo = 'healing';
-                    else if (dayEvents.some(e => e.tipo === 'lembrete')) tipo = 'lembrete';
-                    div.innerHTML = `<span>${d}</span><span class="dot ${tipo}"></span>`;
+                let dotsHtml = '';
+                if (events.length) {
+                    // Mostra até 3 bolinhas, se mais coloca "+N"
+                    const tipos = events.map(e => e.tipo || 'sessao');
+                    const counts = {};
+                    tipos.forEach(t => counts[t] = (counts[t] || 0) + 1);
+                    const colors = { sessao: 'dot-sessao', lembrete: 'dot-lembrete', healing: 'dot-healing' };
+                    let dotHtml = '';
+                    let total = 0;
+                    for (const [t, q] of Object.entries(counts)) {
+                        const cor = colors[t] || 'dot-sessao';
+                        const limit = Math.min(q, 3);
+                        for (let i = 0; i < limit; i++) dotHtml += `<span class="dot ${cor}"></span>`;
+                        total += q;
+                    }
+                    if (total > 3) dotHtml += `<span class="text-[8px] text-gray-500">+${total-3}</span>`;
+                    div.innerHTML = `<span>${d}</span><div class="dots">${dotHtml}</div>`;
                 } else {
                     div.textContent = d;
                 }
@@ -1136,108 +1004,94 @@
                 calCtx.year--; }
             if (calCtx.month > 11) { calCtx.month = 0;
                 calCtx.year++; }
-            renderCalendarGrid();
+            renderCal();
             closeDayModal();
         }
 
         function openDayModal(day) {
             selectedDay = day;
             const { month, year } = calCtx;
-            const modal = document.getElementById('dayModal');
             document.getElementById('modalDayTitle').textContent = `Dia ${day}/${month+1}/${year}`;
-            const events = data.calendarEvents.filter(e => parseInt(e.day) === day && parseInt(e.month) === month && parseInt(
-                e.year) === year);
+            const events = data.calendarEvents.filter(e => e.day === day && e.month === month && e.year === year);
             const list = document.getElementById('modalEventsList');
-            if (events.length === 0) {
-                list.innerHTML = '<p class="text-gray-500 text-xs">Nenhum evento neste dia.</p>';
+            if (!events.length) {
+                list.innerHTML = '<p class="text-gray-500 text-xs">Nenhum evento.</p>';
             } else {
                 list.innerHTML = events.map(e => `
                     <div class="flex justify-between items-center p-2 bg-black/20 rounded-lg">
-                        <div>
-                            <span class="font-bold text-white">${e.title}</span>
-                            <span class="text-xs text-gray-400 ml-2">${e.hora || '--:--'}</span>
-                        </div>
+                        <div><span class="font-bold text-white">${e.title}</span> <span class="text-xs text-gray-400">${e.hora||'--:--'}</span></div>
                         <button onclick="deleteEvent(${e.id})" class="text-red-400 text-xs">✕</button>
                     </div>
                 `).join('');
             }
-            modal.classList.add('active');
-            // Limpar campos do formulário
+            document.getElementById('dayModal').classList.add('active');
             document.getElementById('newEventTime').value = '';
             document.getElementById('newEventTitle').value = '';
         }
 
-        function closeDayModal() {
-            document.getElementById('dayModal').classList.remove('active');
-            selectedDay = null;
-        }
+        function closeDayModal() { document.getElementById('dayModal').classList.remove('active');
+            selectedDay = null; }
 
         function addEventToDay() {
-            if (selectedDay === null) { showToast('Selecione um dia.', 'error'); return; }
+            if (selectedDay === null) { toast('Selecione um dia.', 'error'); return; }
             const title = document.getElementById('newEventTitle').value.trim();
             const hora = document.getElementById('newEventTime').value || '--:--';
             const tipo = document.getElementById('newEventType').value;
-            if (!title) { showToast('Preencha o título.', 'error'); return; }
+            if (!title) { toast('Preencha o título.', 'error'); return; }
             const { month, year } = calCtx;
-            const conflito = data.calendarEvents.some(e => e.day === selectedDay && e.month === month && e.year === year);
-            if (conflito) {
-                showToast('⚠️ Já existe um evento neste dia!', 'error');
-                return;
-            }
-            data.calendarEvents.push({ id: generateId(), day: selectedDay, month, year, title, hora, tipo });
-            addHistorico(`Evento "${title}" adicionado ao dia ${selectedDay}/${month+1}/${year}`);
+            data.calendarEvents.push({ id: genId(), day: selectedDay, month, year, title, hora, tipo });
+            addHist(`Evento "${title}" adicionado`);
             saveData();
-            renderCalendarGrid();
-            openDayModal(selectedDay); // refresh modal
-            showToast('Evento adicionado!', 'success');
+            renderCal();
+            openDayModal(selectedDay);
+            toast('Evento adicionado!', 'success');
         }
 
         function deleteEvent(id) {
             data.calendarEvents = data.calendarEvents.filter(e => e.id !== id);
             saveData();
-            renderCalendarGrid();
+            renderCal();
             if (selectedDay !== null) openDayModal(selectedDay);
-            showToast('Evento removido.', 'success');
+            toast('Evento removido.', 'success');
         }
 
-        // ===== CLIENTES =====
+        // ----- CLIENTES -----
         function renderClientes() {
             const filter = document.getElementById('clientFilterStage')?.value || 'todos';
             const container = document.getElementById('clientList');
             if (!container) return;
             let filtered = data.clients;
             if (filter !== 'todos') filtered = filtered.filter(c => c.stage === filter);
+            document.getElementById('clientCount').textContent = filtered.length;
 
-            document.getElementById('clientCount').textContent = filtered.length + ' registro(s)';
-            if (filtered.length === 0) {
-                container.innerHTML = `<p class="text-center text-xs text-gray-500 border border-dashed border-white/5 py-8 rounded-xl">Nenhum cliente encontrado.</p>`;
+            if (!filtered.length) {
+                container.innerHTML = '<p class="text-center text-xs text-gray-500 py-4">Nenhum cliente.</p>';
                 return;
             }
             container.innerHTML = filtered.map(c => {
-                const totalGasto = data.financial.filter(f => f.type === 'Entrada' && f.desc.toLowerCase().includes(c.name
-                    .toLowerCase())).reduce((sum, f) => sum + f.amount, 0);
+                const total = data.financial.filter(f => f.type === 'Entrada' && f.desc.toLowerCase().includes(c.name
+                    .toLowerCase())).reduce((s, f) => s + f.amount, 0);
                 const instaLink = c.insta ? `https://instagram.com/${c.insta.replace('@','')}` : '#';
-                const whatsLink = c.phone ? `https://wa.me/55${c.phone.replace(/\D/g,'')}` : '#';
+                const wppLink = c.phone ? `https://wa.me/55${c.phone.replace(/\D/g,'')}` : '#';
                 return `
-                <div class="flex items-start sm:items-center justify-between p-4 bg-[#18181b] border border-white/5 rounded-xl gap-4 flex-col sm:flex-row hover:border-white/10 transition">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-black/20 border border-white/5 rounded-xl gap-3">
                     <div>
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <h4 class="text-sm font-bold text-white">${c.name}</h4>
-                            <span class="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-[9px] font-bold uppercase rounded border border-blue-500/20">${c.stage || 'Briefing'}</span>
-                            <span class="text-[10px] text-emerald-400 font-bold">💰 ${formatCurrency(totalGasto)}</span>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="font-bold text-white text-sm">${c.name}</span>
+                            <span class="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-[9px] font-bold uppercase rounded border border-blue-500/20">${c.stage}</span>
+                            <span class="text-[10px] text-emerald-400">💰 ${fmt(total)}</span>
                         </div>
-                        <p class="text-xs text-gray-400 mt-1 font-medium">📱 Wpp: ${c.phone || '—'} | 📸 Insta: ${c.insta || '—'} | Origem: ${c.origem || 'N/I'}</p>
-                        ${c.obs ? `<p class="text-xs text-gray-500 bg-black/20 border border-white/[0.02] p-2 rounded-lg mt-1.5">${c.obs}</p>` : ''}
-                        ${c.tempoSessao ? `<p class="text-xs text-amber-400">⏱️ Sessão: ${Math.floor(c.tempoSessao/60)}min ${c.tempoSessao%60}s</p>` : ''}
-                        ${c.historico && c.historico.length > 0 ? `<details class="mt-1"><summary class="text-[10px] text-gray-500 cursor-pointer">📜 Histórico (${c.historico.length})</summary><div class="text-[10px] text-gray-400 mt-1 space-y-1">${c.historico.map(h => `<div>${formatDateTime(h.data)} - ${h.acao}</div>`).join('')}</div></details>` : ''}
+                        <p class="text-xs text-gray-400 mt-1">📱 ${c.phone||'—'} | 📸 ${c.insta||'—'} | Origem: ${c.origem||'N/I'}</p>
+                        ${c.obs ? `<p class="text-xs text-gray-500 bg-black/20 p-2 rounded-lg mt-1">${c.obs}</p>` : ''}
+                        ${c.historico?.length ? `<details class="mt-1"><summary class="text-[10px] text-gray-500 cursor-pointer">📜 Histórico (${c.historico.length})</summary><div class="text-[10px] text-gray-400 mt-1">${c.historico.map(h => `<div>${fmtDateTime(h.data)} - ${h.acao}</div>`).join('')}</div></details>` : ''}
                     </div>
-                    <div class="flex items-center gap-2 shrink-0 self-end sm:self-auto flex-wrap">
-                        <button onclick="iniciarSessao(${c.id})" class="p-1.5 text-amber-400 hover:bg-amber-500/10 rounded-lg text-[10px]"><i data-lucide="timer" class="w-4 h-4"></i></button>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <button onclick="iniciarSessao(${c.id})" class="p-1.5 text-amber-400 hover:bg-amber-500/10 rounded-lg"><i data-lucide="timer" class="w-4 h-4"></i></button>
                         <button onclick="editClient(${c.id})" class="p-1.5 text-blue-400 hover:bg-blue-500/5 rounded-lg"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
                         <button onclick="deleteClient(${c.id})" class="p-1.5 text-red-400 hover:bg-red-500/5 rounded-lg"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
-                        ${c.insta ? `<a href="${instaLink}" target="_blank" class="p-1.5 text-pink-400 hover:bg-pink-500/10 rounded-lg" title="Instagram"><i data-lucide="instagram" class="w-4 h-4"></i></a>` : ''}
-                        ${c.phone ? `<a href="${whatsLink}" target="_blank" class="p-1.5 text-green-400 hover:bg-green-500/10 rounded-lg" title="WhatsApp"><i data-lucide="message-circle" class="w-4 h-4"></i></a>` : ''}
-                        ${sessaoAtiva === c.id ? `<button onclick="finalizarSessao(${c.id})" class="p-1.5 text-red-400 hover:bg-red-500/10 rounded-lg text-[10px]"><i data-lucide="stop-circle" class="w-4 h-4"></i> Finalizar</button>` : ''}
+                        ${c.insta ? `<a href="${instaLink}" target="_blank" class="p-1.5 text-pink-400 hover:bg-pink-500/10 rounded-lg"><i data-lucide="instagram" class="w-4 h-4"></i></a>` : ''}
+                        ${c.phone ? `<a href="${wppLink}" target="_blank" class="p-1.5 text-green-400 hover:bg-green-500/10 rounded-lg"><i data-lucide="message-circle" class="w-4 h-4"></i></a>` : ''}
+                        ${sessaoAtiva === c.id ? `<button onclick="finalizarSessao(${c.id})" class="p-1.5 text-red-400 hover:bg-red-500/10 rounded-lg"><i data-lucide="stop-circle" class="w-4 h-4"></i></button>` : ''}
                     </div>
                 </div>
             `}).join('');
@@ -1246,11 +1100,11 @@
 
         function addClient() {
             const name = document.getElementById('clientName').value.trim();
-            if (!name) { showToast('Preencha o nome.', 'error'); return; }
+            if (!name) { toast('Preencha o nome.', 'error'); return; }
             const stage = document.getElementById('clientStage').value;
             const origem = document.getElementById('clientOrigem')?.value || 'Orgânico (Instagram)';
-            const client = {
-                id: generateId(),
+            data.clients.push({
+                id: genId(),
                 name,
                 phone: document.getElementById('clientPhone').value.trim(),
                 stage,
@@ -1260,14 +1114,19 @@
                 tempoSessao: 0,
                 historico: [],
                 totalGasto: 0
-            };
-            data.clients.push(client);
-            addHistorico(`Cliente "${name}" adicionado (${stage})`);
+            });
+            addHist(`Cliente "${name}" adicionado (${stage})`);
             clearClientForm();
             saveData();
             renderClientes();
-            updateDashboard();
-            showToast('Ficha cadastrada.', 'success');
+            updateDash();
+            toast('Cliente cadastrado!', 'success');
+        }
+
+        function clearClientForm() {
+            ['clientName','clientPhone','clientInsta','clientObs'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('addClientBtn').textContent = '+ Adicionar';
+            document.getElementById('addClientBtn').onclick = addClient;
         }
 
         function editClient(id) {
@@ -1275,105 +1134,88 @@
             if (!c) return;
             document.getElementById('clientName').value = c.name;
             document.getElementById('clientPhone').value = c.phone;
-            document.getElementById('clientStage').value = c.stage || 'Briefing';
+            document.getElementById('clientStage').value = c.stage;
             document.getElementById('clientInsta').value = c.insta || '';
             document.getElementById('clientObs').value = c.obs || '';
-            const origemSelect = document.getElementById('clientOrigem');
-            if (origemSelect) origemSelect.value = c.origem || 'Orgânico (Instagram)';
+            const sel = document.getElementById('clientOrigem');
+            if (sel) sel.value = c.origem || 'Orgânico (Instagram)';
             data.clients = data.clients.filter(x => x.id !== id);
-            const btn = document.getElementById('addClientBtn');
-            btn.textContent = '🔄 Atualizar Cadastro';
-            btn.onclick = function() { btn.textContent = '+ Adicionar';
-                btn.onclick = addClient;
-                addClient(); };
+            document.getElementById('addClientBtn').textContent = '🔄 Atualizar';
+            document.getElementById('addClientBtn').onclick = function() {
+                addClient();
+                document.getElementById('addClientBtn').textContent = '+ Adicionar';
+                document.getElementById('addClientBtn').onclick = addClient;
+            };
             saveData();
             renderClientes();
-            showToast('Edite os dados e clique em Atualizar.', 'success');
+            toast('Edite e clique em Atualizar.', 'success');
         }
 
         function deleteClient(id) {
             const c = data.clients.find(x => x.id === id);
-            if (c) addHistorico(`Cliente "${c.name}" removido`);
+            if (c) addHist(`Cliente "${c.name}" removido`);
             data.clients = data.clients.filter(c => c.id !== id);
             saveData();
             renderClientes();
-            updateDashboard();
-            showToast('Cliente removido.', 'success');
+            updateDash();
         }
 
-        function clearClientForm() {
-            ['clientName', 'clientPhone', 'clientInsta', 'clientObs'].forEach(id => document.getElementById(id).value = '');
-            const btn = document.getElementById('addClientBtn');
-            btn.textContent = '+ Adicionar';
-            btn.onclick = addClient;
-        }
-
-        // ---- SESSÃO ----
+        // ----- SESSÃO -----
         function iniciarSessao(id) {
             const c = data.clients.find(x => x.id === id);
             if (!c) return;
-            if (sessaoAtiva) {
-                showToast('Já existe uma sessão em andamento. Finalize-a primeiro.', 'error');
-                return;
-            }
+            if (sessaoAtiva) { toast('Finalize a sessão atual primeiro.', 'error'); return; }
             sessaoAtiva = id;
             timerSeconds = c.tempoSessao || 0;
             if (timerInterval) clearInterval(timerInterval);
-            timerInterval = setInterval(() => { timerSeconds++; }, 1000);
-            showToast(`⏱️ Sessão iniciada para ${c.name}.`, 'success');
+            timerInterval = setInterval(() => timerSeconds++, 1000);
+            toast(`⏱️ Sessão iniciada para ${c.name}`, 'success');
             renderClientes();
         }
 
         function finalizarSessao(id) {
-            if (sessaoAtiva !== id) {
-                showToast('Esta sessão não está ativa.', 'error');
-                return;
-            }
+            if (sessaoAtiva !== id) { toast('Sessão não ativa.', 'error'); return; }
             const c = data.clients.find(x => x.id === id);
             if (!c) return;
             if (timerInterval) clearInterval(timerInterval);
             c.tempoSessao = timerSeconds;
-            addHistorico(`Sessão finalizada para ${c.name} (${Math.floor(timerSeconds/60)}min ${timerSeconds%60}s)`);
+            addHist(`Sessão finalizada para ${c.name} (${Math.floor(timerSeconds/60)}min ${timerSeconds%60}s)`);
             if (!c.historico) c.historico = [];
             c.historico.push({ data: new Date().toISOString(), acao: `Sessão finalizada (${Math.floor(timerSeconds/60)}min ${timerSeconds%60}s)` });
             sessaoAtiva = null;
             timerSeconds = 0;
             saveData();
             renderClientes();
-            updateDashboard();
-            showToast('Sessão finalizada!', 'success');
+            updateDash();
+            toast('Sessão finalizada!', 'success');
         }
 
-        // ===== ESTOQUE =====
+        // ----- ESTOQUE -----
         function renderStock() {
-            const tbody = document.getElementById('stockTableBody');
+            const tbody = document.getElementById('stockTable');
             if (!tbody) return;
-            const criticalItems = data.stock.filter(item => item.qty <= 3);
+            const crit = data.stock.filter(i => i.qty <= 3);
             const banner = document.getElementById('estoqueCriticoBannerSub');
             if (banner) {
-                if (criticalItems.length > 0) {
-                    banner.classList.remove('hidden');
-                    banner.innerHTML = '⚠️ Atenção! ' + criticalItems.map(i => `${i.name} (Qtd: ${i.qty})`).join(' | ');
-                } else {
-                    banner.classList.add('hidden');
-                }
+                if (crit.length) { banner.classList.remove('hidden');
+                    banner.innerHTML = '⚠️ ' + crit.map(i => `${i.name} (${i.qty})`).join(' | '); } else banner.classList
+                    .add('hidden');
             }
-
             tbody.innerHTML = data.stock.map(item => {
                 let badge = 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
-                let statusText = 'Abastecido';
+                let status = 'Abastecido';
                 if (item.qty <= 0) { badge = 'bg-red-500/10 text-red-400 border border-red-500/20';
-                    statusText = 'ESGOTADO'; } else if (item.qty <= 3) { badge =
+                    status = 'ESGOTADO'; } else if (item.qty <= 3) { badge =
                         'bg-amber-500/10 text-amber-400 border border-amber-500/20';
-                    statusText = 'Baixo Nível'; }
-                const linkHtml = item.linkCompra ? `<a href="${item.linkCompra}" target="_blank" class="text-blue-400 hover:underline text-[10px]">🔗</a>` : '—';
+                    status = 'Baixo Nível'; }
+                const link = item.linkCompra ? `<a href="${item.linkCompra}" target="_blank" class="text-blue-400 hover:underline text-[10px]">🔗</a>` : '—';
                 return `
                     <tr>
-                        <td class="py-3 font-medium text-white">${item.name}</td>
-                        <td class="py-3 font-bold">${item.qty} un</td>
-                        <td class="py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${badge}">${statusText}</span></td>
-                        <td class="py-3">${linkHtml}</td>
-                        <td class="py-3 text-right">
+                        <td class="py-2 font-medium text-white">${item.name}</td>
+                        <td class="py-2 font-bold">${item.qty}</td>
+                        <td class="py-2"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${badge}">${status}</span></td>
+                        <td class="py-2">${link}</td>
+                        <td class="py-2 text-right">
                             <button onclick="changeStock(${item.id}, 1)" class="px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-gray-300 font-bold hover:bg-white/10">+</button>
                             <button onclick="changeStock(${item.id}, -1)" class="px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-gray-300 font-bold hover:bg-white/10 ml-1">-</button>
                             <button onclick="editStock(${item.id})" class="text-blue-400 ml-2 text-[11px] hover:underline"><i data-lucide="edit-3" class="w-3.5 h-3.5 inline"></i></button>
@@ -1388,28 +1230,28 @@
         function submitStock() {
             const name = document.getElementById('stockName').value.trim();
             const qty = parseInt(document.getElementById('stockQty').value) || 0;
-            const linkCompra = document.getElementById('stockLink').value.trim() || '';
+            const link = document.getElementById('stockLink').value.trim() || '';
             const editId = document.getElementById('stockEditId').value;
-            if (!name) { showToast('Preencha o nome do insumo.', 'error'); return; }
+            if (!name) { toast('Preencha o nome.', 'error'); return; }
             if (editId) {
                 const item = data.stock.find(s => s.id == editId);
                 if (item) { item.name = name;
                     item.qty = qty;
-                    item.linkCompra = linkCompra;
-                    addHistorico(`Insumo "${name}" atualizado`); }
+                    item.linkCompra = link;
+                    addHist(`Insumo "${name}" atualizado`); }
                 document.getElementById('stockEditId').value = '';
                 document.getElementById('stockSubmitBtn').textContent = '+ Cadastrar';
             } else {
-                data.stock.push({ id: generateId(), name, qty, linkCompra });
-                addHistorico(`Insumo "${name}" cadastrado com ${qty} unidades`);
+                data.stock.push({ id: genId(), name, qty, linkCompra: link });
+                addHist(`Insumo "${name}" cadastrado com ${qty} unidades`);
             }
             document.getElementById('stockName').value = '';
             document.getElementById('stockQty').value = '';
             document.getElementById('stockLink').value = '';
             saveData();
             renderStock();
-            updateDashboard();
-            showToast(editId ? 'Insumo atualizado!' : 'Insumo cadastrado!', 'success');
+            updateDash();
+            toast(editId ? 'Atualizado!' : 'Cadastrado!', 'success');
         }
 
         function editStock(id) {
@@ -1420,37 +1262,37 @@
             document.getElementById('stockLink').value = item.linkCompra || '';
             document.getElementById('stockEditId').value = item.id;
             document.getElementById('stockSubmitBtn').textContent = '🔄 Atualizar';
-            showToast('Edite e clique em Atualizar.', 'success');
+            toast('Edite e clique em Atualizar.', 'success');
         }
 
         function changeStock(id, val) {
             const item = data.stock.find(s => s.id === id);
             if (item) {
                 item.qty = Math.max(0, item.qty + val);
-                addHistorico(`Estoque de "${item.name}" alterado para ${item.qty}`);
+                addHist(`Estoque de "${item.name}" alterado para ${item.qty}`);
                 saveData();
                 renderStock();
-                updateDashboard();
+                updateDash();
             }
         }
 
         function deleteStock(id) {
             const item = data.stock.find(s => s.id === id);
-            if (item) addHistorico(`Insumo "${item.name}" removido do estoque`);
+            if (item) addHist(`Insumo "${item.name}" removido`);
             data.stock = data.stock.filter(s => s.id !== id);
             saveData();
             renderStock();
-            updateDashboard();
+            updateDash();
         }
 
-        // ===== PORTFÓLIO =====
+        // ----- PORTFÓLIO -----
         function renderPortfolio() {
             const container = document.getElementById('portfolioList');
             if (!container) return;
-            document.getElementById('portfolioCount').textContent = data.portfolio.length + ' registro(s)';
+            document.getElementById('portfolioCount').textContent = data.portfolio.length;
             container.innerHTML = data.portfolio.map(p => `
-                <div class="p-4 bg-[#18181b] border border-white/5 rounded-xl flex justify-between items-center text-xs">
-                    <div><span class="font-bold text-white text-sm block">${p.title}</span><span class="text-blue-400 font-semibold block mt-0.5 text-[10px]">${p.style}</span></div>
+                <div class="p-4 bg-black/20 border border-white/5 rounded-xl flex justify-between items-center text-xs">
+                    <div><span class="font-bold text-white text-sm">${p.title}</span><span class="text-blue-400 font-semibold block text-[10px]">${p.style}</span></div>
                     <div><button onclick="editPortfolio(${p.id})" class="text-blue-400 mr-2"><i data-lucide="edit-3" class="w-3.5 h-3.5"></i></button><button onclick="deletePort(${p.id})" class="text-red-400"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button></div>
                 </div>
             `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Galeria vazia.</p>';
@@ -1459,7 +1301,7 @@
 
         function submitPortfolio() {
             const title = document.getElementById('portTitle').value.trim();
-            if (!title) { showToast('Preencha o título.', 'error'); return; }
+            if (!title) { toast('Preencha o título.', 'error'); return; }
             const style = document.getElementById('portStyle').value;
             const desc = document.getElementById('portDesc').value.trim();
             const editId = document.getElementById('portEditId')?.value;
@@ -1468,19 +1310,19 @@
                 if (p) { p.title = title;
                     p.style = style;
                     p.desc = desc;
-                    addHistorico(`Tatuagem "${title}" atualizada`); }
+                    addHist(`Tatuagem "${title}" atualizada`); }
                 document.getElementById('portEditId').value = '';
                 document.getElementById('portSubmitBtn').textContent = '+ Incorporar';
             } else {
-                data.portfolio.push({ id: generateId(), title, style, desc });
-                addHistorico(`Tatuagem "${title}" adicionada ao portfólio`);
+                data.portfolio.push({ id: genId(), title, style, desc });
+                addHist(`Tatuagem "${title}" adicionada ao portfólio`);
             }
             document.getElementById('portTitle').value = '';
             document.getElementById('portDesc').value = '';
             saveData();
             renderPortfolio();
-            updateDashboard();
-            showToast('Portfólio atualizado!', 'success');
+            updateDash();
+            toast('Portfólio atualizado!', 'success');
         }
 
         function editPortfolio(id) {
@@ -1491,48 +1333,39 @@
             document.getElementById('portDesc').value = p.desc || '';
             document.getElementById('portEditId').value = p.id;
             document.getElementById('portSubmitBtn').textContent = '🔄 Atualizar';
-            showToast('Edite e clique em Atualizar.', 'success');
+            toast('Edite e clique em Atualizar.', 'success');
         }
 
         function deletePort(id) {
             const p = data.portfolio.find(x => x.id === id);
-            if (p) addHistorico(`Tatuagem "${p.title}" removida do portfólio`);
+            if (p) addHist(`Tatuagem "${p.title}" removida`);
             data.portfolio = data.portfolio.filter(p => p.id !== id);
             saveData();
             renderPortfolio();
-            updateDashboard();
+            updateDash();
         }
 
-        // ===== LEMBRETES =====
+        // ----- LEMBRETES -----
         function renderLembretes() {
             const container = document.getElementById('lembretesList');
             if (!container) return;
-            if (data.lembretes.length === 0) {
-                container.innerHTML = '<p class="text-center text-xs text-gray-500 py-4">Nenhum lembrete criado.</p>';
+            if (!data.lembretes.length) {
+                container.innerHTML = '<p class="text-center text-xs text-gray-500 py-4">Nenhum lembrete.</p>';
                 return;
             }
             container.innerHTML = data.lembretes.map(l => {
-                const dataL = new Date(l.dataLembrete);
+                const dl = new Date(l.dataLembrete);
                 const hoje = new Date();
-                const diff = Math.ceil((dataL - hoje) / (1000 * 60 * 60 * 24));
-                let statusBadge = '';
-                if (l.concluido) {
-                    statusBadge = '<span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded text-[10px]">✔ Concluído</span>';
-                } else if (diff < 0) {
-                    statusBadge = '<span class="text-red-400 bg-red-500/10 px-2 py-0.5 rounded text-[10px]">⏰ Atrasado!</span>';
-                } else if (diff <= 3) {
-                    statusBadge = '<span class="text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded text-[10px]">🔔 Em breve!</span>';
-                } else {
-                    statusBadge = `<span class="text-gray-400 bg-white/5 px-2 py-0.5 rounded text-[10px]">${diff} dias</span>`;
-                }
+                const diff = Math.ceil((dl - hoje) / (1000*60*60*24));
+                let badge = '';
+                if (l.concluido) badge = '<span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded text-[10px]">✔</span>';
+                else if (diff < 0) badge = '<span class="text-red-400 bg-red-500/10 px-2 py-0.5 rounded text-[10px]">⏰ Atrasado</span>';
+                else if (diff <= 3) badge = '<span class="text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded text-[10px]">🔔 Em breve</span>';
+                else badge = `<span class="text-gray-400 bg-white/5 px-2 py-0.5 rounded text-[10px]">${diff}d</span>`;
                 return `
-                    <div class="flex items-center justify-between p-3 bg-[#18181b] border border-white/5 rounded-xl text-xs">
-                        <div><span class="font-bold text-white">${l.nome}</span> <span class="text-gray-400">${formatDate(new Date(l.dataLembrete))}</span></div>
-                        <div class="flex items-center gap-2">
-                            ${statusBadge}
-                            ${!l.concluido ? `<button onclick="concluirLembrete(${l.id})" class="text-emerald-400 hover:bg-emerald-500/10 p-1 rounded"><i data-lucide="check" class="w-4 h-4"></i></button>` : ''}
-                            <button onclick="deleteLembrete(${l.id})" class="text-red-400 hover:bg-red-500/10 p-1 rounded"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
-                        </div>
+                    <div class="flex items-center justify-between p-3 bg-black/20 border border-white/5 rounded-xl text-xs">
+                        <div><span class="font-bold text-white">${l.nome}</span> <span class="text-gray-400">${fmtDate(dl)}</span></div>
+                        <div class="flex items-center gap-2">${badge}${!l.concluido ? `<button onclick="concluirLembrete(${l.id})" class="text-emerald-400 hover:bg-emerald-500/10 p-1 rounded"><i data-lucide="check" class="w-4 h-4"></i></button>` : ''}<button onclick="deleteLembrete(${l.id})" class="text-red-400 hover:bg-red-500/10 p-1 rounded"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div>
                     </div>
                 `;
             }).join('');
@@ -1542,46 +1375,37 @@
         function addLembrete() {
             const nome = document.getElementById('lembreteNome').value.trim();
             const dias = parseInt(document.getElementById('lembreteDias').value);
-            if (!nome || !dias || dias < 1) {
-                showToast('Preencha nome e dias.', 'error');
-                return;
-            }
+            if (!nome || !dias || dias < 1) { toast('Preencha nome e dias.', 'error'); return; }
             const hoje = new Date();
-            const dataLembrete = new Date(hoje);
-            dataLembrete.setDate(hoje.getDate() + dias);
-
-            const lembrete = {
-                id: generateId(),
+            const dl = new Date(hoje);
+            dl.setDate(hoje.getDate() + dias);
+            data.lembretes.push({
+                id: genId(),
                 nome,
                 dias,
                 dataCriacao: hoje.toISOString(),
-                dataLembrete: dataLembrete.toISOString(),
+                dataLembrete: dl.toISOString(),
                 concluido: false
-            };
-            data.lembretes.push(lembrete);
-            addHistorico(`Lembrete criado para ${nome} (em ${dias} dias)`);
-            // Adiciona ao calendário como lembrete
-            const day = dataLembrete.getDate();
-            const month = dataLembrete.getMonth();
-            const year = dataLembrete.getFullYear();
-            data.calendarEvents.push({ id: generateId(), day, month, year, title: `🔔 Contatar ${nome}`, tipo: 'lembrete',
-                hora: '09:00' });
+            });
+            data.calendarEvents.push({ id: genId(), day: dl.getDate(), month: dl.getMonth(), year: dl.getFullYear(),
+                title: `🔔 Contatar ${nome}`, tipo: 'lembrete', hora: '09:00' });
+            addHist(`Lembrete para ${nome} em ${dias} dias`);
             document.getElementById('lembreteNome').value = '';
             document.getElementById('lembreteDias').value = '';
             saveData();
             renderLembretes();
-            renderCalendarGrid();
-            updateDashboard();
-            showToast(`Lembrete para ${nome} criado!`, 'success');
+            renderCal();
+            updateDash();
+            toast('Lembrete criado!', 'success');
         }
 
         function concluirLembrete(id) {
             const l = data.lembretes.find(x => x.id === id);
             if (l) { l.concluido = true;
-                addHistorico(`Lembrete de ${l.nome} concluído`);
+                addHist(`Lembrete de ${l.nome} concluído`);
                 saveData();
                 renderLembretes();
-                showToast('Lembrete concluído!', 'success'); }
+                toast('Lembrete concluído!', 'success'); }
         }
 
         function deleteLembrete(id) {
@@ -1590,54 +1414,47 @@
             renderLembretes();
         }
 
-        // ===== HEALING CHECK =====
+        // ----- HEALING CHECK -----
         function checkHealing(clientId) {
             const c = data.clients.find(x => x.id === clientId);
-            if (!c) return;
-            if (c.stage === 'Concluído') {
-                const hoje = new Date();
-                const dataLembrete = new Date(hoje);
-                dataLembrete.setDate(hoje.getDate() + 7);
-                const nome = c.name;
-                const lembrete = {
-                    id: generateId(),
-                    nome: `📸 Check de Cicatrização - ${nome}`,
-                    dias: 7,
-                    dataCriacao: hoje.toISOString(),
-                    dataLembrete: dataLembrete.toISOString(),
-                    concluido: false
-                };
-                data.lembretes.push(lembrete);
-                const day = dataLembrete.getDate();
-                const month = dataLembrete.getMonth();
-                const year = dataLembrete.getFullYear();
-                data.calendarEvents.push({ id: generateId(), day, month, year, title: `📸 Healing Check - ${nome}`,
-                    tipo: 'healing', hora: '10:00' });
-                addHistorico(`Healing Check agendado para ${nome} em ${formatDate(dataLembrete)}`);
-                saveData();
-                renderLembretes();
-                renderCalendarGrid();
-                showToast(`📸 Healing Check agendado para ${nome} em 7 dias!`, 'success');
-            }
+            if (!c || c.stage !== 'Concluído') return;
+            const hoje = new Date();
+            const dl = new Date(hoje);
+            dl.setDate(hoje.getDate() + 7);
+            const nome = c.name;
+            data.lembretes.push({
+                id: genId(),
+                nome: `📸 Check de Cicatrização - ${nome}`,
+                dias: 7,
+                dataCriacao: hoje.toISOString(),
+                dataLembrete: dl.toISOString(),
+                concluido: false
+            });
+            data.calendarEvents.push({ id: genId(), day: dl.getDate(), month: dl.getMonth(), year: dl.getFullYear(),
+                title: `📸 Healing Check - ${nome}`, tipo: 'healing', hora: '10:00' });
+            addHist(`Healing Check agendado para ${nome} em 7 dias`);
+            saveData();
+            renderLembretes();
+            renderCal();
+            toast(`📸 Healing Check para ${nome} em 7 dias!`, 'success');
         }
 
-        // ===== HISTÓRICO =====
-        function addHistorico(acao) {
-            data.historico.unshift({ id: generateId(), acao, data: new Date().toISOString() });
+        // ----- HISTÓRICO -----
+        function addHist(acao) {
+            data.historico.unshift({ id: genId(), acao, data: new Date().toISOString() });
             if (data.historico.length > 200) data.historico.pop();
             saveData();
         }
 
-        // ===== CHECKLIST =====
+        // ----- CHECKLIST -----
         function renderChecklist() {
             const container = document.getElementById('checklistContainer');
             if (!container) return;
             const hoje = new Date().toISOString().split('T')[0];
             if (!data.checklist[hoje]) data.checklist[hoje] = [];
             const items = data.checklist[hoje];
-
-            if (items.length === 0) {
-                container.innerHTML = '<p class="text-center text-xs text-gray-500 py-4">Nenhum item adicionado hoje.</p>';
+            if (!items.length) {
+                container.innerHTML = '<p class="text-center text-xs text-gray-500 py-4">Nenhum item hoje.</p>';
                 return;
             }
             container.innerHTML = items.map((item, idx) => `
@@ -1653,14 +1470,14 @@
         function addChecklistItem() {
             const input = document.getElementById('newChecklistItem');
             const text = input.value.trim();
-            if (!text) { showToast('Digite um item.', 'error'); return; }
+            if (!text) { toast('Digite um item.', 'error'); return; }
             const hoje = new Date().toISOString().split('T')[0];
             if (!data.checklist[hoje]) data.checklist[hoje] = [];
             data.checklist[hoje].push({ text, done: false });
             input.value = '';
             saveData();
             renderChecklist();
-            showToast('Item adicionado ao checklist.', 'success');
+            toast('Item adicionado.', 'success');
         }
 
         function toggleChecklistItem(idx) {
@@ -1677,7 +1494,7 @@
             data.checklist[hoje].splice(idx, 1);
             saveData();
             renderChecklist();
-            showToast('Item removido.', 'success');
+            toast('Item removido.', 'success');
         }
 
         function resetChecklist() {
@@ -1685,40 +1502,30 @@
             data.checklist[hoje] = [];
             saveData();
             renderChecklist();
-            showToast('Checklist resetado.', 'success');
+            toast('Checklist resetado.', 'success');
         }
 
-        // ======================================================================
-        // 9. ÁREA MARKETING
-        // ======================================================================
-        function renderMarketing() {
-            // Sub-aba padrão: Campanhas
-            showMarketingSubTab('campanhas');
-            refreshIcons();
-        }
-
-        // ===== CONCORRENTES =====
+        // ----- CONCORRENTES -----
         function renderCompetitors() {
             const container = document.getElementById('competitorList');
             if (!container) return;
-            document.getElementById('competitorCount').textContent = data.competitors.length + ' alvo(s)';
+            document.getElementById('competitorCount').textContent = data.competitors.length;
             container.innerHTML = data.competitors.map(c => {
-                const badgeClass = c.ameaca === 'Alto' ? 'badge-ameaca-alto' : c.ameaca === 'Médio' ? 'badge-ameaca-medio' :
-                    'badge-ameaca-baixo';
+                const cls = c.ameaca === 'Alto' ? 'badge-high' : c.ameaca === 'Médio' ? 'badge-med' : 'badge-low';
                 return `
-                <div class="p-4 bg-[#18181b] border border-white/5 rounded-xl text-xs flex justify-between items-center">
-                    <div><p class="font-bold text-white">${c.name} (${c.insta})</p><p class="text-gray-400 mt-1">📍 ${c.location || 'N/I'} | <span class="${badgeClass} px-2 py-0.5 rounded">${c.ameaca || 'Baixo'}</span></p></div>
+                <div class="p-4 bg-black/20 border border-white/5 rounded-xl text-xs flex justify-between items-center">
+                    <div><p class="font-bold text-white">${c.name}</p><p class="text-gray-400">📍 ${c.location||'N/I'} | <span class="${cls} px-2 py-0.5 rounded">${c.ameaca||'Baixo'}</span></p></div>
                     <div><button onclick="editCompetitor(${c.id})" class="text-blue-400 mr-2"><i data-lucide="edit-3" class="w-3.5 h-3.5"></i></button><button onclick="deleteComp(${c.id})" class="text-red-400"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button></div>
                 </div>
-            `}).join('') || '<p class="text-center text-gray-500 text-xs py-4">Nenhum concorrente mapeado.</p>';
+            `}).join('') || '<p class="text-center text-gray-500 text-xs py-4">Nenhum concorrente.</p>';
             refreshIcons();
         }
 
         function submitCompetitor() {
             const name = document.getElementById('compName').value.trim();
-            if (!name) { showToast('Preencha o nome.', 'error'); return; }
+            if (!name) { toast('Preencha o nome.', 'error'); return; }
             const insta = document.getElementById('compInsta').value.trim();
-            const location = document.getElementById('compLocation').value.trim();
+            const loc = document.getElementById('compLocation').value.trim();
             const ameaca = document.getElementById('compAmeaca').value;
             const obs = document.getElementById('compObs').value.trim();
             const editId = document.getElementById('compEditId')?.value;
@@ -1726,21 +1533,21 @@
                 const c = data.competitors.find(x => x.id == editId);
                 if (c) { c.name = name;
                     c.insta = insta;
-                    c.location = location;
+                    c.location = loc;
                     c.ameaca = ameaca;
                     c.obs = obs;
-                    addHistorico(`Concorrente "${name}" atualizado`); }
+                    addHist(`Concorrente "${name}" atualizado`); }
                 document.getElementById('compEditId').value = '';
                 document.getElementById('compSubmitBtn').textContent = '+ Monitorar';
             } else {
-                data.competitors.push({ id: generateId(), name, insta, location, ameaca, obs });
-                addHistorico(`Concorrente "${name}" mapeado`);
+                data.competitors.push({ id: genId(), name, insta, location: loc, ameaca, obs });
+                addHist(`Concorrente "${name}" mapeado`);
             }
-            ['compName', 'compInsta', 'compLocation', 'compObs'].forEach(id => document.getElementById(id).value = '');
+            ['compName','compInsta','compLocation','compObs'].forEach(id => document.getElementById(id).value = '');
             saveData();
             renderCompetitors();
-            updateDashboard();
-            showToast('Concorrente salvo!', 'success');
+            updateDash();
+            toast('Concorrente salvo!', 'success');
         }
 
         function editCompetitor(id) {
@@ -1753,43 +1560,40 @@
             document.getElementById('compObs').value = c.obs || '';
             document.getElementById('compEditId').value = c.id;
             document.getElementById('compSubmitBtn').textContent = '🔄 Atualizar';
-            showToast('Edite e clique em Atualizar.', 'success');
+            toast('Edite e clique em Atualizar.', 'success');
         }
 
         function deleteComp(id) {
             const c = data.competitors.find(x => x.id === id);
-            if (c) addHistorico(`Concorrente "${c.name}" removido`);
+            if (c) addHist(`Concorrente "${c.name}" removido`);
             data.competitors = data.competitors.filter(c => c.id !== id);
             saveData();
             renderCompetitors();
-            updateDashboard();
+            updateDash();
         }
 
-        // ===== CAMPANHAS =====
+        // ----- CAMPANHAS -----
         function renderCampaigns() {
             const container = document.getElementById('campaignList');
             if (!container) return;
-            document.getElementById('campaignCount').textContent = data.campaigns.length + ' ativa(s)';
+            document.getElementById('campaignCount').textContent = data.campaigns.length;
             container.innerHTML = data.campaigns.map(c => `
-                <div class="p-4 bg-[#18181b] border border-white/5 rounded-xl text-xs space-y-2">
+                <div class="p-4 bg-black/20 border border-white/5 rounded-xl text-xs space-y-2">
                     <div class="flex justify-between font-bold text-white"><span>${c.name} [${c.status}]</span>
                         <div><button onclick="editCampaign(${c.id})" class="text-blue-400 mr-2"><i data-lucide="edit-3" class="w-3.5 h-3.5"></i></button><button onclick="deleteCamp(${c.id})" class="text-red-400"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button></div>
                     </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="bg-black/20 p-2 rounded">Investido: <span class="text-white font-bold">${formatCurrency(c.invest)}</span></div>
-                        <div class="bg-black/20 p-2 rounded">Retorno: <span class="text-emerald-400 font-bold">${formatCurrency(c.return)}</span></div>
-                    </div>
+                    <div class="grid grid-cols-2 gap-2"><div class="bg-black/20 p-2 rounded">Investido: <span class="text-white font-bold">${fmt(c.invest)}</span></div><div class="bg-black/20 p-2 rounded">Retorno: <span class="text-emerald-400 font-bold">${fmt(c.return)}</span></div></div>
                 </div>
-            `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Nenhuma campanha orçamentada.</p>';
+            `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Nenhuma campanha.</p>';
             refreshIcons();
         }
 
         function submitCampaign() {
             const name = document.getElementById('campName').value.trim();
-            if (!name) { showToast('Preencha o nome.', 'error'); return; }
+            if (!name) { toast('Preencha o nome.', 'error'); return; }
             const status = document.getElementById('campStatus').value;
             const invest = parseFloat(document.getElementById('campInvest').value) || 0;
-            const retorno = parseFloat(document.getElementById('campReturn').value) || 0;
+            const ret = parseFloat(document.getElementById('campReturn').value) || 0;
             const desc = document.getElementById('campDesc').value.trim();
             const editId = document.getElementById('campEditId')?.value;
             if (editId) {
@@ -1797,20 +1601,20 @@
                 if (c) { c.name = name;
                     c.status = status;
                     c.invest = invest;
-                    c.return = retorno;
+                    c.return = ret;
                     c.desc = desc;
-                    addHistorico(`Campanha "${name}" atualizada`); }
+                    addHist(`Campanha "${name}" atualizada`); }
                 document.getElementById('campEditId').value = '';
                 document.getElementById('campSubmitBtn').textContent = '+ Publicar';
             } else {
-                data.campaigns.push({ id: generateId(), name, status, invest, return: retorno, desc });
-                addHistorico(`Campanha "${name}" criada (${status})`);
+                data.campaigns.push({ id: genId(), name, status, invest, return: ret, desc });
+                addHist(`Campanha "${name}" criada (${status})`);
             }
-            ['campName', 'campInvest', 'campReturn', 'campDesc'].forEach(id => document.getElementById(id).value = '');
+            ['campName','campInvest','campReturn','campDesc'].forEach(id => document.getElementById(id).value = '');
             saveData();
             renderCampaigns();
-            updateDashboard();
-            showToast('Campanha salva!', 'success');
+            updateDash();
+            toast('Campanha salva!', 'success');
         }
 
         function editCampaign(id) {
@@ -1823,118 +1627,101 @@
             document.getElementById('campDesc').value = c.desc || '';
             document.getElementById('campEditId').value = c.id;
             document.getElementById('campSubmitBtn').textContent = '🔄 Atualizar';
-            showToast('Edite e clique em Atualizar.', 'success');
+            toast('Edite e clique em Atualizar.', 'success');
         }
 
         function deleteCamp(id) {
             const c = data.campaigns.find(x => x.id === id);
-            if (c) addHistorico(`Campanha "${c.name}" removida`);
+            if (c) addHist(`Campanha "${c.name}" removida`);
             data.campaigns = data.campaigns.filter(c => c.id !== id);
             saveData();
             renderCampaigns();
-            updateDashboard();
+            updateDash();
         }
 
-        // ======================================================================
-        // 10. ÁREA IA
-        // ======================================================================
-        function renderIA() {
-            updateVideoDisplay();
-            refreshIcons();
-        }
-
-        function updateVideoDisplay() {
+        // ----- IA -----
+        function updateVideo() {
             const url = data.settings.videoUrl || 'https://youtu.be/dQw4w9WgXcQ';
             document.getElementById('youtubeButtonIA').href = url;
-            let videoId = '';
-            if (url.includes('youtu.be/')) {
-                videoId = url.split('youtu.be/')[1]?.split('?')[0] || '';
-            } else if (url.includes('youtube.com/watch?v=')) {
-                videoId = url.split('v=')[1]?.split('&')[0] || '';
-            }
-            const thumbUrl = videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` :
+            let id = '';
+            if (url.includes('youtu.be/')) id = url.split('youtu.be/')[1]?.split('?')[0] || '';
+            else if (url.includes('youtube.com/watch?v=')) id = url.split('v=')[1]?.split('&')[0] || '';
+            const thumb = document.getElementById('videoThumbnailIA');
+            if (thumb) thumb.src = id ? `https://img.youtube.com/vi/${id}/maxresdefault.jpg` :
                 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg';
-            document.getElementById('videoThumbnailIA').src = thumbUrl;
         }
 
-        // ===== IA PROMPT V2 =====
         function generateIAPrompt() {
-            const totalClients = data.clients.length;
-            const totalIncome = data.financial.filter(f => f.type === 'Entrada').reduce((sum, f) => sum + (f.amount || 0), 0);
-            const ticketMedio = totalClients > 0 ? totalIncome / totalClients : 0;
-            const monthIncome = data.financial.filter(f => f.type === 'Entrada' && new Date(f.id).getMonth() === new Date()
-                .getMonth()).reduce((sum, f) => sum + (f.amount || 0), 0);
-            const activeCamps = data.campaigns.filter(c => c.status === 'Ativa').length;
-            const bestCampaign = data.campaigns.reduce((best, c) => (c.return - c.invest) > (best.return - best.invest) ? c :
-                best, { invest: 0, return: 0, name: 'Nenhuma' });
-            const ameacaAlta = data.competitors.filter(c => c.ameaca === 'Alto').length;
-            const origemCount = {};
+            const total = data.clients.length;
+            const inc = data.financial.filter(f => f.type === 'Entrada').reduce((s, f) => s + (f.amount || 0), 0);
+            const ticket = total ? inc / total : 0;
+            const monthInc = data.financial.filter(f => f.type === 'Entrada' && new Date(f.id).getMonth() === new Date()
+                .getMonth()).reduce((s, f) => s + (f.amount || 0), 0);
+            const active = data.campaigns.filter(c => c.status === 'Ativa').length;
+            const best = data.campaigns.reduce((b, c) => (c.return - c.invest) > (b.return - b.invest) ? c : b, { invest: 0,
+                return: 0, name: 'Nenhuma' });
+            const alta = data.competitors.filter(c => c.ameaca === 'Alto').length;
+            const origens = {};
             data.clients.forEach(c => { const o = c.origem || 'N/I';
-                origemCount[o] = (origemCount[o] || 0) + 1; });
-            const topOrigem = Object.entries(origemCount).sort((a, b) => b[1] - a[1])[0] || ['N/I', 0];
+                origens[o] = (origens[o] || 0) + 1; });
+            const top = Object.entries(origens).sort((a, b) => b[1] - a[1])[0] || ['N/I', 0];
 
             const sugestoes = [];
-            if (topOrigem[0] === 'Orgânico (Instagram)') sugestoes.push('Invista mais em conteúdo orgânico no Instagram para manter o engajamento.');
-            if (activeCamps === 0) sugestoes.push('Considere iniciar uma campanha de tráfego pago para atrair novos leads.');
-            if (totalIncome < 5000) sugestoes.push('Aumente o ticket médio oferecendo combos ou upgrades nas sessões.');
-            if (ameacaAlta > 2) sugestoes.push('Fique de olho nos concorrentes de alto nível – analise seus diferenciais.');
-            if (data.stock.some(s => s.qty <= 3)) sugestoes.push('Reponha os insumos críticos para não parar a produção.');
-            if (sugestoes.length < 3) sugestoes.push('Crie um post sobre o processo de cicatrização para engajar clientes pós-sessão.');
-            if (sugestoes.length < 3) sugestoes.push('Ofereça um desconto para clientes que indicarem novos leads.');
+            if (top[0] === 'Orgânico (Instagram)') sugestoes.push('Invista mais em conteúdo orgânico no Instagram.');
+            if (active === 0) sugestoes.push('Considere iniciar tráfego pago para novos leads.');
+            if (inc < 5000) sugestoes.push('Aumente o ticket médio com combos ou upgrades.');
+            if (alta > 2) sugestoes.push('Analise diferenciais dos concorrentes de alto nível.');
+            if (data.stock.some(s => s.qty <= 3)) sugestoes.push('Reponha insumos críticos.');
+            if (sugestoes.length < 3) sugestoes.push('Crie conteúdo sobre cicatrização para pós-venda.');
+            if (sugestoes.length < 3) sugestoes.push('Ofereça desconto para indicações.');
 
             const prompt = `
         ========== RESUMO EXECUTIVO SAVANNAH_OS ==========
 
         📊 RESULTADOS GERAIS
-        • Total de Clientes: ${totalClients}
-        • Faturamento do Mês: ${formatCurrency(monthIncome)}
-        • Ticket Médio: ${formatCurrency(ticketMedio)}
-        • Saldo em Caixa: ${formatCurrency(totalIncome - data.financial.filter(f => f.type === 'Saída').reduce((sum, f) => sum + (f.amount || 0), 0))}
+        • Clientes: ${total}
+        • Faturamento do Mês: ${fmt(monthInc)}
+        • Ticket Médio: ${fmt(ticket)}
+        • Saldo: ${fmt(inc - data.financial.filter(f => f.type === 'Saída').reduce((s, f) => s + (f.amount || 0), 0))}
 
         📈 ANÁLISE DE MARKETING
-        • Leads por Origem: ${Object.entries(origemCount).map(([k,v]) => `${k}: ${v}`).join(' | ')}
-        • Campanha com Melhor ROI: ${bestCampaign.name} (Invest: ${formatCurrency(bestCampaign.invest)} | Retorno: ${formatCurrency(bestCampaign.return)})
-        • Campanhas Ativas: ${activeCamps}
+        • Leads por Origem: ${Object.entries(origens).map(([k,v]) => `${k}: ${v}`).join(' | ')}
+        • Melhor Campanha: ${best.name} (Invest: ${fmt(best.invest)} | Retorno: ${fmt(best.return)})
+        • Campanhas Ativas: ${active}
 
         🎯 BENCHMARKING
-        • Total de Concorrentes Mapeados: ${data.competitors.length}
-        • Concorrentes de Alto Nível: ${ameacaAlta}
+        • Concorrentes: ${data.competitors.length} | Alto nível: ${alta}
 
-        💡 AÇÕES SUGERIDAS PELA IA:
+        💡 AÇÕES SUGERIDAS:
         ${sugestoes.map((s, i) => `${i+1}. ${s}`).join('\n')}
         `;
-
             document.getElementById('iaPromptPreview').value = prompt;
-            showToast('Resumo executivo gerado!', 'success');
+            toast('Resumo gerado!', 'success');
         }
 
         function copyIAPrompt() {
-            const text = document.getElementById('iaPromptPreview').value;
-            if (!text) { showToast('Gere o resumo primeiro.', 'error'); return; }
-            navigator.clipboard.writeText(text).then(() => showToast('Copiado!', 'success'));
+            const t = document.getElementById('iaPromptPreview').value;
+            if (!t) { toast('Gere o resumo primeiro.', 'error'); return; }
+            navigator.clipboard.writeText(t).then(() => toast('Copiado!', 'success'));
         }
 
         function downloadIAPrompt() {
-            const text = document.getElementById('iaPromptPreview').value;
-            if (!text) { showToast('Gere o resumo primeiro.', 'error'); return; }
-            const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+            const t = document.getElementById('iaPromptPreview').value;
+            if (!t) { toast('Gere o resumo primeiro.', 'error'); return; }
+            const blob = new Blob([t], { type: 'text/plain;charset=utf-8' });
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
             a.download = 'resumo_ia_savannah.txt';
             a.click();
-            showToast('Arquivo baixado!', 'success');
+            toast('Baixado!', 'success');
         }
 
-        // ======================================================================
-        // 11. EXPORTAÇÕES CSV
-        // ======================================================================
+        // ----- EXPORTAÇÕES CSV -----
         function exportClientsCSV() {
-            const rows = [
-                ['Nome', 'Telefone', 'Origem', 'Estágio', 'Total Gasto']
-            ];
+            const rows = [['Nome','Telefone','Origem','Estágio','Total Gasto']];
             data.clients.forEach(c => {
                 const total = data.financial.filter(f => f.type === 'Entrada' && f.desc.toLowerCase().includes(c.name
-                    .toLowerCase())).reduce((sum, f) => sum + f.amount, 0);
+                    .toLowerCase())).reduce((s, f) => s + f.amount, 0);
                 rows.push([c.name, c.phone || '', c.origem || '', c.stage || '', total.toFixed(2)]);
             });
             const csv = rows.map(r => r.join(',')).join('\n');
@@ -1943,15 +1730,13 @@
             a.href = URL.createObjectURL(blob);
             a.download = 'clientes_savannah.csv';
             a.click();
-            showToast('CSV de clientes baixado!', 'success');
+            toast('CSV clientes baixado!', 'success');
         }
 
         function exportFinancialCSV() {
-            const rows = [
-                ['Data', 'Tipo', 'Valor', 'Descrição']
-            ];
+            const rows = [['Data','Tipo','Valor','Descrição']];
             data.financial.forEach(f => {
-                rows.push([formatDate(new Date(f.id)), f.type, f.amount.toFixed(2), f.desc]);
+                rows.push([fmtDate(new Date(f.id)), f.type, f.amount.toFixed(2), f.desc]);
             });
             const csv = rows.map(r => r.join(',')).join('\n');
             const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' });
@@ -1959,85 +1744,62 @@
             a.href = URL.createObjectURL(blob);
             a.download = 'financeiro_savannah.csv';
             a.click();
-            showToast('CSV financeiro baixado!', 'success');
+            toast('CSV financeiro baixado!', 'success');
         }
 
-        // ======================================================================
-        // 12. NOTIFICAÇÕES
-        // ======================================================================
-        function generateNotifications() {
+        // ----- NOTIFICAÇÕES -----
+        function genNotifs() {
             const notifs = [];
             const hoje = new Date();
             data.lembretes.forEach(l => {
                 if (l.concluido) return;
-                const dataL = new Date(l.dataLembrete);
-                if (dataL < hoje) notifs.push(`⏰ Lembrete atrasado: ${l.nome} (${formatDate(dataL)})`);
+                const d = new Date(l.dataLembrete);
+                if (d < hoje) notifs.push(`⏰ Lembrete atrasado: ${l.nome}`);
             });
-            data.stock.forEach(item => {
-                if (item.qty <= 3) notifs.push(`⚠️ Estoque crítico: ${item.name} (Qtd: ${item.qty})`);
-            });
+            data.stock.forEach(i => { if (i.qty <= 3) notifs.push(`⚠️ Estoque crítico: ${i.name} (${i.qty})`); });
             data.clients.forEach(c => {
-                if (c.stage === 'Concluído') {
-                    const concluidoEvent = data.calendarEvents.find(e => e.title.includes(c.name) && e.title.includes(
-                        'Healing'));
-                    if (!concluidoEvent) {
-                        notifs.push(`📸 Cliente "${c.name}" concluído sem Healing Check agendado.`);
-                    }
+                if (c.stage === 'Concluído' && !data.calendarEvents.some(e => e.title.includes(c.name) && e.title
+                        .includes('Healing'))) {
+                    notifs.push(`📸 Cliente "${c.name}" sem Healing Check.`);
                 }
             });
             document.getElementById('notifCount').textContent = notifs.length;
             window._notifs = notifs;
         }
 
-        function toggleNotifModal() {
-            const modal = document.getElementById('notifModal');
-            modal.classList.toggle('active');
-            if (modal.classList.contains('active')) {
+        function toggleNotif() {
+            const m = document.getElementById('notifDrop');
+            m.classList.toggle('active');
+            if (m.classList.contains('active')) {
                 const list = document.getElementById('notifList');
-                const notifs = window._notifs || [];
-                if (notifs.length === 0) {
-                    list.innerHTML = '<div class="notif-item text-gray-500">Nenhuma notificação.</div>';
-                } else {
-                    list.innerHTML = notifs.map(n => `<div class="notif-item">${n}</div>`).join('');
-                }
+                const n = window._notifs || [];
+                list.innerHTML = n.length ? n.map(x => `<div class="notif-item">${x}</div>`).join('') :
+                    '<div class="notif-item text-gray-500">Nenhuma notificação.</div>';
             }
         }
 
-        function closeNotifModal() {
-            document.getElementById('notifModal').classList.remove('active');
-        }
+        function closeNotif() { document.getElementById('notifDrop').classList.remove('active'); }
 
-        // ======================================================================
-        // 13. IMPORT/EXPORT KEY (Login e Hub)
-        // ======================================================================
-        function exportLoginKey() {
-            downloadJSON();
-        }
+        // ----- IMPORT/EXPORT KEY -----
+        function exportLoginKey() { downloadJSON(); }
 
-        function importKeyFromLogin(event) {
-            const file = event.target.files[0];
+        function importKeyFromLogin(e) {
+            const file = e.target.files[0];
             if (!file) return;
             const r = new FileReader();
-            r.onload = function(e) {
+            r.onload = function(ev) {
                 try {
-                    const p = JSON.parse(e.target.result);
+                    const p = JSON.parse(ev.target.result);
                     if (p.clients !== undefined) {
                         data = p;
                         saveData();
-                        showToast('Key importada com sucesso!', 'success');
-                        // Se já estiver logado, atualiza a interface
-                        if (document.getElementById('app').style.display !== 'none') {
-                            renderAll();
-                        }
-                    } else {
-                        showToast('Arquivo inválido.', 'error');
-                    }
-                } catch (err) {
-                    showToast('Erro ao ler o arquivo.', 'error');
-                }
+                        toast('Key importada!', 'success');
+                        if (document.getElementById('app').style.display !== 'none') renderAll();
+                    } else toast('Arquivo inválido.', 'error');
+                } catch (err) { toast('Erro ao ler arquivo.', 'error'); }
             };
             r.readAsText(file);
-            event.target.value = ''; // reset
+            e.target.value = '';
         }
 
         function downloadJSON() {
@@ -2046,18 +1808,24 @@
             a.href = URL.createObjectURL(blob);
             a.download = 'Key.json';
             a.click();
-            showToast('Backup Key.json baixado.', 'success');
+            toast('Key.json baixado.', 'success');
+        }
+
+        // ----- RENDER ALL -----
+        function renderAll() {
+            switchTab('geral');
+            genNotifs();
+            refreshIcons();
         }
 
         // ======================================================================
-        // 14. INICIALIZAÇÃO
+        // INICIALIZAÇÃO
         // ======================================================================
         document.addEventListener('DOMContentLoaded', () => {
-            const spans = document.querySelectorAll('#titleLetters span');
-            spans.forEach((span, i) => { span.style.animationDelay = (i * 0.08) + 's'; });
-            document.getElementById('loginPassword').addEventListener('keypress', (e) => { if (e.key === 'Enter') login(); });
+            document.querySelectorAll('#titleLetters span').forEach((s, i) => s.style.animationDelay = (i * 0.08) + 's');
+            document.getElementById('loginPassword').addEventListener('keypress', e => { if (e.key === 'Enter') login(); });
             loadData();
-            renderCalendarGrid();
+            renderCal();
             refreshIcons();
         });
     </script>
