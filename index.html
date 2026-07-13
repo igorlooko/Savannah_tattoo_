@@ -225,6 +225,28 @@
             from { transform: translateX(400px); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
+        .group-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+        .group-title {
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .group-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 0;
+        }
+        .group-item input[type="checkbox"] { cursor: pointer; }
     </style>
 </head>
 <body>
@@ -258,7 +280,7 @@
                 </label>
             </div>
             <div class="mt-4 text-center border-t border-white/5 pt-4 flex justify-between items-center text-[10px]">
-                <span class="text-gray-500">Igor Freire – gestor de tráfego</span>
+                <span class="text-gray-500">Igor Freire - Gestor de Marketing</span>
                 <span class="font-mono font-bold text-[#c9a96e]">v0.9.35</span>
             </div>
         </div>
@@ -324,7 +346,7 @@
                 <div class="hub-card" onclick="switchTab('marketing')">
                     <div class="hub-card-icon">📢</div>
                     <div class="hub-card-title">Marketing</div>
-                    <div class="hub-card-desc">Campanhas e análise de concorrência</div>
+                    <div class="hub-card-desc">Checklist, Campanhas e Concorrência</div>
                 </div>
                 <div class="hub-card" onclick="switchTab('ia')">
                     <div class="hub-card-icon">🤖</div>
@@ -410,6 +432,7 @@
             calendarEvents: [],
             lembretes: [],
             checklist: [],
+            marketingChecklist: [], // { id, titulo, itens: [{id, texto, concluido}] }
             historico: [],
             settings: { comissao: 30, videoUrl: 'https://youtu.be/dQw4w9WgXcQ' }
         };
@@ -447,7 +470,9 @@
             const stored = localStorage.getItem('savannah_data');
             if (stored) {
                 try {
-                    data = JSON.parse(stored);
+                    const parsed = JSON.parse(stored);
+                    if (!parsed.marketingChecklist) parsed.marketingChecklist = [];
+                    data = parsed;
                 } catch (e) {
                     console.error('Erro ao carregar dados:', e);
                 }
@@ -517,6 +542,7 @@
                     const p = JSON.parse(ev.target.result);
                     if (p.clients !== undefined) {
                         data = p;
+                        if (!data.marketingChecklist) data.marketingChecklist = [];
                         saveData();
                         toast('Key importada!', 'success');
                     } else toast('Arquivo inválido.', 'error');
@@ -547,9 +573,9 @@
                 showSub('agenda');
             }
             if (tab === 'marketing') {
-                document.getElementById('headerSubtitle').textContent = 'Campanhas + Concorrência';
+                document.getElementById('headerSubtitle').textContent = 'Marketing';
                 document.getElementById('tabContent').innerHTML = renderMarketing();
-                showMarketingSub('campanhas');
+                showMarketingSub('checklist');
             }
             if (tab === 'ia') {
                 document.getElementById('headerSubtitle').textContent = 'Recursos IA';
@@ -694,9 +720,6 @@
             toast('Lançamento adicionado!', 'success');
         }
 
-        // ======================================================================
-        // CORREÇÃO: Exclusão de lançamento financeiro também remove evento associado
-        // ======================================================================
         function deleteFinancial(id) {
             data.financial = data.financial.filter(f => f.id !== id);
             data.calendarEvents = data.calendarEvents.filter(e => e.financialId !== id);
@@ -718,7 +741,7 @@
         }
 
         // ======================================================================
-        // RENDER TATUAGEM (sem a aba de portfólio)
+        // RENDER TATUAGEM (sem portfólio)
         // ======================================================================
         function renderTatuagem() {
             return `
@@ -866,9 +889,6 @@
             toast('Evento adicionado!', 'success');
         }
 
-        // ======================================================================
-        // CORREÇÃO: Exclusão de evento também remove lançamento financeiro associado
-        // ======================================================================
         function deleteEvent(id) {
             const evt = data.calendarEvents.find(e => e.id === id);
             if (evt && evt.financialId) {
@@ -1039,7 +1059,7 @@
         }
 
         // ======================================================================
-        // ESTOQUE
+        // ESTOQUE (com correção de links)
         // ======================================================================
         function renderEstoqueHTML() {
             return `
@@ -1077,12 +1097,16 @@
             container.innerHTML = data.stock.map(s => {
                 const status = s.qty > 10 ? 'Abastecido' : s.qty > 3 ? 'Baixo Nível' : 'Esgotado';
                 const statusColor = s.qty > 10 ? 'text-emerald-400' : s.qty > 3 ? 'text-yellow-400' : 'text-red-400';
+                let linkHref = s.link || '';
+                if (linkHref && !linkHref.match(/^https?:\/\//i)) {
+                    linkHref = 'https://' + linkHref;
+                }
                 return `
                 <div class="p-4 bg-black/20 border border-white/5 rounded-xl flex justify-between items-center">
                     <div>
                         <div class="font-bold text-white">${s.name}</div>
                         <div class="text-xs text-gray-400">Qty: ${s.qty} | Preço: ${fmt(s.price || 0)} | Status: <span class="${statusColor}">${status}</span></div>
-                        ${s.link ? `<div class="text-xs"><a href="${s.link}" target="_blank" class="text-blue-400 hover:underline">🔗 Comprar</a></div>` : ''}
+                        ${linkHref ? `<div class="text-xs"><a href="${linkHref}" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">🔗 Comprar</a></div>` : ''}
                     </div>
                     <div class="flex gap-1">
                         <button onclick="adjustStock('${s.id}', 1)" class="text-emerald-400 text-xs hover:bg-emerald-500/10 px-2 py-1 rounded">+</button>
@@ -1147,11 +1171,6 @@
                 renderStock();
             }
         }
-
-        // ======================================================================
-        // PORTFÓLIO (removido, mas mantemos os dados para compatibilidade)
-        // ======================================================================
-        // Não há mais interface para portfólio, mas os dados continuam no state.
 
         // ======================================================================
         // LEMBRETES
@@ -1245,7 +1264,7 @@
         }
 
         // ======================================================================
-        // CHECKLIST
+        // CHECKLIST (Tatuagem)
         // ======================================================================
         function renderChecklistHTML() {
             return `
@@ -1419,12 +1438,13 @@
         }
 
         // ======================================================================
-        // MARKETING
+        // MARKETING (Checklist Agrupado + Campanhas + Concorrência)
         // ======================================================================
         function renderMarketing() {
             return `
             <div class="flex flex-wrap gap-1.5 mb-4">
-                <button class="sub-tab active" data-sub="campanhas" onclick="showMarketingSub('campanhas')"><i data-lucide="megaphone" class="w-4 h-4 inline mr-1"></i> Campanhas</button>
+                <button class="sub-tab active" data-sub="checklist" onclick="showMarketingSub('checklist')"><i data-lucide="check-square" class="w-4 h-4 inline mr-1"></i> Checklist</button>
+                <button class="sub-tab" data-sub="campanhas" onclick="showMarketingSub('campanhas')"><i data-lucide="megaphone" class="w-4 h-4 inline mr-1"></i> Campanhas</button>
                 <button class="sub-tab" data-sub="concorrencia" onclick="showMarketingSub('concorrencia')"><i data-lucide="eye" class="w-4 h-4 inline mr-1"></i> Concorrência</button>
             </div>
             <div id="marketingSubContent" class="space-y-6"></div>
@@ -1434,13 +1454,107 @@
         function showMarketingSub(sub) {
             document.querySelectorAll('#tabContent .sub-tab[data-sub]').forEach(el => el.classList.toggle('active', el.dataset.sub === sub));
             const container = document.getElementById('marketingSubContent');
-            if (sub === 'campanhas') container.innerHTML = renderCampanhasHTML();
+            if (sub === 'checklist') container.innerHTML = renderMarketingChecklistHTML();
+            else if (sub === 'campanhas') container.innerHTML = renderCampanhasHTML();
             else container.innerHTML = renderConcorrenciaHTML();
-            if (sub === 'campanhas') renderCampaigns();
+
+            if (sub === 'checklist') renderMarketingChecklist();
+            else if (sub === 'campanhas') renderCampaigns();
             else renderCompetitors();
             refreshIcons();
         }
 
+        // --- Marketing Checklist Agrupado ---
+        function renderMarketingChecklistHTML() {
+            return `
+            <div class="pb-card">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="title">Checklist de Marketing</div>
+                    <button onclick="addMarketingGroup()" class="btn-primary text-xs">+ Grupo</button>
+                </div>
+                <div id="marketingGroupsContainer" class="space-y-4"></div>
+            </div>
+            `;
+        }
+
+        function renderMarketingChecklist() {
+            const container = document.getElementById('marketingGroupsContainer');
+            if (!container) return;
+
+            container.innerHTML = data.marketingChecklist.map((group, idx) => `
+                <div class="group-card">
+                    <div class="group-title">
+                        <span>${group.titulo}</span>
+                        <div>
+                            <button onclick="addMarketingItem('${group.id}')" class="text-emerald-400 text-xs hover:bg-emerald-500/10 px-2 py-1 rounded">+ Item</button>
+                            <button onclick="editMarketingGroup('${group.id}')" class="text-blue-400 text-xs hover:bg-blue-500/10 px-2 py-1 rounded">✏️</button>
+                            <button onclick="deleteMarketingGroup('${group.id}')" class="text-red-400 text-xs hover:bg-red-500/10 px-2 py-1 rounded">🗑️</button>
+                        </div>
+                    </div>
+                    ${group.itens && group.itens.length ? group.itens.map(item => `
+                        <div class="group-item">
+                            <input type="checkbox" ${item.concluido ? 'checked' : ''} onchange="toggleMarketingItem('${group.id}','${item.id}')" />
+                            <span class="text-sm ${item.concluido ? 'line-through text-gray-500' : 'text-white'}">${item.texto}</span>
+                            <button onclick="deleteMarketingItem('${group.id}','${item.id}')" class="text-red-400 text-xs ml-auto">✕</button>
+                        </div>
+                    `).join('') : '<div class="text-xs text-gray-500">Nenhum item.</div>'}
+                </div>
+            `).join('') || '<p class="text-center text-gray-500 text-xs py-4">Crie seu primeiro grupo clicando em "+ Grupo".</p>';
+        }
+
+        function addMarketingGroup() {
+            const titulo = prompt('Título do grupo:');
+            if (!titulo) return;
+            data.marketingChecklist.push({ id: genId(), titulo, itens: [] });
+            saveData();
+            renderMarketingChecklist();
+            toast('Grupo criado!', 'success');
+        }
+
+        function editMarketingGroup(id) {
+            const group = data.marketingChecklist.find(g => g.id == id);
+            if (!group) return;
+            const novo = prompt('Novo título:', group.titulo);
+            if (novo) { group.titulo = novo; saveData(); renderMarketingChecklist(); toast('Atualizado!', 'success'); }
+        }
+
+        function deleteMarketingGroup(id) {
+            if (!confirm('Remover grupo e todos os itens?')) return;
+            data.marketingChecklist = data.marketingChecklist.filter(g => g.id != id);
+            saveData();
+            renderMarketingChecklist();
+            toast('Grupo removido.', 'success');
+        }
+
+        function addMarketingItem(groupId) {
+            const group = data.marketingChecklist.find(g => g.id == groupId);
+            if (!group) return;
+            const texto = prompt('Descrição do item:');
+            if (!texto) return;
+            if (!group.itens) group.itens = [];
+            group.itens.push({ id: genId(), texto, concluido: false });
+            saveData();
+            renderMarketingChecklist();
+            toast('Item adicionado!', 'success');
+        }
+
+        function toggleMarketingItem(groupId, itemId) {
+            const group = data.marketingChecklist.find(g => g.id == groupId);
+            if (!group) return;
+            const item = group.itens.find(i => i.id == itemId);
+            if (item) { item.concluido = !item.concluido; saveData(); renderMarketingChecklist(); }
+        }
+
+        function deleteMarketingItem(groupId, itemId) {
+            const group = data.marketingChecklist.find(g => g.id == groupId);
+            if (!group) return;
+            group.itens = group.itens.filter(i => i.id != itemId);
+            saveData();
+            renderMarketingChecklist();
+            toast('Item removido.', 'success');
+        }
+
+        // --- Campanhas (restaurado) ---
         function renderCampanhasHTML() {
             return `
             <div class="pb-card">
@@ -1549,6 +1663,7 @@
             updateDash();
         }
 
+        // --- Concorrência (mantido) ---
         function renderConcorrenciaHTML() {
             return `
             <div class="pb-card">
@@ -1786,6 +1901,7 @@ ${sugestoes.map((s, i) => `${i+1}. ${s}`).join('\n')}
                     const p = JSON.parse(ev.target.result);
                     if (p.clients !== undefined) {
                         data = p;
+                        if (!data.marketingChecklist) data.marketingChecklist = [];
                         saveData();
                         toast('Key importada!', 'success');
                         if (!document.getElementById('app').classList.contains('hidden') && currentTab) {
